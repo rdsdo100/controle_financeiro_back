@@ -1,0 +1,142 @@
+
+React
+
+SPA = sigle paga aplication
+
+instalando react => npx create-react-app my-app --template typescript
+
+ JSX => possibilidade de escrever html e javascript junto
+ TSX => possibilidade de escrever html e Typecript junto
+ 
+ 
+ Todo componete deve iniciar com letras mausculas
+
+
+criando rotas
+
+npm i react-router-dom => instala o gerenciamento de rotas para o typescript deve intalar os tipos
+
+
+
+rotas
+
+import React from "react";
+import {Route , BrowserRouter} from 'react-router-dom'
+import Home from "./Pages/Home/Home";
+import CreatePoint from "./Pages/createPoint";
+
+
+  const Routes = () =>{
+    return(
+    <BrowserRouter>
+        <Route component={Home} path='/' exact ></Route>
+        <Route component={CreatePoint} path='/create-points'  ></Route>
+
+    </BrowserRouter>
+    )
+  }
+  export default Routes
+
+
+
+
+link
+para que funciona o spa de foma boa usamos o Link
+
+import {Link} from 'react-router-dom'
+
+<Link to="/create-points">
+                        <span> <FiLogIn></FiLogIn> </span>
+                        <strong>Cadastre um ponto de coleta.</strong>
+                    </Link>
+
+ 
+ 
+ C:\Program Files\PostgreSQL\12\bin\pg_restore.exe
+
+
+
+ tempo 1:45
+
+
+
+
+
+
+
+
+===================================================================================================================================================
+
+
+
+criando projeto ts
+
+os arquivos e so criar no formato ts
+
+iniciar o projeto node                                                               = npm init -y
+tenho que instalar typescript como dependência de desenvolvimento                    = npm install typescript -D
+criar o arquivos do typescript                                                       = npx tsc --init
+instalar o ts-node para compilar como dependência de desenvolvimento                 = npm install ts-node -D
+no lugar do nodemon instalar o ts-node-dev como dependência de desenvolvimento       = npm install ts-node-dev -D
+
+===================================================================================================================================================
+uploads de arquivos
+
+
+npm install multer
+npm install @types/multer
+===================================================================================================================================================
+comandos typeorm
+
+
+npx typeorm migration:create -n "nome Tabelas"                                 == cria migrations
+npx typeorm entity:create -n "nome Tabelas"                                    == cria Entidades
+npx ts-node ./node_modules/typeorm/cli.js migration:run                        == executa as migrations
+npx typeorm migration:run                                                      == executa as migrations
+npx ts-node ./node_modules/typeorm/cli.js migration:generate -n CreateTable    == cria as migrations aparetrir da entity
+npx ts-node ./node_modules/typeorm/cli.js migration:revert                     == vlta as migrations uma de cadasvez
+
+===================================================================================================================================================
+
+    https://github.com/Kononnable/typeorm-model-generator
+
+   npm i -g typeorm-model-generator
+
+   npx typeorm-model-generator -h localhost -d meal -u postgres -x root -e postgres -o . -s public
+===================================================================================================================================================
+
+imagens gratuitas
+https://unsplash.com/
+
+
+npm run typeorm migration:create -- -n usuario
+npm run typeorm entity:create -- -n usuario
+
+envio de e-mails
+https://www.youtube.com/watch?v=cEpx8ox9YoI&list=PLHlHvK2lnJndvvycjBqQAbgEDqXxKLoqn&index=32
+
+
+gerenciamento de e-mail
+https://sendgrid.com/
+
+
+===============================================================================================================================================================================================================================================================================================================================================================
+
+knex
+
+https://www.youtube.com/watch?v=cEpx8ox9YoI&list=PLHlHvK2lnJndvvycjBqQAbgEDqXxKLoqn&index=32
+
+
+gerenciamento de e-mail
+https://sendgrid.com/
+
+npx knex init ===> inicia projeto knex
+
+npx knex migrate:make pedidos   ===> criar migrações
+
+npx knex migrate:latest ===> carrigas as migrações no banco
+
+npx knex migrate:rollback ===> retorna migralçoes feitas. se colocar --all retorna todas as migrações
+
+
+===============================================================================================================================================================================================================================================================================================================================================================
