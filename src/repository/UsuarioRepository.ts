@@ -1,77 +1,80 @@
-import {getConnection, getManager} from "typeorm";
-import {Usuarios} from "../entity/Usuarios";
+import { createQueryBuilder, getManager } from 'typeorm';
+import { Usuarios } from '../entity/Usuarios';
 
-const cadastrarUsuarioRepository = async (usuario : Usuarios) : Promise<object>=>{
+export default class UsuarioRepository {
 
-    let usuarioRetorno
-    const connection = getConnection();
-    const queryRunner = connection.createQueryRunner();
-    await queryRunner.connect();
-    await queryRunner.startTransaction();
+    async insertUsuarioRpository(usuario: Usuarios) {
 
-    try {
-        usuarioRetorno =  await queryRunner.manager.findOne(Usuarios , {nomeUsuario : usuario.nomeUsuario} );
-        if(!(usuarioRetorno?.nomeUsuario === '')){
-            usuarioRetorno = await queryRunner.manager.save(usuario)
-        }else {
-            usuarioRetorno = { mensage: "usuario não cadastrodo!" , ...usuario}
-        }
-        await queryRunner.commitTransaction();
-    } catch (err) {
+        const usuarioRepository = getManager();
+        return usuarioRepository.save(Usuarios, usuario);
 
-        await queryRunner.rollbackTransaction();
-    } finally {
-        await queryRunner.release();
     }
 
-    return { ...usuarioRetorno}
-}
+    async buscarUsuarioRepository(nomeUsuario: string) {
 
-const buscarUsuarioRepository = async (nomeUsuario : string)=>{
-    const usuarioRepository = getManager()
-    return usuarioRepository.findOne(Usuarios , {nomeUsuario : nomeUsuario} )
-}
+        const user = await createQueryBuilder('Usuarios')
+            .leftJoinAndSelect('Usuarios.grupoUsuariosIdFK', 'usuarios')
+            .where('nome_usuario = :nome', { nome: nomeUsuario })
+            .getOne()
 
-const buscarUsuarioIdRepository = async (idUsuario : number)=>{
-    const usuarioRepository = getManager()
-    return usuarioRepository.findOne(Usuarios , idUsuario)
-}
+        return user
 
-const listUsuarioRepository = async ()=>{
-    const usuarioRepository = getManager()
-    return usuarioRepository.find(Usuarios)
 
-}
+    };
 
-const updateUsuarioRepository = async (usuarios : Usuarios)=>{
-    const usuarioRepository = getManager()
-}
 
-const deleteUsuarioIdRepository = async (idUsuario : number) => {
-    const usuarioRepository = getManager()
+    async buscarUsuarioRepositoryAll() {
 
-    let usuarioRetorno
-    try {
-        usuarioRetorno = await usuarioRepository.delete(Usuarios , idUsuario)
-        if (Number(usuarioRetorno?.affected) >=  1) {
-            usuarioRetorno = {...usuarioRetorno, mesage: "Usuário deletado!"}
+        const user = await createQueryBuilder('Usuarios')
+            .leftJoinAndSelect('Usuarios.grupoUsuariosIdFK', 'usuarios')
+            .leftJoinAndSelect('Usuarios.tipoEquipeIdFK', 'equipeUsuarios')
+            .getMany()
 
-        }else {
-            usuarioRetorno = {mesage: "Usuário Não Deletado!"}
-        }
+        return user
 
-    } catch (err) {
-        return  {
-            mesage : err.mesage ,
-            err}
+
+    };
+
+    async buscarUsuarioIdRepository(idUsuario: number) {
+
+        const usuarioRepository = getManager();
+        return usuarioRepository.findOne(Usuarios, idUsuario);
+    };
+
+
+    async buscarUsuarioGrupoUsuarioId(idUsuario: number) {
+
+        const user = await createQueryBuilder('Usuarios')
+            .leftJoinAndSelect('Usuarios.grupoUsuariosIdFK', 'grupoUsuarios')
+            .where('Usuarios.id = :id', { id: idUsuario })
+            .getOne()
+
+        return user
     }
-    return usuarioRetorno
-}
 
-export {cadastrarUsuarioRepository ,
-    buscarUsuarioRepository,
-    buscarUsuarioIdRepository,
-    listUsuarioRepository,
-    updateUsuarioRepository,
-    deleteUsuarioIdRepository
+    async listUsuarioRepository() {
+        const usuarioRepository = getManager();
+        return usuarioRepository.find(Usuarios);
+    };
+
+    async updateUsuarioRepository(usuarios: Usuarios) {
+        const usuarioRepository = getManager();
+        return await usuarioRepository.update(Usuarios, usuarios.id, usuarios)
+    };
+
+    async deleteUsuarioIdRepository(idUsuario: number) {
+
+        const usuarioRepository = getManager();
+
+
+
+    };
+
+    async buscarUsuariosRepository() {
+        const usuarioRepository = getManager();
+        return usuarioRepository.find(Usuarios);
+    };
+
+
+
 }

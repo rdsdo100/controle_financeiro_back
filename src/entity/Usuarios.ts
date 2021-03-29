@@ -1,37 +1,31 @@
 import {
     Column,
-    CreateDateColumn,
     Entity,
     PrimaryGeneratedColumn,
-    UpdateDateColumn,
-    ManyToOne,
-    JoinColumn, BaseEntity
+    BaseEntity, ManyToOne, JoinColumn, OneToMany
 } from "typeorm";
 
 
 @Entity()
 export class Usuarios extends BaseEntity {
 
-@PrimaryGeneratedColumn()
-    id: number
+    @PrimaryGeneratedColumn()
+    id: number;
 
-    @Column({name: "nome_usuario"})
-    nomeUsuario: string
+    @Column({ name: 'nome_usuario', length: 50 })
+    nomeUsuario: string;
 
-    @Column({unique:true})
-    email: string
+    @Column({ length: 90, unique: true })
+    email: string;
+
+    @Column({ length: 30 })
+    senha: string;
 
     @Column()
-    senha: string
+    ativo: boolean;
 
     @Column()
-    matricula: string
+    bloqueado: boolean;
 
-    @CreateDateColumn()
-    createdAt: Date;
     
-    @UpdateDateColumn({ type: "timestamp" })
-    updatedAt: Date;
-
-
 }

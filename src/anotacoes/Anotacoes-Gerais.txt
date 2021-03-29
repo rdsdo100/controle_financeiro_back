@@ -100,7 +100,6 @@ npx ts-node ./node_modules/typeorm/cli.js migration:revert                     =
 
     https://github.com/Kononnable/typeorm-model-generator
 
-   npm i -g typeorm-model-generator
 
    npx typeorm-model-generator -h localhost -d meal -u postgres -x root -e postgres -o . -s public
 ===================================================================================================================================================
