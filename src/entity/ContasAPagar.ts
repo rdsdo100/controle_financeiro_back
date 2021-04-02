@@ -1,4 +1,6 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import { Contas } from "./Contas";
+import { Parcelas } from "./Parcelas";
 
 @Entity()
 export class ContasAPagar {
@@ -43,6 +45,11 @@ export class ContasAPagar {
     qtdParcelas: number
 
   
+    @ManyToOne(() => Contas, (contas) => contas.contasAPagar)
+    @JoinColumn([{ name: 'contas_id_fk', referencedColumnName: 'id' }])
+    contasIdFK: Contas;
 
+    @OneToMany(() => Parcelas, (parcelas) => parcelas.contasAPagarIdFK)
+    parcelas: Parcelas[];
 
 }

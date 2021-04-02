@@ -6,7 +6,6 @@ import LoginBusiness from "../../business/usuarios/LoginBusiness";
 @Controller('login')
 export default class LoginController{
 
-  
 
     @Get()
     async login(request: Request , response: Response) {

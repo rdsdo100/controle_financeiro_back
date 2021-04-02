@@ -8,27 +8,26 @@ export  default class LoginBusiness {
 
     readonly usuarioRepository = new UsuarioRepository
 
-    async index(){
-
-    }
+ 
 
     async login(usuario: Usuarios) {
 
         try {
 
-        let getUsuario:any
+        let getUsuario: Usuarios
 
-        getUsuario = await this.usuarioRepository.buscarUsuarioRepository(usuario.nomeUsuario)
+        getUsuario = await this.usuarioRepository.buscarUsuarioRepository(usuario)
 
-            if ((!getUsuario?.nomeUsuario) || (getUsuario?.senha != usuario.senha)) {
+
+            if ((!getUsuario.nomeUsuario) || (getUsuario.senha != usuario.senha)) {
+                              
                 return ({message: "Usuario  ou senha incorreto!"})
 
             }else {
 
-                const authorization = await assinar(Number(getUsuario.id),
-                    String(getUsuario.nomeUsuario)
+                const authorization = await assinar(getUsuario)
                     
-                )
+                
 
                 return {
                     id: getUsuario.id,

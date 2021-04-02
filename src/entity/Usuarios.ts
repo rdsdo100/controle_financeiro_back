@@ -2,8 +2,10 @@ import {
     Column,
     Entity,
     PrimaryGeneratedColumn,
-    BaseEntity
+    BaseEntity,
+    OneToMany
 } from "typeorm";
+import { Contas } from "./Contas";
 
 
 @Entity()
@@ -27,5 +29,8 @@ export class Usuarios extends BaseEntity {
     @Column()
     bloqueado: boolean;
 
+
+    @OneToMany(() => Contas, (contas) => contas.usuariosIdFK)
+    contas: Contas[];
     
 }

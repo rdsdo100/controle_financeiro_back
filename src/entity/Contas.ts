@@ -1,4 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { ContasAPagar } from "./ContasAPagar";
+import { EntradasSaidas } from "./EntradasSaidas";
+import { Objetivos } from "./Objetivos";
+import { Usuarios } from "./Usuarios";
 
 @Entity()
 export class Contas {
@@ -51,5 +55,19 @@ export class Contas {
         default: false,
     })
     bloqueado: boolean
+
+
+    @ManyToOne(() => Usuarios, (usuarios) => usuarios.contas)
+    @JoinColumn([{ name: 'usuarios_id_fk', referencedColumnName: 'id' }])
+    usuariosIdFK: Usuarios;
+
+    @OneToMany(() => ContasAPagar, (contasAPagar) => contasAPagar.contasIdFK)
+    contasAPagar: ContasAPagar[];
+
+    @OneToMany(() => EntradasSaidas, (entradasSaidas) => entradasSaidas.contasIdFK)
+    entradasSaidas: EntradasSaidas[];
+
+    @OneToMany(() => Objetivos, (objetivos) => objetivos.contasIdFK)
+    objetivos: Objetivos[];
 
 }

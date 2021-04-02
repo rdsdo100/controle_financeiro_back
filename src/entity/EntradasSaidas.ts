@@ -1,4 +1,5 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import { Contas } from "./Contas";
 
 @Entity()
 export class EntradasSaidas {
@@ -41,6 +42,8 @@ export class EntradasSaidas {
     })
     valorMovimento: number
 
-
+    @ManyToOne(() => Contas, (contas) => contas.entradasSaidas)
+    @JoinColumn([{ name: 'contas_id_fk', referencedColumnName: 'id' }])
+    contasIdFK: Contas;
 
 }

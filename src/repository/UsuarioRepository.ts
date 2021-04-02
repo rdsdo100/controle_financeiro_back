@@ -1,7 +1,10 @@
-import { createQueryBuilder, getManager } from 'typeorm';
+import {getManager } from 'typeorm';
 import { Usuarios } from '../entity/Usuarios';
 
 export default class UsuarioRepository {
+
+readonly usuarios = new Usuarios
+
 
     async insertUsuarioRpository(usuario: Usuarios) {
 
@@ -10,28 +13,27 @@ export default class UsuarioRepository {
 
     }
 
-    async buscarUsuarioRepository(nomeUsuario: string) {
+    async buscarUsuarioRepository(usuario: Usuarios) {
 
-        const user = await createQueryBuilder('Usuarios')
-            .leftJoinAndSelect('Usuarios.grupoUsuariosIdFK', 'usuarios')
-            .where('nome_usuario = :nome', { nome: nomeUsuario })
-            .getOne()
+         const usuarioRepository = getManager();
+       const  retorno: any = await  usuarioRepository.findOne(Usuarios, {nomeUsuario: usuario.nomeUsuario , senha : usuario.senha });
 
-        return user
+       this.usuarios.id = retorno?.id
+       this.usuarios.nomeUsuario = retorno.nomeUsuario
+       this.usuarios.bloqueado = retorno.bloqueado
+       this.usuarios.ativo = retorno.ativo
+       this.usuarios.senha = retorno.senha
+       this.usuarios.email = retorno.email
+
+       return this.usuarios
 
 
     };
 
-
     async buscarUsuarioRepositoryAll() {
 
-        const user = await createQueryBuilder('Usuarios')
-            .leftJoinAndSelect('Usuarios.grupoUsuariosIdFK', 'usuarios')
-            .leftJoinAndSelect('Usuarios.tipoEquipeIdFK', 'equipeUsuarios')
-            .getMany()
-
-        return user
-
+        const usuarioRepository = getManager();
+        return usuarioRepository.find(Usuarios);
 
     };
 
@@ -42,15 +44,7 @@ export default class UsuarioRepository {
     };
 
 
-    async buscarUsuarioGrupoUsuarioId(idUsuario: number) {
 
-        const user = await createQueryBuilder('Usuarios')
-            .leftJoinAndSelect('Usuarios.grupoUsuariosIdFK', 'grupoUsuarios')
-            .where('Usuarios.id = :id', { id: idUsuario })
-            .getOne()
-
-        return user
-    }
 
     async listUsuarioRepository() {
         const usuarioRepository = getManager();

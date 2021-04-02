@@ -1,4 +1,5 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import { Contas } from "./Contas";
 
 @Entity()
 export class Objetivos {
@@ -45,5 +46,9 @@ export class Objetivos {
     })
     descricao: string
 
+    
+    @ManyToOne(() => Contas, (contas) => contas.objetivos)
+    @JoinColumn([{ name: 'contas_id_fk', referencedColumnName: 'id' }])
+    contasIdFK: Contas;
 
 }
