@@ -2,7 +2,7 @@ import {NextFunction, Request, Response} from "express";
 import jwt from 'jsonwebtoken'
 
 
-   export function assinar (id:number , nomeUsuario:string    ){
+   export function assinar (id:number , nomeUsuario:string ){
 
 
         const token = jwt.sign(
