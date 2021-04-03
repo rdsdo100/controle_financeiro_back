@@ -8,13 +8,26 @@ async insertConta(conta: Contas){
    try{
 
     const contaRepository = getManager();
-    return contaRepository.save(Contas , conta);
+    return await contaRepository.save(Contas , conta);
 
 
    } catch(e){
 
    }
 }
+
+async readConta(){
+   try{
+
+    const contaRepository = getManager();
+    return await contaRepository.find(Contas);
+
+
+   } catch(e){
+
+   }
+}
+
 
 
 

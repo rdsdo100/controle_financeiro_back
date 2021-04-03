@@ -16,6 +16,8 @@ export default class ContasController {
 
     @Get()
     async index(request: Request, response: Response) {
+        const retorno = await this.contasBusiness.index()
+        return response.status(200).json(retorno)
 
     }
 

@@ -5,12 +5,15 @@ export default class ContasBusiness {
 
 readonly contasRepository = new ContasRepository
 
+
+async index (){
+
+    return await this.contasRepository.readConta()
+}
+
     async cadastrarContas (conta : Contas){
 
-        return this.contasRepository.insertConta(conta)
-
-
-
+        return await this.contasRepository.insertConta(conta)
     }
 
 
