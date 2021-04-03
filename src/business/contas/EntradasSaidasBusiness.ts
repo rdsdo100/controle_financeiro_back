@@ -11,18 +11,20 @@ readonly entradasSaidas = new EntradasSaidas
 
 async index() {
 
+    const dias: number = 100
+    let data: Date = new Date()
+    data.setDate(-(dias))
+    return data
 
 }
 
-async entradasConta(){
-    
+async moviementacaoConta(entradasSaidas: EntradasSaidas){
+    return entradasSaidas
 
 }
 
 
-async saidasConta(){
 
-}
 
 
 async estornoConta(){
