@@ -7,7 +7,7 @@ export default class EntradasSaidasRepository {
     readonly conta = new Contas
     readonly entradasSaidas = new EntradasSaidas
 
-    async insert(entradasSaidas: EntradasSaidas) {
+    async insert(entradasSaidas: EntradasSaidas, conta: Contas) {
 
         let salverEntradasSaidas: any
         let verificarConta: any
@@ -19,16 +19,16 @@ export default class EntradasSaidasRepository {
         await queryRunner.startTransaction();
 
         try {
-            verificarConta = await queryRunner.manager.findOne(Contas, { id: entradasSaidas.contasIdFK.id })
+            verificarConta = await queryRunner.manager.findOne(Contas, { id: conta.id })
 
 
 
             if (!verificarConta) {
 
 
-                const novoValor = Number(verificarConta.valorConta) + entradasSaidas.valorMovimento
 
-                updadeContas = await queryRunner.manager.update(Contas, entradasSaidas.contasIdFK.id, { valorConta: novoValor })
+
+                updadeContas = await queryRunner.manager.update(Contas, conta.id, { valorConta: conta.valorConta })
 
                 salverEntradasSaidas = await queryRunner.manager.save(EntradasSaidas, entradasSaidas)
 
@@ -49,10 +49,33 @@ export default class EntradasSaidasRepository {
             this.entradasSaidas.valorMovimento = salverEntradasSaidas.valorMovimento
             this.entradasSaidas.descricao = salverEntradasSaidas.descricao
             this.entradasSaidas.contasIdFK = salverEntradasSaidas.contasIdFK
+
+
+            this.conta.id = updadeContas.id
+            this.conta.nomeConta =updadeContas.nomeConta
+            this.conta.valorConta = updadeContas.valorConta
+            this.conta.qtdPontos = updadeContas.qtdPontos
+            this.conta.contadorMovimento = updadeContas.contadorMovimento
+            this.conta.ativo = updadeContas.ativo
+            this.conta.bloqueado = updadeContas.bloqueado
+            this.conta.usuariosIdFK = updadeContas.usuariosIdFK
+
         }
 
-        return this.entradasSaidas
+        return {entradasSaidas : this.entradasSaidas , conta: this.conta }
     };
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
