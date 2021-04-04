@@ -27,8 +27,7 @@ export class EntradasSaidas1617334531315 implements MigrationInterface {
 
                     {
                         name: 'tipo_entrada',
-                        type: 'varchar',
-                        length: '50',
+                        type: 'boolean',
                         isNullable: false,
                         isUnique: true,
                     },

@@ -7,7 +7,7 @@ export default class EntradasSaidasRepository {
     readonly conta = new Contas
     readonly entradasSaidas = new EntradasSaidas
 
-    async insert(entradasSaidas: EntradasSaidas, conta: Contas) {
+    async insertMovimentosEntradasSaidas(entradasSaidas: EntradasSaidas, conta: Contas) {
 
         let salverEntradasSaidas: any
         let verificarConta: any
@@ -21,12 +21,7 @@ export default class EntradasSaidasRepository {
         try {
             verificarConta = await queryRunner.manager.findOne(Contas, { id: conta.id })
 
-
-
             if (!verificarConta) {
-
-
-
 
                 updadeContas = await queryRunner.manager.update(Contas, conta.id, { valorConta: conta.valorConta })
 

@@ -18,12 +18,11 @@ export class EntradasSaidas {
 
     @Column({
         name: 'tipo_entrada',
-        type: 'varchar',
-        length: '50',
+        type: 'boolean',
         nullable: false,
         unique: true,
     })
-    tipoEntrada : string
+    tipoEntrada : boolean
   
     
 
