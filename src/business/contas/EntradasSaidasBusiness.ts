@@ -1,13 +1,14 @@
 import { Contas } from "../../entity/Contas";
 import { EntradasSaidas } from "../../entity/EntradasSaidas";
+import ContasRepository from "../../repository/ContasRepository";
+import EntradasSaidasRepository from "../../repository/EntradasSaidasRepository";
 
 export default class EntradasSaidasBusiness {
 
-
-
 readonly conta = new Contas
 readonly entradasSaidas = new EntradasSaidas
-
+readonly entradasSaidasRepository = new EntradasSaidasRepository
+readonly contasRepository = new ContasRepository
 
 async index() {
 
@@ -19,6 +20,15 @@ async index() {
 }
 
 async moviementacaoConta(entradasSaidas: EntradasSaidas){
+    
+    
+    const contas = this.contasRepository.insertConta
+    
+    
+    
+    
+    
+    
     return entradasSaidas
 
 }
