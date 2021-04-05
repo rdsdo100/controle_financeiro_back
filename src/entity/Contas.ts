@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { ContasAPagar } from "./ContasAPagar";
-import { EntradasSaidas } from "./EntradasSaidas";
+import { Movimentacoes } from "./Movimentacoes";
 import { Objetivos } from "./Objetivos";
 import { Usuarios } from "./Usuarios";
 
@@ -64,8 +64,8 @@ export class Contas {
     @OneToMany(() => ContasAPagar, (contasAPagar) => contasAPagar.contasIdFK)
     contasAPagar: ContasAPagar[];
 
-    @OneToMany(() => EntradasSaidas, (entradasSaidas) => entradasSaidas.contasIdFK)
-    entradasSaidas: EntradasSaidas[];
+    @OneToMany(() => Movimentacoes, (movimentacoes) => movimentacoes.contasIdFK)
+    movimentacoes: Movimentacoes[];
 
     @OneToMany(() => Objetivos, (objetivos) => objetivos.contasIdFK)
     objetivos: Objetivos[];

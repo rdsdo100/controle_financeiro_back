@@ -2,9 +2,9 @@ import { ClassMiddleware, Controller, Get, Post } from "@overnightjs/core";
 import { decodificar } from "../../config/Jwt";
 import { Request, Response } from 'express'
 import { Contas } from "../../entity/Contas";
-import { EntradasSaidas } from "../../entity/EntradasSaidas";
+import { EntradasSaidas } from "../../entity/Movimentacoes";
 import { Usuarios } from "../../entity/Usuarios";
-import EntradasSaidasBusiness from "../../business/contas/EntradasSaidasBusiness";
+import EntradasSaidasBusiness from "../../business/contas/MovimentacoesBusiness";
 
 
 @Controller('entradas-saidas')

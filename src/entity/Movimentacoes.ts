@@ -2,7 +2,7 @@ import {Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typ
 import { Contas } from "./Contas";
 
 @Entity()
-export class EntradasSaidas {
+export class Movimentacoes {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -41,7 +41,7 @@ export class EntradasSaidas {
     })
     valorMovimento: number
 
-    @ManyToOne(() => Contas, (contas) => contas.entradasSaidas)
+    @ManyToOne(() => Contas, (contas) => contas.movimentacoes)
     @JoinColumn([{ name: 'contas_id_fk', referencedColumnName: 'id' }])
     contasIdFK: Contas;
 

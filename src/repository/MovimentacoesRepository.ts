@@ -1,15 +1,16 @@
 import { getConnection } from "typeorm";
 import { Contas } from "../entity/Contas";
-import { EntradasSaidas } from "../entity/EntradasSaidas";
+import { Movimentacoes } from "../entity/Movimentacoes";
+
 
 export default class EntradasSaidasRepository {
 
     readonly conta = new Contas
-    readonly entradasSaidas = new EntradasSaidas
+    readonly movimentacoes = new Movimentacoes
 
-    async insertMovimentosEntradasSaidas(entradasSaidas: EntradasSaidas, conta: Contas) {
+    async insertMovimentosEntradasSaidas(movimentacoes: Movimentacoes, conta: Contas) {
 
-        let salverEntradasSaidas: any
+        let salvarMovimentacoes: any
         let verificarConta: any
         let updadeContas: any
 
@@ -25,7 +26,7 @@ export default class EntradasSaidasRepository {
 
                 updadeContas = await queryRunner.manager.update(Contas, conta.id, { valorConta: conta.valorConta })
 
-                salverEntradasSaidas = await queryRunner.manager.save(EntradasSaidas, entradasSaidas)
+                salvarMovimentacoes = await queryRunner.manager.save(Movimentacoes, movimentacoes)
 
             }
 
@@ -37,13 +38,13 @@ export default class EntradasSaidasRepository {
             await queryRunner.release();
         }
 
-        if (salverEntradasSaidas) {
+        if (salvarMovimentacoes) {
 
-            this.entradasSaidas.id = salverEntradasSaidas.id
-            this.entradasSaidas.nomeEntradasSaidas = salverEntradasSaidas.nomeEntradasSaidas
-            this.entradasSaidas.valorMovimento = salverEntradasSaidas.valorMovimento
-            this.entradasSaidas.descricao = salverEntradasSaidas.descricao
-            this.entradasSaidas.contasIdFK = salverEntradasSaidas.contasIdFK
+            this.movimentacoes.id = salvarMovimentacoes.id
+            this.movimentacoes.nomeEntradasSaidas = salvarMovimentacoes.nomeEntradasSaidas
+            this.movimentacoes.valorMovimento = salvarMovimentacoes.valorMovimento
+            this.movimentacoes.descricao = salvarMovimentacoes.descricao
+            this.movimentacoes.contasIdFK = salvarMovimentacoes.contasIdFK
 
 
             this.conta.id = updadeContas.id
@@ -57,7 +58,7 @@ export default class EntradasSaidasRepository {
 
         }
 
-        return {entradasSaidas : this.entradasSaidas , conta: this.conta }
+        return {movimentacoes : this.movimentacoes , conta: this.conta }
     };
 
 

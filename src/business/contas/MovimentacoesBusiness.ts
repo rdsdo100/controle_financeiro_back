@@ -1,17 +1,17 @@
 import { Contas } from "../../entity/Contas";
-import { EntradasSaidas } from "../../entity/EntradasSaidas";
+import { Movimentacoes } from "../../entity/Movimentacoes";
 import ContasRepository from "../../repository/ContasRepository";
-import EntradasSaidasRepository from "../../repository/EntradasSaidasRepository";
+import EntradasSaidasRepository from "../../repository/MovimentacoesRepository";
 
-export default class EntradasSaidasBusiness {
+export default class MovimentacoesBusiness {
 
     readonly conta = new Contas
-    readonly entradasSaidas = new EntradasSaidas
+    readonly movimentacoes = new Movimentacoes
     readonly entradasSaidasRepository = new EntradasSaidasRepository
     readonly contasRepository = new ContasRepository
 
-    private recalcularContas(contas: Contas, entradasSaidas: EntradasSaidas): number {
-        const valorMovimento: number = this.tipoEntradas(entradasSaidas.valorMovimento, entradasSaidas.tipoEntrada)
+    private recalcularContas(contas: Contas, movimentacoes: Movimentacoes): number {
+        const valorMovimento: number = this.tipoEntradas(movimentacoes.valorMovimento, movimentacoes.tipoEntrada)
         const valorAtualizado: number = (contas.valorConta + valorMovimento)
         return valorAtualizado
     }
@@ -33,17 +33,17 @@ export default class EntradasSaidasBusiness {
 
     }
 
-    async moviementacaoConta(entradasSaidas: EntradasSaidas) {
+    async moviementacaoConta(movimentacoes: Movimentacoes) {
 
         const contas: Contas = await this.contasRepository
-            .buscarSaldoContasRpository(entradasSaidas.contasIdFK.id)
+            .buscarSaldoContasRpository(movimentacoes.contasIdFK.id)
 
-        const retornoSaldoConta: number = this.recalcularContas(contas, entradasSaidas)
+        const retornoSaldoConta: number = this.recalcularContas(contas, movimentacoes)
         contas.valorConta = retornoSaldoConta
         contas.contadorMovimento = (contas.contadorMovimento + 1 )
 
         const retorno = await this.entradasSaidasRepository
-            .insertMovimentosEntradasSaidas(entradasSaidas, contas)
+            .insertMovimentosEntradasSaidas(movimentacoes, contas)
 
         return retorno
 

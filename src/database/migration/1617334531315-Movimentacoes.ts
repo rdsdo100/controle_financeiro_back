@@ -1,13 +1,13 @@
 import {MigrationInterface, QueryRunner, Table, TableForeignKey} from "typeorm";
 
-export class EntradasSaidas1617334531315 implements MigrationInterface {
+export class Movimentacoes1617334531315 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
 
         await queryRunner.createTable(
             new Table({
 
-                name: 'entradas_saidas',
+                name: 'movimentacoes',
                 columns: [
                     {
                         name: 'id',
@@ -56,12 +56,12 @@ export class EntradasSaidas1617334531315 implements MigrationInterface {
         )
 
         await queryRunner.createForeignKey(
-            'entradas_saidas',
+            'movimentacoes',
             new TableForeignKey({
                 columnNames: ['contas_id_fk'],
                 referencedColumnNames: ['id'],
                 referencedTableName: 'contas',
-                name: 'entradas_saidas_contas',
+                name: 'entradas_movimentacoes',
             }),
         );
 
