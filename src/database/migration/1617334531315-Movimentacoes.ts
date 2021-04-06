@@ -18,18 +18,17 @@ export class Movimentacoes1617334531315 implements MigrationInterface {
                     },
 
                     {
-                        name: 'nome_entradas_saidas',
+                        name: 'nome_movimentacoes',
                         type: 'varchar',
                         length: '60',
                         isNullable: false,
-                        isUnique: true,
+                       
                     },
 
                     {
                         name: 'tipo_entrada',
                         type: 'boolean',
                         isNullable: false,
-                        isUnique: true,
                     },
                   
                     

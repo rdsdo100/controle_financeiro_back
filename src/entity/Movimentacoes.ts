@@ -8,19 +8,19 @@ export class Movimentacoes {
 
 
     @Column({
-        name: 'nome_entradas_saidas',
+        name: 'nome_movimentacoes',
         type: 'varchar',
         length: '60',
     nullable: false,
-     unique: true,
+    
     })
-    nomeEntradasSaidas: string
+    nomeMovimentacoes: string
 
     @Column({
         name: 'tipo_entrada',
         type: 'boolean',
         nullable: false,
-        unique: true,
+        
     })
     tipoEntrada : boolean
   

@@ -27,7 +27,7 @@ export default class ContasController {
         this.contas.nomeConta = String(request.body.nomeConta)
         this.contas.qtdPontos = Number(request.body.qtdPontos)
         this.contas.valorConta = Number(request.body.valorConta)
-        this.usuarios.id = Number(request.body.usuarioId)
+        this.usuarios.id = Number(request.body.decoded.id)
         this.contas.usuariosIdFK = this.usuarios
         const retorno = await this.contasBusiness.cadastrarContas(this.contas)
         return response.status(200).json(retorno)

@@ -1,18 +1,22 @@
 import { Contas } from "../../entity/Contas";
 import { Movimentacoes } from "../../entity/Movimentacoes";
 import ContasRepository from "../../repository/ContasRepository";
-import EntradasSaidasRepository from "../../repository/MovimentacoesRepository";
+import MovimentacoesRepository from "../../repository/MovimentacoesRepository";
+
 
 export default class MovimentacoesBusiness {
 
     readonly conta = new Contas
     readonly movimentacoes = new Movimentacoes
-    readonly entradasSaidasRepository = new EntradasSaidasRepository
+    readonly movimentacoesRepository = new MovimentacoesRepository
     readonly contasRepository = new ContasRepository
 
     private recalcularContas(contas: Contas, movimentacoes: Movimentacoes): number {
+      
         const valorMovimento: number = this.tipoEntradas(movimentacoes.valorMovimento, movimentacoes.tipoEntrada)
-        const valorAtualizado: number = (contas.valorConta + valorMovimento)
+      
+        const valorAtualizado: number = Number(contas.valorConta) + Number(valorMovimento)
+
         return valorAtualizado
     }
 
@@ -37,15 +41,11 @@ export default class MovimentacoesBusiness {
 
         const contas: Contas = await this.contasRepository
             .buscarSaldoContasRpository(movimentacoes.contasIdFK.id)
-
         const retornoSaldoConta: number = this.recalcularContas(contas, movimentacoes)
         contas.valorConta = retornoSaldoConta
-        contas.contadorMovimento = (contas.contadorMovimento + 1 )
+        const retorno = await this.movimentacoesRepository.insertMovimentosEntradasSaidas(movimentacoes, contas)
 
-        const retorno = await this.entradasSaidasRepository
-            .insertMovimentosEntradasSaidas(movimentacoes, contas)
-
-        return retorno
+       return retorno
 
     }
 
