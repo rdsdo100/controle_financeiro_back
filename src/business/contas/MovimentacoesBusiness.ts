@@ -12,9 +12,9 @@ export default class MovimentacoesBusiness {
     readonly contasRepository = new ContasRepository
 
     private recalcularContas(contas: Contas, movimentacoes: Movimentacoes): number {
-      
+
         const valorMovimento: number = this.tipoEntradas(movimentacoes.valorMovimento, movimentacoes.tipoEntrada)
-      
+
         const valorAtualizado: number = Number(contas.valorConta) + Number(valorMovimento)
 
         return valorAtualizado
@@ -45,14 +45,30 @@ export default class MovimentacoesBusiness {
         contas.valorConta = retornoSaldoConta
         const retorno = await this.movimentacoesRepository.insertMovimentosEntradasSaidas(movimentacoes, contas)
 
-       return retorno
+        return retorno
 
     }
 
-    async estornoConta() {
+    async estornoConta(movimentacoes: Movimentacoes) {
+
+
+        const contas: Contas = await this.contasRepository
+            .buscarSaldoContasRpository(movimentacoes.contasIdFK.id)
+            
+
+
+        movimentacoes.nomeMovimentacoes = `estorno - ${movimentacoes.nomeMovimentacoes}`
+        movimentacoes.tipoEntrada = !(movimentacoes.tipoEntrada)
+
+        const retornoSaldoConta: number = this.recalcularContas(contas, movimentacoes)
+        contas.valorConta = retornoSaldoConta
+        const retorno = await this.movimentacoesRepository.insertMovimentosEntradasSaidas(movimentacoes, contas)
+
+        return retorno
+
 
     }
 
 
-   
+
 }
