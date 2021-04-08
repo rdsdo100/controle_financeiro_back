@@ -3,11 +3,8 @@ import { Movimentacoes } from "../../entity/Movimentacoes";
 import ContasRepository from "../../repository/ContasRepository";
 import MovimentacoesRepository from "../../repository/MovimentacoesRepository";
 
-
 export default class MovimentacoesBusiness {
 
-    readonly conta = new Contas
-    readonly movimentacoes = new Movimentacoes
     readonly movimentacoesRepository = new MovimentacoesRepository
     readonly contasRepository = new ContasRepository
 
@@ -43,29 +40,34 @@ export default class MovimentacoesBusiness {
             .buscarSaldoContasRpository(movimentacoes.contasIdFK.id)
         const retornoSaldoConta: number = this.recalcularContas(contas, movimentacoes)
         contas.valorConta = retornoSaldoConta
+        movimentacoes.valorMovimento = Boolean(movimentacoes.tipoEntrada) ? Number(movimentacoes.valorMovimento) : Number(-(movimentacoes.valorMovimento))
         const retorno = await this.movimentacoesRepository.insertMovimentosEntradasSaidas(movimentacoes, contas)
 
         return retorno
 
     }
 
-    async estornoConta(movimentacoes: Movimentacoes) {
 
 
-        const contas: Contas = await this.contasRepository
-            .buscarSaldoContasRpository(movimentacoes.contasIdFK.id)
-            
+    async estornoConta(id: number) {
 
+        const buscarMovimentacoes: Movimentacoes = await this.movimentacoesRepository.buscarMovimentosId(id)
 
-        movimentacoes.nomeMovimentacoes = `estorno - ${movimentacoes.nomeMovimentacoes}`
-        movimentacoes.tipoEntrada = !(movimentacoes.tipoEntrada)
+        buscarMovimentacoes.nomeMovimentacoes = `estorno - ${buscarMovimentacoes.nomeMovimentacoes}`
 
-        const retornoSaldoConta: number = this.recalcularContas(contas, movimentacoes)
+        buscarMovimentacoes.tipoEntrada = Boolean(buscarMovimentacoes.tipoEntrada) ? false : true
+
+        const contas: Contas = await this.contasRepository.buscarSaldoContasRpository(buscarMovimentacoes.contasIdFK.id)
+
+        const retornoSaldoConta: number = this.recalcularContas(contas, buscarMovimentacoes)
+
         contas.valorConta = retornoSaldoConta
-        const retorno = await this.movimentacoesRepository.insertMovimentosEntradasSaidas(movimentacoes, contas)
+
+        buscarMovimentacoes.valorMovimento = Boolean(buscarMovimentacoes.tipoEntrada) ? Number(buscarMovimentacoes.valorMovimento) : Number(-(buscarMovimentacoes.valorMovimento))
+
+        const retorno = await this.movimentacoesRepository.insertMovimentosEntradasSaidas(buscarMovimentacoes, contas)
 
         return retorno
-
 
     }
 

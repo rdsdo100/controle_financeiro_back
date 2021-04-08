@@ -9,8 +9,7 @@ import { Usuarios } from "../../entity/Usuarios";
 @ClassMiddleware([decodificar])
 export default class ContasController {
 
-    readonly contas = new Contas
-    readonly usuarios = new Usuarios
+    
     readonly contasBusiness = new ContasBusiness
 
 
@@ -24,12 +23,16 @@ export default class ContasController {
     @Post()
     async cadastrarContas(request: Request, response: Response) {
 
-        this.contas.nomeConta = String(request.body.nomeConta)
-        this.contas.qtdPontos = Number(request.body.qtdPontos)
-        this.contas.valorConta = Number(request.body.valorConta)
-        this.usuarios.id = Number(request.body.decoded.id)
-        this.contas.usuariosIdFK = this.usuarios
-        const retorno = await this.contasBusiness.cadastrarContas(this.contas)
+
+        const contas = new Contas
+        const usuarios = new Usuarios
+
+        contas.nomeConta = String(request.body.nomeConta)
+        contas.qtdPontos = Number(request.body.qtdPontos)
+        contas.valorConta = Number(request.body.valorConta)
+        usuarios.id = Number(request.body.decoded.id)
+        contas.usuariosIdFK = usuarios
+        const retorno = await this.contasBusiness.cadastrarContas(contas)
         return response.status(200).json(retorno)
 
     }

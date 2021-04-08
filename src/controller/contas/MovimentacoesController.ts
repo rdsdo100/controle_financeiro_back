@@ -12,17 +12,14 @@ import MovimentacoesBusiness from "../../business/contas/MovimentacoesBusiness";
 export default class EntradasSaidasController {
 
 
-    readonly conta = new Contas
-    readonly movimentacoes = new Movimentacoes
-    readonly usuario = new Usuarios
     readonly movmentacoesBusiness = new MovimentacoesBusiness
-    
+
 
     @Get()
     async index(request: Request, response: Response) {
 
-        const retorno =  await this.movmentacoesBusiness.index()
-return response.status(200).json(retorno)
+        const retorno = await this.movmentacoesBusiness.index()
+        return response.status(200).json(retorno)
 
     }
 
@@ -30,17 +27,20 @@ return response.status(200).json(retorno)
     async movimentacaoConta(request: Request, response: Response) {
 
 
-        this.movimentacoes.nomeMovimentacoes = String(request.body.nomeMovimento)
-        this.movimentacoes.valorMovimento = Number(request.body.valorMovimento)
-        this.movimentacoes.descricao = String(request.body.descricao)
-        this.movimentacoes.tipoEntrada = Boolean(request.body.tipoEntrada)
-        this.usuario.id = Number(request.body.decoded.id)
-        this.conta.id = Number(request.body.contaId)
-        this.conta.usuariosIdFK = this.usuario
-        this.movimentacoes.contasIdFK = this.conta
+        const conta = new Contas()
+        const usuario = new Usuarios()
+        const movimentacoes = new Movimentacoes()
+        movimentacoes.nomeMovimentacoes = String(request.body.nomeMovimento)
+        movimentacoes.valorMovimento = Number(request.body.valorMovimento)
+        movimentacoes.descricao = String(request.body.descricao)
+        movimentacoes.tipoEntrada = Boolean(request.body.tipoEntrada)
+        usuario.id = Number(request.body.decoded.id)
+        conta.id = Number(request.body.contaId)
+        conta.usuariosIdFK = usuario
+        movimentacoes.contasIdFK = conta
 
-        
-        const retorno = await this.movmentacoesBusiness.moviementacaoConta(this.movimentacoes)
+
+        const retorno = await this.movmentacoesBusiness.moviementacaoConta(movimentacoes)
 
         return response.status(200).json(retorno)
 
@@ -50,12 +50,15 @@ return response.status(200).json(retorno)
 
     @Post('estorno')
     async estornoConta(request: Request, response: Response) {
-        
 
-        this.movimentacoes.nomeMovimentacoes = String(request.body.id)
-       
-        
-        const retorno = await this.movmentacoesBusiness.estornoConta(this.movimentacoes)
+        const conta = new Contas()
+        const usuario = new Usuarios()
+        const movimentacoes = new Movimentacoes()
+
+        const id = Number(request.body.id)
+
+
+        const retorno = await this.movmentacoesBusiness.estornoConta(id)
 
         return response.status(200).json(retorno)
 
