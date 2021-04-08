@@ -4,11 +4,10 @@ import { Movimentacoes } from "../entity/Movimentacoes";
 
 export default class EntradasSaidasRepository {
 
-    readonly conta = new Contas
-    readonly movimentacoes = new Movimentacoes
-
     async insertMovimentosEntradasSaidas(movimentacoes: Movimentacoes, conta: Contas) {
 
+        const  contaRetorno = new Contas()
+        const movimentacoesRetorno = new Movimentacoes()
         let salvarMovimentacoes: any
         let verificarConta: any
         let updadeContas: any
@@ -38,65 +37,75 @@ export default class EntradasSaidasRepository {
 
         if (salvarMovimentacoes) {
 
-            this.conta.id = updadeContas.id
-            this.conta.nomeConta = updadeContas.nomeConta
-            this.conta.valorConta = updadeContas.valorConta
+            contaRetorno.id = updadeContas.id
+            contaRetorno.nomeConta = updadeContas.nomeConta
+            contaRetorno.valorConta = updadeContas.valorConta
 
-            this.movimentacoes.id = salvarMovimentacoes.id
-            this.movimentacoes.nomeMovimentacoes = salvarMovimentacoes.nomeMovimentacoes
-            this.movimentacoes.valorMovimento = salvarMovimentacoes.valorMovimento
-            this.movimentacoes.descricao = salvarMovimentacoes.descricao
-            this.movimentacoes.tipoEntrada = salvarMovimentacoes.tipoEntrada
-            this.movimentacoes.contasIdFK = this.conta
+            movimentacoesRetorno.id = salvarMovimentacoes.id
+            movimentacoesRetorno.nomeMovimentacoes = salvarMovimentacoes.nomeMovimentacoes
+            movimentacoesRetorno.valorMovimento = salvarMovimentacoes.valorMovimento
+            movimentacoesRetorno.descricao = salvarMovimentacoes.descricao
+            movimentacoesRetorno.tipoEntrada = salvarMovimentacoes.tipoEntrada
+            movimentacoesRetorno.dataMovimento = salvarMovimentacoes.dataMovimento
+            movimentacoesRetorno.estorno = salvarMovimentacoes.estorno
+            movimentacoesRetorno.dataEstorno = salvarMovimentacoes.dataEstorno
+            movimentacoesRetorno.contasIdFK = contaRetorno
 
         }
 
-        return this.movimentacoes
+        return movimentacoesRetorno
     };
 
     async buscarMovimentosId(movimentosId: number) {
+        const  contaRetorno = new Contas()
+        const movimentacoesRetorno = new Movimentacoes()
 
         let buscarMovimentos: any
-      
+
 
         try {
             buscarMovimentos = await createQueryBuilder("Movimentacoes")
                 .leftJoinAndSelect('Movimentacoes.contasIdFK', 'contas')
-               // .leftJoin('Atendimentos.usuariosIdFK', 'usuarioId')
+                // .leftJoin('Atendimentos.usuariosIdFK', 'usuarioId')
                 .where('Movimentacoes.id = :id', { id: movimentosId })
                 .getOne()
 
 
 
-                if (buscarMovimentos) {
+            if (buscarMovimentos) {
 
-                    this.conta.id =  buscarMovimentos.contasIdFK.id
-                    this.conta.nomeConta =  buscarMovimentos.contasIdFK.nomeConta
-                    this.conta.valorConta = buscarMovimentos.contasIdFK.valorConta
-        
-                    this.movimentacoes.id = buscarMovimentos.id
-                    this.movimentacoes.nomeMovimentacoes = buscarMovimentos.nomeMovimentacoes
-                    this.movimentacoes.valorMovimento = buscarMovimentos.valorMovimento
-                    this.movimentacoes.descricao = buscarMovimentos.descricao
-                    this.movimentacoes.tipoEntrada = buscarMovimentos.tipoEntrada
-                    this.movimentacoes.contasIdFK = this.conta
-        
-                }
+                contaRetorno.id = buscarMovimentos.contasIdFK.id
+                contaRetorno.nomeConta = buscarMovimentos.contasIdFK.nomeConta
+                contaRetorno.valorConta = buscarMovimentos.contasIdFK.valorConta
 
-            
+                movimentacoesRetorno.id = buscarMovimentos.id
+                movimentacoesRetorno.nomeMovimentacoes = buscarMovimentos.nomeMovimentacoes
+                movimentacoesRetorno.valorMovimento = buscarMovimentos.valorMovimento
+                movimentacoesRetorno.descricao = buscarMovimentos.descricao
+                movimentacoesRetorno.tipoEntrada = buscarMovimentos.tipoEntrada
+                movimentacoesRetorno.dataMovimento = buscarMovimentos.dataMovimento
+                movimentacoesRetorno.estorno = buscarMovimentos.estorno
+                movimentacoesRetorno.dataEstorno = buscarMovimentos.dataEstorno
+                movimentacoesRetorno.contasIdFK = contaRetorno
+
+            }
+
+
         } catch (e) {
             console.log(e)
         }
 
 
-       
 
-        return this.movimentacoes
+
+        return movimentacoesRetorno
     };
 
 
     async insertMovimentosEstorno(movimentacoes: Movimentacoes, conta: Contas) {
 
+        const  contaRetorno = new Contas()
+        const movimentacoesRetorno = new Movimentacoes()
         let salvarMovimentacoes: any
         let verificarConta: any
         let updadeContas: any
@@ -113,9 +122,9 @@ export default class EntradasSaidasRepository {
 
                 await queryRunner.manager.update(Contas, conta.id, { valorConta: conta.valorConta })
                 updadeContas = await queryRunner.manager.findOne(Contas, conta.id)
-                await queryRunner.manager.update(Movimentacoes, movimentacoes.id, { estorno : true , dataEstorno: new Date })
+                await queryRunner.manager.update(Movimentacoes, movimentacoes.id, { estorno: true, dataEstorno: new Date })
                 updadeMovimentações = await queryRunner.manager.findOne(Contas, conta.id)
-                
+
                 salvarMovimentacoes = await queryRunner.manager.save(Movimentacoes, movimentacoes)
 
             }
@@ -130,20 +139,23 @@ export default class EntradasSaidasRepository {
 
         if (salvarMovimentacoes) {
 
-            this.conta.id = updadeContas.id
-            this.conta.nomeConta = updadeContas.nomeConta
-            this.conta.valorConta = updadeContas.valorConta
+            contaRetorno.id = updadeContas.id
+            contaRetorno.nomeConta = updadeContas.nomeConta
+            contaRetorno.valorConta = updadeContas.valorConta
 
-            this.movimentacoes.id = salvarMovimentacoes.id
-            this.movimentacoes.nomeMovimentacoes = salvarMovimentacoes.nomeMovimentacoes
-            this.movimentacoes.valorMovimento = salvarMovimentacoes.valorMovimento
-            this.movimentacoes.descricao = salvarMovimentacoes.descricao
-            this.movimentacoes.tipoEntrada = salvarMovimentacoes.tipoEntrada
-            this.movimentacoes.contasIdFK = this.conta
+            movimentacoesRetorno.id = salvarMovimentacoes.id
+            movimentacoesRetorno.nomeMovimentacoes = salvarMovimentacoes.nomeMovimentacoes
+            movimentacoesRetorno.valorMovimento = salvarMovimentacoes.valorMovimento
+            movimentacoesRetorno.descricao = salvarMovimentacoes.descricao
+            movimentacoesRetorno.tipoEntrada = salvarMovimentacoes.tipoEntrada
+            movimentacoesRetorno.dataMovimento = salvarMovimentacoes.dataMovimento
+            movimentacoesRetorno.estorno = salvarMovimentacoes.estorno
+            movimentacoesRetorno.dataEstorno = salvarMovimentacoes.dataEstorno
+            movimentacoesRetorno.contasIdFK = contaRetorno
 
         }
 
-        return this.movimentacoes
+        return movimentacoesRetorno
     };
 
 }

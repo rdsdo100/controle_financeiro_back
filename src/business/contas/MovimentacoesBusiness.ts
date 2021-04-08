@@ -51,19 +51,21 @@ export default class MovimentacoesBusiness {
 
     async estornoConta(id: number) {
 
+
+
         const buscarMovimentacoes: Movimentacoes = await this.movimentacoesRepository.buscarMovimentosId(id)
+
+         buscarMovimentacoes.id = 0
+
+        const contas: Contas = await this.contasRepository.buscarSaldoContasRpository(buscarMovimentacoes.contasIdFK.id)
 
         buscarMovimentacoes.nomeMovimentacoes = `estorno - ${buscarMovimentacoes.nomeMovimentacoes}`
 
         buscarMovimentacoes.tipoEntrada = Boolean(buscarMovimentacoes.tipoEntrada) ? false : true
 
-        const contas: Contas = await this.contasRepository.buscarSaldoContasRpository(buscarMovimentacoes.contasIdFK.id)
-
-        const retornoSaldoConta: number = this.recalcularContas(contas, buscarMovimentacoes)
+        const retornoSaldoConta: number = Number(contas.valorConta) - Number(buscarMovimentacoes.valorMovimento)
 
         contas.valorConta = retornoSaldoConta
-
-        buscarMovimentacoes.valorMovimento = Boolean(buscarMovimentacoes.tipoEntrada) ? Number(buscarMovimentacoes.valorMovimento) : Number(-(buscarMovimentacoes.valorMovimento))
 
         const retorno = await this.movimentacoesRepository.insertMovimentosEstorno(buscarMovimentacoes, contas)
 
