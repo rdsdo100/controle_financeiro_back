@@ -41,6 +41,28 @@ export class Movimentacoes {
     })
     valorMovimento: number
 
+
+    @Column({
+        name: 'estorno',
+        type: 'boolean',
+       default: false
+    })
+    estorno : boolean
+    
+    @Column({
+        name: 'data_estorno',
+        type: 'date',
+        nullable: true 
+    })
+    dataEstorno: Date
+    
+    @Column({
+        name: 'data_movimento',
+        type: 'date', 
+    })
+    dataMovimento: Date
+
+
     @ManyToOne(() => Contas, (contas) => contas.movimentacoes)
     @JoinColumn([{ name: 'contas_id_fk', referencedColumnName: 'id' }])
     contasIdFK: Contas;

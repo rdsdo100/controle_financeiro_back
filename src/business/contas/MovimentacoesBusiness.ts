@@ -65,7 +65,7 @@ export default class MovimentacoesBusiness {
 
         buscarMovimentacoes.valorMovimento = Boolean(buscarMovimentacoes.tipoEntrada) ? Number(buscarMovimentacoes.valorMovimento) : Number(-(buscarMovimentacoes.valorMovimento))
 
-        const retorno = await this.movimentacoesRepository.insertMovimentosEntradasSaidas(buscarMovimentacoes, contas)
+        const retorno = await this.movimentacoesRepository.insertMovimentosEstorno(buscarMovimentacoes, contas)
 
         return retorno
 

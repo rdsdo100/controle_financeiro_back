@@ -47,6 +47,23 @@ export class Movimentacoes1617334531315 implements MigrationInterface {
                     },
 
                     {
+                        name: 'estorno',
+                        type: 'boolean',
+                       default: false
+                        
+                    },
+                    {
+                        name: 'data_estorno',
+                        type: 'date', 
+                        isNullable: true
+                    }, 
+                    {
+                        name: 'data_movimento',
+                        type: 'date', 
+                    }, 
+                    
+
+                    {
                         name: 'contas_id_fk',
                         type: 'int',
                     },
