@@ -125,7 +125,7 @@ export default class EntradasSaidasRepository {
                 await queryRunner.manager.update(Movimentacoes, movimentacoes.id, { estorno: true, dataEstorno: new Date })
                 updadeMovimentações = await queryRunner.manager.findOne(Contas, conta.id)
 
-                salvarMovimentacoes = await queryRunner.manager.save(Movimentacoes, movimentacoes)
+               salvarMovimentacoes = await queryRunner.manager.insert(Movimentacoes, movimentacoes)
 
             }
 
@@ -159,15 +159,5 @@ export default class EntradasSaidasRepository {
     };
 
 }
-
-
-
-
-
-
-
-
-
-
 
 

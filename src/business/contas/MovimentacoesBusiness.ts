@@ -1,3 +1,4 @@
+import e from "cors";
 import { Contas } from "../../entity/Contas";
 import { Movimentacoes } from "../../entity/Movimentacoes";
 import ContasRepository from "../../repository/ContasRepository";
@@ -47,16 +48,11 @@ export default class MovimentacoesBusiness {
 
     }
 
-
-
     async estornoConta(id: number) {
-
-
 
         const buscarMovimentacoes: Movimentacoes = await this.movimentacoesRepository.buscarMovimentosId(id)
 
-         buscarMovimentacoes.id = 0
-
+        if(!buscarMovimentacoes.estorno){
         const contas: Contas = await this.contasRepository.buscarSaldoContasRpository(buscarMovimentacoes.contasIdFK.id)
 
         buscarMovimentacoes.nomeMovimentacoes = `estorno - ${buscarMovimentacoes.nomeMovimentacoes}`
@@ -70,6 +66,9 @@ export default class MovimentacoesBusiness {
         const retorno = await this.movimentacoesRepository.insertMovimentosEstorno(buscarMovimentacoes, contas)
 
         return retorno
+        } else {
+            return  "Já estornasdo!"
+    }
 
     }
 
