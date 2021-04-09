@@ -11,6 +11,8 @@ export default class ObjetivosBusiness {
     
     async cadastroObjetivos(objetivos: Objetivos) : Promise<Objetivos> {
 
+
+        
         return objetivos
     }
 
