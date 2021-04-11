@@ -9,7 +9,7 @@ import ObjetivosBusiness from "../../business/contas/ObjetivosBusiness";
 
 @Controller('objetivo')
 @ClassMiddleware([decodificar])
-export default class ObjetivosRepository {
+export default class ObjetivosController {
 
 readonly objetivosBusiness = new ObjetivosBusiness
 
@@ -29,7 +29,8 @@ readonly objetivosBusiness = new ObjetivosBusiness
         objetivos.nomeObjetivos = String(request.body.nomeObjetivos)
         objetivos.valorObjetivos = Number(request.body.valorObjetivos)
         objetivos.pontos = Number(request.body.pontos)
-        objetivos.dataPrevistaObjetivos = new Date(String(request.body.data))
+        objetivos.descricao = String(request.body.descricao)
+        objetivos.dataPrevistaObjetivos = new Date(String(request.body.dataPrevistaObjetivos))
         conta.id = Number(request.body.contaIdi)
         objetivos.contasIdFK = conta
 

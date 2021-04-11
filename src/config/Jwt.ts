@@ -9,7 +9,7 @@ export function assinar(usuario: Usuarios) {
         const token = jwt.sign(
             { id: usuario.id, nomeUsuario: usuario.nomeUsuario },
             String(process.env.JWT_TOKEN),
-            { expiresIn: '1d' })
+            { expiresIn: '10d' })
         return token
 
     } else {

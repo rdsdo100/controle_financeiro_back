@@ -1,8 +1,9 @@
 import { Objetivos } from "../../entity/Objetivos";
+import ObjetivosRepository from "../../repository/ObjetivosRepository";
 
 export default class ObjetivosBusiness {
 
-    
+     objetivosRepository = new ObjetivosRepository()
     async inedx() {
 
 
@@ -10,10 +11,10 @@ export default class ObjetivosBusiness {
 
     
     async cadastroObjetivos(objetivos: Objetivos) : Promise<Objetivos> {
-
+const  retorno = await this.objetivosRepository.insertObjetivos(objetivos)
 
         
-        return objetivos
+        return retorno
     }
 
 

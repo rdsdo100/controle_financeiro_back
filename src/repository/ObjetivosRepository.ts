@@ -5,7 +5,7 @@ import { Objetivos } from "../entity/Objetivos";
 
 export default class EntradasSaidasRepository {
 
-    async insertMovimentosEntradasSaidas() {
+    async insertObjetivos(objetivos: Objetivos) {
 
         const contaRetorno = new Contas()
         const retornoObjetivos = new Objetivos()
@@ -13,7 +13,6 @@ export default class EntradasSaidasRepository {
         let salvarObjetivos: any
         let updadeContas: any
 
-        
         const connection = getConnection();
         const queryRunner = connection.createQueryRunner();
         await queryRunner.connect();
@@ -21,6 +20,7 @@ export default class EntradasSaidasRepository {
 
         try {
 
+            salvarObjetivos = await queryRunner.manager.save(Objetivos, objetivos)
 
             await queryRunner.commitTransaction();
         } catch (err) {
@@ -34,11 +34,6 @@ export default class EntradasSaidasRepository {
 
         if (salvarObjetivos) {
 
-            contaRetorno.id = updadeContas.id
-            contaRetorno.nomeConta = updadeContas.nomeConta
-            contaRetorno.valorConta = updadeContas.valorConta
-
-
             retornoObjetivos.id = salvarObjetivos.id
             retornoObjetivos.nomeObjetivos = salvarObjetivos.nomeObjetivos
             retornoObjetivos.valorObjetivos = salvarObjetivos.valorObjetivos
@@ -50,9 +45,10 @@ export default class EntradasSaidasRepository {
         }
 
 
+        return retornoObjetivos
     };
 
-    async buscarMovimentosId() {
+    async buscarObjetivosId() {
 
 
 
