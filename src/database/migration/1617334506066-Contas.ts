@@ -36,6 +36,12 @@ export class Contas1617334506066 implements MigrationInterface {
                         isNullable: false,
                         default: 100
                     },
+                    {
+                        name: 'qtd_pontos_usados',
+                        type: 'int',
+                        isNullable: false,
+                        default: 0
+                    },
 
                     {
                         name: 'contador_movimento',

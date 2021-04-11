@@ -33,6 +33,14 @@ export class Contas {
     })
     qtdPontos: number
 
+    @Column ({
+        name: 'qtd_pontos_usados',
+        type: 'int',
+        nullable: false,
+        default: 0
+    })
+    qtdPontosUsados: number
+
     @Column({
         name: 'contador_movimento',
         type: 'int',

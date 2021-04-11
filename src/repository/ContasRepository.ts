@@ -4,8 +4,8 @@ import { Usuarios } from "../entity/Usuarios";
 
 export default class ContasRepository {
 
-   readonly contas = new Contas
-   readonly usuarios = new Usuarios
+    contas = new Contas
+    usuarios = new Usuarios
 
 
    async buscarAllContasRpository(userId: number) {
@@ -22,6 +22,7 @@ export default class ContasRepository {
             this.contas.nomeConta = item.nomeConta
             this.contas.valorConta = item.valorConta
             this.contas.qtdPontos = item.qtdPontos
+            this.contas.qtdPontosUsados= item.qtdPontosUsados
             this.contas.contadorMovimento = item.contadorMovimento
             this.contas.ativo = item.ativo
 
@@ -37,8 +38,7 @@ export default class ContasRepository {
       }
    }
 
-
-   async buscarSaldoContasRpository(id: number) {
+   async buscarSaldoContasRpository(id: number) : Promise<Contas> {
 
       try {
          const contasRepository = getManager();
@@ -47,12 +47,17 @@ export default class ContasRepository {
          this.contas.id = buscarContasId.id
          this.contas.nomeConta = buscarContasId.nomeConta
          this.contas.valorConta = buscarContasId.valorConta
+         this.contas.qtdPontos = buscarContasId.qtdPontos
+         this.contas.qtdPontosUsados = buscarContasId.qtdPontosUsados
 
-         return this.contas
+         
+
       } catch (e) {
-         return e
+        console.log( e)
       }
+      return this.contas
    }
+
 
 
    async insertConta(conta: Contas) {

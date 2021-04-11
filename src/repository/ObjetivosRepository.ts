@@ -5,7 +5,7 @@ import { Objetivos } from "../entity/Objetivos";
 
 export default class EntradasSaidasRepository {
 
-    async insertObjetivos(objetivos: Objetivos) {
+    async insertObjetivos(objetivos: Objetivos, contas: Contas) {
 
         const contaRetorno = new Contas()
         const retornoObjetivos = new Objetivos()
@@ -20,7 +20,10 @@ export default class EntradasSaidasRepository {
 
         try {
 
-            salvarObjetivos = await queryRunner.manager.save(Objetivos, objetivos)
+            updadeContas = await queryRunner.manager
+                .save(Contas, contas)
+            salvarObjetivos = await queryRunner.manager
+                .save(Objetivos, objetivos)
 
             await queryRunner.commitTransaction();
         } catch (err) {
@@ -34,12 +37,18 @@ export default class EntradasSaidasRepository {
 
         if (salvarObjetivos) {
 
+            contaRetorno.id = updadeContas.id
+            contaRetorno.nomeConta = updadeContas.nomeConta
+            contaRetorno.valorConta = updadeContas.valorConta
+            contaRetorno.qtdPontos = updadeContas.qtdPontos
+            contaRetorno.qtdPontosUsados = updadeContas.qtdPontosUsados
+
             retornoObjetivos.id = salvarObjetivos.id
             retornoObjetivos.nomeObjetivos = salvarObjetivos.nomeObjetivos
             retornoObjetivos.valorObjetivos = salvarObjetivos.valorObjetivos
             retornoObjetivos.pontos = salvarObjetivos.pontos
             retornoObjetivos.dataPrevistaObjetivos = salvarObjetivos.dataPrevistaObjetivos
-
+            retornoObjetivos.contasIdFK = contaRetorno
 
 
         }

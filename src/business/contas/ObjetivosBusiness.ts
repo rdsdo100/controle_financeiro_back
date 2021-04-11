@@ -1,20 +1,42 @@
+import { Contas } from "../../entity/Contas";
 import { Objetivos } from "../../entity/Objetivos";
+import ContasRepository from "../../repository/ContasRepository";
 import ObjetivosRepository from "../../repository/ObjetivosRepository";
 
 export default class ObjetivosBusiness {
 
-     objetivosRepository = new ObjetivosRepository()
+    objetivosRepository = new ObjetivosRepository()
+    contasRepsitory = new ContasRepository()
     async inedx() {
 
 
-     }
+    }
 
-    
-    async cadastroObjetivos(objetivos: Objetivos) : Promise<Objetivos> {
-const  retorno = await this.objetivosRepository.insertObjetivos(objetivos)
+
+  
+       
+
+    async cadastroObjetivos(objetivos: Objetivos) /*: Promise<Objetivos> */ {
+
+        let contas = await this.contasRepsitory.buscarSaldoContasRpository(objetivos.contasIdFK.id)
 
         
-        return retorno
+
+            if ((contas.qtdPontosUsados >= 0) &&
+                (contas.qtdPontosUsados <= contas.qtdPontos) &&
+                (contas.qtdPontos >= objetivos.pontos)
+            ) {
+                contas.qtdPontosUsados = contas.qtdPontosUsados + objetivos.pontos
+            }
+      
+       
+
+
+        const retornoObjetivos = await this.objetivosRepository.insertObjetivos(objetivos, contas)
+
+
+        return retornoObjetivos
+
     }
 
 
