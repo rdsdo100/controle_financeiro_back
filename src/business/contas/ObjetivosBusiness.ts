@@ -14,7 +14,19 @@ export default class ObjetivosBusiness {
 
 
   
-       
+       async buscarObjetivosAll(){}
+
+       async concluirObjetivos(){}
+
+       async updateObjetivosAll(){}
+
+       async deleteObjetivosAll(){}
+
+       async buscarObjetivosId(idObjetivos: number){}
+
+       async buscarAllObjetivosContasId(idConta: number){}
+      
+
 
     async cadastroObjetivos(objetivos: Objetivos) /*: Promise<Objetivos> */ {
 

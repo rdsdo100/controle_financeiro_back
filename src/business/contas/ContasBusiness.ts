@@ -16,5 +16,9 @@ async index (){
         return await this.contasRepository.insertConta(conta)
     }
 
+    async deleteConta(){}
+    
+    async updateConta(){}
+
 
 }

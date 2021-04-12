@@ -1,4 +1,4 @@
-import { ClassMiddleware, Controller, Get, Post } from "@overnightjs/core";
+import { ClassMiddleware, Controller, Delete, Get, Post, Put } from "@overnightjs/core";
 import { decodificar } from "../../config/Jwt";
 import { Request, Response } from 'express'
 import { Objetivos } from "../../entity/Objetivos";
@@ -11,10 +11,10 @@ import ObjetivosBusiness from "../../business/contas/ObjetivosBusiness";
 @ClassMiddleware([decodificar])
 export default class ObjetivosController {
 
-readonly objetivosBusiness = new ObjetivosBusiness
+    readonly objetivosBusiness = new ObjetivosBusiness
 
     @Get()
-    async inedx(request: Request, response: Response) { 
+    async inedx(request: Request, response: Response) {
         const retorno = await this.objetivosBusiness.inedx()
 
         return response.status(200).json(retorno)
@@ -38,7 +38,19 @@ readonly objetivosBusiness = new ObjetivosBusiness
 
         return response.status(200).json(retorno)
 
-
     }
+    @Put()
+    async updateObjetivosAll(request: Request, response: Response) { }
+    
+    @Delete()
+    async deleteObjetivosAll(request: Request, response: Response) { }
+
+    async buscarObjetivosAll(request: Request, response: Response) { }
+
+    async concluirObjetivos(request: Request, response: Response) { }
+
+    async buscarObjetivosId(request: Request, response: Response) { }
+
+    async buscarAllObjetivosContasId(request: Request, response: Response) { }
 
 }

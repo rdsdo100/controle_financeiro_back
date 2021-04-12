@@ -1,4 +1,4 @@
-import { ClassMiddleware, Controller, Get, Post } from "@overnightjs/core";
+import { ClassMiddleware, Controller, Delete, Get, Post, Put } from "@overnightjs/core";
 import ContasBusiness from "../../business/contas/ContasBusiness";
 import { decodificar } from "../../config/Jwt";
 import { Contas } from "../../entity/Contas";
@@ -8,10 +8,8 @@ import { Usuarios } from "../../entity/Usuarios";
 @Controller('conta')
 @ClassMiddleware([decodificar])
 export default class ContasController {
-
     
     readonly contasBusiness = new ContasBusiness
-
 
     @Get()
     async index(request: Request, response: Response) {
@@ -22,7 +20,6 @@ export default class ContasController {
 
     @Post()
     async cadastrarContas(request: Request, response: Response) {
-
 
         const contas = new Contas
         const usuarios = new Usuarios
@@ -36,4 +33,10 @@ export default class ContasController {
         return response.status(200).json(retorno)
 
     }
+
+    @Delete()
+    async deleteMovimentacao(request: Request, response: Response){}
+    
+    @Put()
+    async updateMovimentacao(request: Request, response: Response){}
 }

@@ -45,6 +45,12 @@ export class Objetivos1617334553058 implements MigrationInterface {
                     },
 
                     {
+                        name: 'finalizado',
+                        type: 'boolean',
+                        isNullable: false
+                    },
+
+                    {
                         name: 'descricao',
                         type: 'varchar',
                         length: '500'

@@ -1,4 +1,4 @@
-import {Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Contas } from "./Contas";
 
 @Entity()
@@ -6,11 +6,11 @@ export class Objetivos {
     @PrimaryGeneratedColumn()
     id: number;
 
-   @Column({
+    @Column({
         name: 'nome_objetivos',
         type: 'varchar',
         nullable: false,
-        
+
     })
     nomeObjetivos: string
 
@@ -26,7 +26,7 @@ export class Objetivos {
         type: 'int',
         nullable: false,
         default: 1
-    
+
     })
     pontos: number
 
@@ -39,14 +39,21 @@ export class Objetivos {
     dataPrevistaObjetivos: Date
 
     @Column({
+        name: 'finalizado',
+        type: 'boolean',
+        nullable: false
+    })
+    finalizado: boolean
+
+    @Column({
         name: 'descricao',
         type: 'varchar',
         length: '500'
-        
+
     })
     descricao: string
 
-    
+
     @ManyToOne(() => Contas, (contas) => contas.objetivos)
     @JoinColumn([{ name: 'contas_id_fk', referencedColumnName: 'id' }])
     contasIdFK: Contas;

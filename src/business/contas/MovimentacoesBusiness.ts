@@ -35,6 +35,11 @@ export default class MovimentacoesBusiness {
 
     }
 
+    async deleteMovimentacao(){}
+    
+    async updateMovimentacao(){}
+
+
     async moviementacaoConta(movimentacoes: Movimentacoes) {
 
         const contas: Contas = await this.contasRepository
