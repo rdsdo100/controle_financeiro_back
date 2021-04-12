@@ -62,15 +62,11 @@ export default class EntradasSaidasRepository {
 
         let buscarMovimentos: any
 
-
         try {
             buscarMovimentos = await createQueryBuilder("Movimentacoes")
                 .leftJoinAndSelect('Movimentacoes.contasIdFK', 'contas')
-                // .leftJoin('Atendimentos.usuariosIdFK', 'usuarioId')
                 .where('Movimentacoes.id = :id', { id: movimentosId })
                 .getOne()
-
-
 
             if (buscarMovimentos) {
 
@@ -159,5 +155,3 @@ export default class EntradasSaidasRepository {
     };
 
 }
-
-

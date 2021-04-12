@@ -45,7 +45,11 @@ export default class ObjetivosController {
     @Delete()
     async deleteObjetivosAll(request: Request, response: Response) { }
 
-    async buscarObjetivosAll(request: Request, response: Response) { }
+    async buscarObjetivosAll(request: Request, response: Response) { 
+
+return this.objetivosBusiness.buscarObjetivosAll()
+
+    }
 
     async concluirObjetivos(request: Request, response: Response) { }
 

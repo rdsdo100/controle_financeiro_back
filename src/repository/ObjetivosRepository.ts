@@ -1,4 +1,4 @@
-import { getConnection } from "typeorm";
+import { createQueryBuilder, getConnection, QueryBuilder } from "typeorm";
 import { Contas } from "../entity/Contas";
 import { Objetivos } from "../entity/Objetivos";
 
@@ -76,6 +76,44 @@ export default class EntradasSaidasRepository {
 
 
     };
+
+
+    async buscarObjetivosAll() {
+        const contaRetorno = new Contas()
+        const retornoObjetivos = new Objetivos()
+        let listRetornoObjetivos: Objetivos[]
+
+        let buscarObjetivos: any
+
+        buscarObjetivos = await createQueryBuilder("Objetivos")
+            .leftJoinAndSelect('Objetivos.contasIdFK', 'contas')
+            .getMany()
+
+        listRetornoObjetivos = buscarObjetivos.map((item: any) => {
+
+            contaRetorno.id = item.contasIdFK.id
+            contaRetorno.nomeConta = item.contasIdFK.nomeConta
+            contaRetorno.valorConta = item.contasIdFK.valorConta
+            contaRetorno.qtdPontos = item.contasIdFK.qtdPontos
+            contaRetorno.qtdPontosUsados = item.contasIdFK.qtdPontosUsados
+
+            retornoObjetivos.id = item.id
+            retornoObjetivos.nomeObjetivos = item.nomeObjetivos
+            retornoObjetivos.valorObjetivos = item.valorObjetivos
+            retornoObjetivos.pontos = item.pontos
+            retornoObjetivos.dataPrevistaObjetivos = item.dataPrevistaObjetivos
+            retornoObjetivos.contasIdFK = contaRetorno
+
+            return retornoObjetivos
+
+        })
+
+
+        return listRetornoObjetivos
+
+
+
+    }
 
 
 
