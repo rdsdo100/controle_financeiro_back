@@ -50,7 +50,7 @@ export default class ObjetivosController {
 
         const idUsuario: number = Number(request.body.decoded.id)
 
-       const retorno =  await this.objetivosBusiness.buscarObjetivosAll(idUsuario)
+        const retorno = await this.objetivosBusiness.buscarObjetivosAll(idUsuario)
         return response.status(200).json(retorno)
 
     }

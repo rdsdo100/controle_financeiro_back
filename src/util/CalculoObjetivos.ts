@@ -12,11 +12,11 @@ export interface IRespostaCalculoObjetivos {
 
 }
 
-export default class calculoObjetivos {
+export default class CalculoObjetivos {
 
 
-    valorPontoConta(conta: Contas): number {
-        return conta.valorConta / conta.qtdPontos
+    valorPontoConta(objetivos: Objetivos): number {
+        return objetivos.contasIdFK.valorConta / objetivos.contasIdFK.qtdPontos
 
     }
     valorPontosMetas(objetivos: Objetivos): number {
@@ -24,37 +24,37 @@ export default class calculoObjetivos {
     }
 
 
-    valorFaltando(objetivos: Objetivos, conta: Contas): number {
-        const valorPontosConta : number = this.valorPontoConta(conta)
+    valorFaltando(objetivos: Objetivos): number {
+        const valorPontosConta : number = this.valorPontoConta(objetivos)
         return objetivos.valorObjetivos - (valorPontosConta * objetivos.pontos)
 
     }
 
-    porcentagmAtingida(objetivos: Objetivos, conta: Contas): number {
+    porcentagmAtingida(objetivos: Objetivos): number {
 
-        const valorFaltanto : number = this.valorFaltando(objetivos, conta)
+        const valorFaltanto : number = this.valorFaltando(objetivos)
 
         return (valorFaltanto * 100) / objetivos.valorObjetivos
 
     }
 
-    porcentagmFaltanto(objetivos: Objetivos, conta: Contas): number {
+    porcentagmFaltanto(objetivos: Objetivos): number {
 
-        const porcentagmAtingida : number = this.porcentagmAtingida(objetivos, conta)
+        const porcentagmAtingida : number = this.porcentagmAtingida(objetivos)
 
         return 100 - porcentagmAtingida
 
     }
 
-    CalculoResposta(objetivos: Objetivos, conta: Contas): IRespostaCalculoObjetivos {
+    calculoResposta(objetivos: Objetivos): IRespostaCalculoObjetivos {
      
         const respostas: IRespostaCalculoObjetivos = {
 
-            valorPontoConta: this.valorPontoConta(conta),
+            valorPontoConta: this.valorPontoConta(objetivos),
             valorPontosMetas: this.valorPontosMetas(objetivos),
-            valorFaltando: this.valorFaltando(objetivos, conta),
-            porcentagmAtingida: this.porcentagmAtingida(objetivos, conta),
-            porcentagmFaltanto: this.porcentagmFaltanto(objetivos, conta),
+            valorFaltando: this.valorFaltando(objetivos),
+            porcentagmAtingida: this.porcentagmAtingida(objetivos),
+            porcentagmFaltanto: this.porcentagmFaltanto(objetivos),
         }
 
         return respostas

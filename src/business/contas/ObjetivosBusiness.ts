@@ -1,13 +1,25 @@
 import { Objetivos } from "../../entity/Objetivos";
 import ContasRepository from "../../repository/ContasRepository";
 import ObjetivosRepository from "../../repository/ObjetivosRepository";
+import CalculoObjetivos, { IRespostaCalculoObjetivos } from "../../util/CalculoObjetivos";
+
+
+
+export interface IObjetivosCalculados {
+    objetivo : Objetivos
+    cauculos: IRespostaCalculoObjetivos
+    
+}
 
 export default class ObjetivosBusiness {
 
     objetivosRepository = new ObjetivosRepository()
     contasRepsitory = new ContasRepository()
+    calculoObjetivos = new CalculoObjetivos()
+    
     async inedx () {
 
+        
 
     }
 
@@ -15,7 +27,23 @@ export default class ObjetivosBusiness {
 
     async buscarObjetivosAll(idUsuario: number) {
 
-        const listObjetivosRepository = this.objetivosRepository.buscarObjetivosAll(idUsuario)
+        const listObjetivosRepository = await this.objetivosRepository.buscarObjetivosAll(idUsuario)
+
+        let  calculoObjetivo = new CalculoObjetivos()
+        
+
+        let  listResposrCalculadas  =   listObjetivosRepository.map((item : Objetivos) =>{
+let retorno = {
+    objeto : item ,
+     calculoResposta:  this.calculoObjetivos.calculoResposta(item)
+
+}
+
+
+return retorno
+
+        })
+
 
         return listObjetivosRepository
 
