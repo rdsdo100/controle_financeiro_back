@@ -78,7 +78,7 @@ export default class EntradasSaidasRepository {
     };
 
 
-    async buscarObjetivosAll() {
+    async buscarObjetivosAll(idUsuario: number) {
         const contaRetorno = new Contas()
         const retornoObjetivos = new Objetivos()
         let listRetornoObjetivos: Objetivos[]
@@ -87,6 +87,8 @@ export default class EntradasSaidasRepository {
 
         buscarObjetivos = await createQueryBuilder("Objetivos")
             .leftJoinAndSelect('Objetivos.contasIdFK', 'contas')
+            .leftJoin("contas.usuariosIdFK" , "user")
+            .where("user.id = :id" , {id : idUsuario})
             .getMany()
 
         listRetornoObjetivos = buscarObjetivos.map((item: any) => {

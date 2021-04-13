@@ -41,13 +41,17 @@ export default class ObjetivosController {
     }
     @Put()
     async updateObjetivosAll(request: Request, response: Response) { }
-    
+
     @Delete()
     async deleteObjetivosAll(request: Request, response: Response) { }
 
-    async buscarObjetivosAll(request: Request, response: Response) { 
+    @Get('all')
+    async buscarObjetivosAll(request: Request, response: Response) {
 
-return this.objetivosBusiness.buscarObjetivosAll()
+        const idUsuario: number = Number(request.body.decoded.id)
+
+       const retorno =  await this.objetivosBusiness.buscarObjetivosAll(idUsuario)
+        return response.status(200).json(retorno)
 
     }
 

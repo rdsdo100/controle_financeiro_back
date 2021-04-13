@@ -6,16 +6,16 @@ export default class ObjetivosBusiness {
 
     objetivosRepository = new ObjetivosRepository()
     contasRepsitory = new ContasRepository()
-    async inedx() {
+    async inedx () {
 
 
     }
 
 
 
-    async buscarObjetivosAll() {
+    async buscarObjetivosAll(idUsuario: number) {
 
-        const listObjetivosRepository = this.objetivosRepository.buscarObjetivosAll()
+        const listObjetivosRepository = this.objetivosRepository.buscarObjetivosAll(idUsuario)
 
         return listObjetivosRepository
 
