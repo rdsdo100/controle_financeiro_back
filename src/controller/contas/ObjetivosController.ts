@@ -31,7 +31,13 @@ export default class ObjetivosController {
 
     }
     @Get(":id")
-    async buscarObjetivosId(request: Request, response: Response) { }
+    async buscarObjetivosId(request: Request, response: Response) { 
+
+        const idDelete : number = Number(request.params.id)
+        const idUsuario: number = Number(request.body.decoded.id)
+        const retorno = this.objetivosBusiness.deleteObjetivos(idDelete , idUsuario)
+
+    }
 
     @Get('contas')
     async buscarAllObjetivosContasId(request: Request, response: Response) { }
@@ -46,7 +52,7 @@ export default class ObjetivosController {
         objetivos.pontos = Number(request.body.pontos)
         objetivos.descricao = String(request.body.descricao)
         objetivos.dataPrevistaObjetivos = new Date(String(request.body.dataPrevistaObjetivos))
-        conta.id = Number(request.body.contaIdi)
+        conta.id = Number(request.body.contaId)
         objetivos.contasIdFK = conta
 
         const retorno = await this.objetivosBusiness.cadastroObjetivos(objetivos)

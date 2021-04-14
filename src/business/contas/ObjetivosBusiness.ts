@@ -38,7 +38,10 @@ export default class ObjetivosBusiness {
 
     async updateObjetivosAll() { }
 
-    async deleteObjetivosAll() { }
+    async deleteObjetivos(idDelete: number , idUsuario : number) {
+
+        
+     }
 
     async buscarObjetivosId(idObjetivos: number) { }
 
