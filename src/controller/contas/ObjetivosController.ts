@@ -21,6 +21,21 @@ export default class ObjetivosController {
 
     }
 
+    @Get('all')
+    async buscarObjetivosAll(request: Request, response: Response) {
+
+        const idUsuario: number = Number(request.body.decoded.id)
+
+        const retorno = await this.objetivosBusiness.buscarObjetivosAll(idUsuario)
+        return response.status(200).json(retorno)
+
+    }
+    @Get(":id")
+    async buscarObjetivosId(request: Request, response: Response) { }
+
+    @Get('contas')
+    async buscarAllObjetivosContasId(request: Request, response: Response) { }
+
     @Post()
     async cadastroObjetivos(request: Request, response: Response) {
 
@@ -39,26 +54,15 @@ export default class ObjetivosController {
         return response.status(200).json(retorno)
 
     }
+
+    @Post('concluir')
+    async concluirObjetivos(request: Request, response: Response) { }
+
     @Put()
     async updateObjetivosAll(request: Request, response: Response) { }
 
     @Delete()
     async deleteObjetivosAll(request: Request, response: Response) { }
 
-    @Get('all')
-    async buscarObjetivosAll(request: Request, response: Response) {
-
-        const idUsuario: number = Number(request.body.decoded.id)
-
-        const retorno = await this.objetivosBusiness.buscarObjetivosAll(idUsuario)
-        return response.status(200).json(retorno)
-
-    }
-
-    async concluirObjetivos(request: Request, response: Response) { }
-
-    async buscarObjetivosId(request: Request, response: Response) { }
-
-    async buscarAllObjetivosContasId(request: Request, response: Response) { }
 
 }

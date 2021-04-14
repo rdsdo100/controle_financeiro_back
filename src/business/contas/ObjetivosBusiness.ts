@@ -3,8 +3,6 @@ import ContasRepository from "../../repository/ContasRepository";
 import ObjetivosRepository from "../../repository/ObjetivosRepository";
 import CalculoObjetivos, { IRespostaCalculoObjetivos } from "../../util/CalculoObjetivos";
 
-
-
 export interface IObjetivosCalculados {
     objetivo?: Objetivos
     cauculos: IRespostaCalculoObjetivos
@@ -17,13 +15,7 @@ export default class ObjetivosBusiness {
     contasRepsitory = new ContasRepository()
     calculoObjetivos = new CalculoObjetivos()
 
-    async inedx() {
-
-
-
-    }
-
-
+    async inedx() {}
 
     async buscarObjetivosAll(idUsuario: number) {
 
@@ -32,13 +24,11 @@ export default class ObjetivosBusiness {
         let listResposrCalculadas = listObjetivosRepository.map(item => {
 
             return {
-                item,
+                objetivos : item,
                 calculoResposta: this.calculoObjetivos.calculoResposta(item)
-
             }
 
         })
-
 
         return listResposrCalculadas
 
@@ -54,13 +44,9 @@ export default class ObjetivosBusiness {
 
     async buscarAllObjetivosContasId(idConta: number) { }
 
-
-
     async cadastroObjetivos(objetivos: Objetivos) /*: Promise<Objetivos> */ {
 
         let contas = await this.contasRepsitory.buscarSaldoContasRpository(objetivos.contasIdFK.id)
-
-
 
         if ((contas.qtdPontosUsados >= 0) &&
             (contas.qtdPontosUsados <= contas.qtdPontos) &&
@@ -69,11 +55,7 @@ export default class ObjetivosBusiness {
             contas.qtdPontosUsados = contas.qtdPontosUsados + objetivos.pontos
         }
 
-
-
-
         const retornoObjetivos = await this.objetivosRepository.insertObjetivos(objetivos, contas)
-
 
         return retornoObjetivos
 
