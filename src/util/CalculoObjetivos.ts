@@ -1,5 +1,3 @@
-
-import { Contas } from "../entity/Contas"
 import { Objetivos } from "../entity/Objetivos"
 
 export interface IRespostaCalculoObjetivos {
@@ -14,47 +12,57 @@ export interface IRespostaCalculoObjetivos {
 
 export default class CalculoObjetivos {
 
+    arrendondar(numero: number): number {
+        if(numero < 0 ){
+            numero = 0
+        }
+        return Number(numero.toFixed(3))
+    }
 
     valorPontoConta(objetivos: Objetivos): number {
-        return objetivos.contasIdFK.valorConta / objetivos.contasIdFK.qtdPontos
+        let resposta = objetivos.contasIdFK.valorConta / objetivos.contasIdFK.qtdPontos
+        return this.arrendondar(resposta)
 
     }
     valorPontosMetas(objetivos: Objetivos): number {
-        return objetivos.valorObjetivos / objetivos.pontos
+        let resposta = objetivos.valorObjetivos / objetivos.pontos
+        return this.arrendondar(resposta)
     }
 
 
     valorFaltando(objetivos: Objetivos): number {
-        const valorPontosConta : number = this.valorPontoConta(objetivos)
-        return objetivos.valorObjetivos - (valorPontosConta * objetivos.pontos)
-
-    }
-
-    porcentagmAtingida(objetivos: Objetivos): number {
-
-        const valorFaltanto : number = this.valorFaltando(objetivos)
-
-        return (valorFaltanto * 100) / objetivos.valorObjetivos
+        const valorPontosConta: number = this.valorPontoConta(objetivos)
+        let resposta = objetivos.valorObjetivos - (valorPontosConta * objetivos.pontos)
+        return this.arrendondar(resposta)
 
     }
 
     porcentagmFaltanto(objetivos: Objetivos): number {
 
-        const porcentagmAtingida : number = this.porcentagmAtingida(objetivos)
+        const valorFaltanto: number = this.valorFaltando(objetivos)
+        let resposta = (valorFaltanto * 100) / objetivos.valorObjetivos
+        return this.arrendondar(resposta)
 
-        return 100 - porcentagmAtingida
+    }
+
+    porcentagmAtingida(objetivos: Objetivos): number {
+
+        const porcentagmAtingida: number = this.porcentagmFaltanto(objetivos)
+        let resposta = Number(100 - porcentagmAtingida)
+        return this.arrendondar(resposta)
 
     }
 
     calculoResposta(objetivos: Objetivos): IRespostaCalculoObjetivos {
-     
+
         const respostas: IRespostaCalculoObjetivos = {
 
             valorPontoConta: this.valorPontoConta(objetivos),
             valorPontosMetas: this.valorPontosMetas(objetivos),
             valorFaltando: this.valorFaltando(objetivos),
-            porcentagmAtingida: this.porcentagmAtingida(objetivos),
             porcentagmFaltanto: this.porcentagmFaltanto(objetivos),
+            porcentagmAtingida: this.porcentagmAtingida(objetivos),
+
         }
 
         return respostas

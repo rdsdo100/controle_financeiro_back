@@ -6,9 +6,9 @@ import CalculoObjetivos, { IRespostaCalculoObjetivos } from "../../util/CalculoO
 
 
 export interface IObjetivosCalculados {
-    objetivo : Objetivos
+    objetivo?: Objetivos
     cauculos: IRespostaCalculoObjetivos
-    
+
 }
 
 export default class ObjetivosBusiness {
@@ -16,10 +16,10 @@ export default class ObjetivosBusiness {
     objetivosRepository = new ObjetivosRepository()
     contasRepsitory = new ContasRepository()
     calculoObjetivos = new CalculoObjetivos()
-    
-    async inedx () {
 
-        
+    async inedx() {
+
+
 
     }
 
@@ -29,23 +29,18 @@ export default class ObjetivosBusiness {
 
         const listObjetivosRepository = await this.objetivosRepository.buscarObjetivosAll(idUsuario)
 
-        let  calculoObjetivo = new CalculoObjetivos()
-        
+        let listResposrCalculadas = listObjetivosRepository.map((item: Objetivos) => {
 
-        let  listResposrCalculadas  =   listObjetivosRepository.map((item : Objetivos) =>{
-let retorno = {
-    objeto : item ,
-     calculoResposta:  this.calculoObjetivos.calculoResposta(item)
+            return {
+                item,
+                calculoResposta: this.calculoObjetivos.calculoResposta(item)
 
-}
-
-
-return retorno
+            }
 
         })
 
 
-        return listObjetivosRepository
+        return listResposrCalculadas
 
     }
 
