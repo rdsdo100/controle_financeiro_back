@@ -50,37 +50,25 @@ export default class EntradasSaidasRepository {
             retornoObjetivos.dataPrevistaObjetivos = salvarObjetivos.dataPrevistaObjetivos
             retornoObjetivos.contasIdFK = contaRetorno
 
-
         }
-
 
         return retornoObjetivos
     };
 
     async buscarObjetivosId() {
 
-
-
         try {
-
-
-
-
 
         } catch (e) {
             console.log(e)
         }
 
-
-
-
-
     };
 
 
     async buscarObjetivosAll(idUsuario: number) {
-        const contaRetorno = new Contas()
-        const retornoObjetivos = new Objetivos()
+       
+    
         let listRetornoObjetivos: Objetivos[]
 
         let buscarObjetivos: any
@@ -88,11 +76,15 @@ export default class EntradasSaidasRepository {
         buscarObjetivos = await createQueryBuilder("Objetivos")
             .leftJoinAndSelect('Objetivos.contasIdFK', 'contas')
             .leftJoin("contas.usuariosIdFK" , "user")
-            .where("user.id = :id" , {id : idUsuario})
+           .where("user.id = :id" , {id : idUsuario})
             .getMany()
 
-        listRetornoObjetivos = buscarObjetivos.map((item: any) => {
 
+
+        listRetornoObjetivos = buscarObjetivos.map((item: any) => {
+            let retornoObjetivos = new Objetivos()
+            let contaRetorno = new Contas()
+            
             contaRetorno.id = item.contasIdFK.id
             contaRetorno.nomeConta = item.contasIdFK.nomeConta
             contaRetorno.valorConta = item.contasIdFK.valorConta

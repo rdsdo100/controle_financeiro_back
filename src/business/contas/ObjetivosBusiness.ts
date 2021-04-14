@@ -29,7 +29,7 @@ export default class ObjetivosBusiness {
 
         const listObjetivosRepository = await this.objetivosRepository.buscarObjetivosAll(idUsuario)
 
-        let listResposrCalculadas = listObjetivosRepository.map((item: Objetivos) => {
+        let listResposrCalculadas = listObjetivosRepository.map(item => {
 
             return {
                 item,
