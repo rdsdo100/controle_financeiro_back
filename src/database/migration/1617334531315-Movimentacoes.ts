@@ -40,6 +40,14 @@ export class Movimentacoes1617334531315 implements MigrationInterface {
                         
                     },
 
+
+                    {
+                        name: 'valor_conta_anterior',
+                        type: 'NUMERIC(8,2)',
+                        isNullable: false,
+                        default: 0
+                    },
+
                     {
                         name: 'valor_movimento',
                         type: 'NUMERIC(8,2)',

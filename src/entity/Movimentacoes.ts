@@ -1,4 +1,4 @@
-import {Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Contas } from "./Contas";
 
 @Entity()
@@ -11,8 +11,8 @@ export class Movimentacoes {
         name: 'nome_movimentacoes',
         type: 'varchar',
         length: '60',
-    nullable: false,
-    
+        nullable: false,
+
     })
     nomeMovimentacoes: string
 
@@ -20,21 +20,30 @@ export class Movimentacoes {
         name: 'tipo_entrada',
         type: 'boolean',
         nullable: false,
-        
-    })
-    tipoEntrada : boolean
-  
-    
 
-    @Column( {
+    })
+    tipoEntrada: boolean
+
+
+
+    @Column({
         name: 'descricao',
         type: 'varchar',
         length: '500'
-        
+
     })
     descricao: string
 
-    @Column( {
+
+    @Column({
+        name: 'valor_conta_anterior',
+        type: 'numeric',
+        nullable: false,
+        default: 0
+    })
+    valorContaAnterior: number
+
+    @Column({
         name: 'valor_movimento',
         type: 'numeric',
         nullable: false
@@ -45,20 +54,20 @@ export class Movimentacoes {
     @Column({
         name: 'estorno',
         type: 'boolean',
-       default: false
+        default: false
     })
-    estorno : boolean
-    
+    estorno: boolean
+
     @Column({
         name: 'data_estorno',
         type: 'date',
-        nullable: true 
+        nullable: true
     })
     dataEstorno: Date
-    
+
     @Column({
         name: 'data_movimento',
-        type: 'date', 
+        type: 'date',
     })
     dataMovimento: Date
 
