@@ -1,11 +1,12 @@
-import { getManager } from "typeorm";
+import { getConnection, getManager } from "typeorm";
 import { Contas } from "../entity/Contas";
+import { Objetivos } from "../entity/Objetivos";
 import { Usuarios } from "../entity/Usuarios";
 
 export default class ContasRepository {
 
-    contas = new Contas
-    usuarios = new Usuarios
+   contas = new Contas
+   usuarios = new Usuarios
 
 
    async buscarAllContasRpository(userId: number) {
@@ -14,7 +15,7 @@ export default class ContasRepository {
       try {
          this.usuarios.id = userId
          const contasRepository = getManager();
-         const buscarContas: any = await contasRepository.find(Contas , {usuariosIdFK : this.usuarios});
+         const buscarContas: any = await contasRepository.find(Contas, { usuariosIdFK: this.usuarios });
 
          const ListContas = buscarContas.map((item: any) => {
 
@@ -22,7 +23,7 @@ export default class ContasRepository {
             this.contas.nomeConta = item.nomeConta
             this.contas.valorConta = item.valorConta
             this.contas.qtdPontos = item.qtdPontos
-            this.contas.qtdPontosUsados= item.qtdPontosUsados
+            this.contas.qtdPontosUsados = item.qtdPontosUsados
             this.contas.contadorMovimento = item.contadorMovimento
             this.contas.ativo = item.ativo
 
@@ -38,7 +39,7 @@ export default class ContasRepository {
       }
    }
 
-   async buscarSaldoContasRpository(id: number) : Promise<Contas> {
+   async buscarSaldoContasRpository(id: number): Promise<Contas> {
 
       try {
          const contasRepository = getManager();
@@ -50,10 +51,10 @@ export default class ContasRepository {
          this.contas.qtdPontos = buscarContasId.qtdPontos
          this.contas.qtdPontosUsados = buscarContasId.qtdPontosUsados
 
-         
+
 
       } catch (e) {
-        console.log( e)
+         console.log(e)
       }
       return this.contas
    }
@@ -85,6 +86,7 @@ export default class ContasRepository {
    }
 
 
+   
 
 
 }

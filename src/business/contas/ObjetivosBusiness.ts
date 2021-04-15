@@ -39,11 +39,17 @@ export default class ObjetivosBusiness {
     async updateObjetivosAll() { }
 
     async deleteObjetivos(idDelete: number , idUsuario : number) {
-
-        
+ 
+        const retorno: string = await this.objetivosRepository.deleteObjetivosId(idDelete , idUsuario )
+       return retorno 
      }
 
-    async buscarObjetivosId(idObjetivos: number) { }
+    async buscarObjetivosId(idObjetivos: number , idUsuario : number) {
+
+const retorno = await this.objetivosRepository.buscarObjetivosId(idObjetivos , idUsuario )
+return retorno
+
+     }
 
     async buscarAllObjetivosContasId(idConta: number) { }
 
@@ -63,6 +69,5 @@ export default class ObjetivosBusiness {
         return retornoObjetivos
 
     }
-
 
 }

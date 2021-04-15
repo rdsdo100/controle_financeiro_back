@@ -5,8 +5,6 @@ import { Objetivos } from "../../entity/Objetivos";
 import { Contas } from "../../entity/Contas";
 import ObjetivosBusiness from "../../business/contas/ObjetivosBusiness";
 
-
-
 @Controller('objetivo')
 @ClassMiddleware([decodificar])
 export default class ObjetivosController {
@@ -32,11 +30,11 @@ export default class ObjetivosController {
     }
     @Get(":id")
     async buscarObjetivosId(request: Request, response: Response) { 
-
-        const idDelete : number = Number(request.params.id)
+        const idObjetivos : number = Number(request.params.id)
         const idUsuario: number = Number(request.body.decoded.id)
-        const retorno = this.objetivosBusiness.deleteObjetivos(idDelete , idUsuario)
 
+        const retorno = await this.objetivosBusiness.buscarObjetivosId(idObjetivos , idUsuario)
+      return response.status(200).json(retorno)
     }
 
     @Get('contas')
@@ -67,8 +65,14 @@ export default class ObjetivosController {
     @Put()
     async updateObjetivosAll(request: Request, response: Response) { }
 
-    @Delete()
-    async deleteObjetivosAll(request: Request, response: Response) { }
+    @Delete(":id")
+    async deleteObjetivosAll(request: Request, response: Response) { 
+        const idDelete : number = Number(request.params.id)
+        const idUsuario: number = Number(request.body.decoded.id)
+
+        const retorno: string = await this.objetivosBusiness.deleteObjetivos(idDelete , idUsuario)
+      return response.status(200).json(retorno)
+    }
 
 
 }
