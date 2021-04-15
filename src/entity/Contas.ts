@@ -1,4 +1,5 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import Bancos from "./Bancos";
 import { ContasAPagar } from "./ContasAPagar";
 import { Movimentacoes } from "./Movimentacoes";
 import { Objetivos } from "./Objetivos";
@@ -69,6 +70,12 @@ export class Contas {
     @JoinColumn([{ name: 'usuarios_id_fk', referencedColumnName: 'id' }])
     usuariosIdFK: Usuarios;
 
+
+    @ManyToOne(() => Bancos, (bancos) => bancos.contas)
+    @JoinColumn([{ name: 'bancos_id_fk', referencedColumnName: 'id' }])
+    bancosIdFK: Bancos;
+
+
     @OneToMany(() => ContasAPagar, (contasAPagar) => contasAPagar.contasIdFK)
     contasAPagar: ContasAPagar[];
 
@@ -77,5 +84,7 @@ export class Contas {
 
     @OneToMany(() => Objetivos, (objetivos) => objetivos.contasIdFK)
     objetivos: Objetivos[];
+
+    
 
 }

@@ -63,10 +63,26 @@ export default class ObjetivosController {
     async concluirObjetivos(request: Request, response: Response) { }
 
     @Put()
-    async updateObjetivosAll(request: Request, response: Response) { }
+    async updateObjetivosAll(request: Request, response: Response) {
+
+        const objetivos = new Objetivos()
+        const conta = new Contas()
+        objetivos.nomeObjetivos = String(request.body.nomeObjetivos)
+        objetivos.valorObjetivos = Number(request.body.valorObjetivos)
+        objetivos.pontos = Number(request.body.pontos)
+        objetivos.descricao = String(request.body.descricao)
+        objetivos.dataPrevistaObjetivos = new Date(String(request.body.dataPrevistaObjetivos))
+        conta.id = Number(request.body.contaId)
+        objetivos.contasIdFK = conta
+
+        const retorno = await this.objetivosBusiness.updateObjetivos(objetivos)
+
+        return response.status(200).json(retorno)
+
+     }
 
     @Delete(":id")
-    async deleteObjetivosAll(request: Request, response: Response) { 
+    async deleteObjetivos(request: Request, response: Response) { 
         const idDelete : number = Number(request.params.id)
         const idUsuario: number = Number(request.body.decoded.id)
 

@@ -36,7 +36,33 @@ export default class ObjetivosBusiness {
 
     async concluirObjetivos() { }
 
-    async updateObjetivosAll() { }
+    async updateObjetivos(objetivos: Objetivos) {
+
+/**
+ * {
+ *  {verificar se vai alterar a conta
+ *          devolver os pontos antes de alterar a conta
+ *                           verificar se vai alterar os pontos
+ *                           vrificar se tem pontos o suficiente  => sim   === alterar os pontos na conta 
+ *                                                            => não === não alterar
+ *  }
+ * 
+ * ======================================================================================================================
+ * 
+ *      
+ *  {verificar se vai alterar os pontos
+ *  vrificar se tem pontos o suficiente  => sim   === alterar os pontos na conta 
+ *                                       => não === não alterar
+ *  }
+ * }
+ * 
+ * 
+ *  */
+
+
+
+
+     }
 
     async deleteObjetivos(idDelete: number , idUsuario : number) {
  

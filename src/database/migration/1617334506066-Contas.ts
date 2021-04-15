@@ -65,6 +65,10 @@ export class Contas1617334506066 implements MigrationInterface {
                         name: 'usuarios_id_fk',
                         type: 'int',
                     },
+                    {
+                        name: 'bancos_id_fk',
+                        type: 'int',
+                    },
                 ]
             })
         )
@@ -78,6 +82,16 @@ export class Contas1617334506066 implements MigrationInterface {
                 name: 'contas_usuarios',
             }),
         );
+
+       await queryRunner.createForeignKey(
+            'contas',
+            new TableForeignKey({
+                columnNames: ['bancos_id_fk'],
+                referencedColumnNames: ['id'],
+                referencedTableName: 'bancos',
+                name: 'bancos_contas',
+            }),
+        )
     }
 
 
