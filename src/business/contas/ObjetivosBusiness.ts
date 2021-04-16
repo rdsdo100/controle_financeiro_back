@@ -43,17 +43,7 @@ export default class ObjetivosBusiness {
 
 
         if (objetivos.pontos !== buscarObjetivos?.pontos) {
-            let valor = Number(buscarObjetivos?.pontos) - objetivos.pontos
-
-            if (Number(buscarObjetivos?.pontos) > objetivos.pontos) {
-                valor = -(valor)
-            }
-
-            const qtdPontosUsados = contas.qtdPontosUsados + valor
-
-            if ((qtdPontosUsados <= contas.qtdPontos) && (qtdPontosUsados >= 0)) {
-                contas.qtdPontosUsados = qtdPontosUsados
-            }
+            
 
         }
 
