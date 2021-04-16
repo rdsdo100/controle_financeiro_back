@@ -67,6 +67,7 @@ export default class ObjetivosController {
 
         const objetivos = new Objetivos()
         const conta = new Contas()
+        const idUsuario: number = Number(request.body.decoded.id)
         objetivos.nomeObjetivos = String(request.body.nomeObjetivos)
         objetivos.valorObjetivos = Number(request.body.valorObjetivos)
         objetivos.pontos = Number(request.body.pontos)
@@ -75,7 +76,7 @@ export default class ObjetivosController {
         conta.id = Number(request.body.contaId)
         objetivos.contasIdFK = conta
 
-        const retorno = await this.objetivosBusiness.updateObjetivos(objetivos)
+        const retorno = await this.objetivosBusiness.updateObjetivos(objetivos ,idUsuario)
 
         return response.status(200).json(retorno)
 

@@ -15,7 +15,7 @@ export default class ObjetivosBusiness {
     contasRepsitory = new ContasRepository()
     calculoObjetivos = new CalculoObjetivos()
 
-    async inedx() {}
+    async inedx() { }
 
     async buscarObjetivosAll(idUsuario: number) {
 
@@ -24,7 +24,7 @@ export default class ObjetivosBusiness {
         let listResposrCalculadas = listObjetivosRepository.map(item => {
 
             return {
-                objetivos : item,
+                objetivos: item,
                 calculoResposta: this.calculoObjetivos.calculoResposta(item)
             }
 
@@ -36,46 +36,60 @@ export default class ObjetivosBusiness {
 
     async concluirObjetivos() { }
 
-    async updateObjetivos(objetivos: Objetivos) {
+    async updateObjetivos(objetivos: Objetivos, idUsuario: number) {
 
-/**
- * {
- *  {verificar se vai alterar a conta
- *          devolver os pontos antes de alterar a conta
- *                           verificar se vai alterar os pontos
- *                           vrificar se tem pontos o suficiente  => sim   === alterar os pontos na conta 
- *                                                            => não === não alterar
- *  }
- * 
- * ======================================================================================================================
- * 
- *      
- *  {verificar se vai alterar os pontos
- *  vrificar se tem pontos o suficiente  => sim   === alterar os pontos na conta 
- *                                       => não === não alterar
- *  }
- * }
- * 
- * 
- *  */
+        const contas = await this.contasRepsitory.buscarSaldoContasRpository(objetivos.contasIdFK.id)
+        const buscarObjetivos = await this.objetivosRepository.buscarObjetivosId(objetivos.id, idUsuario)
+
+
+        if (objetivos.pontos !== buscarObjetivos?.pontos) {
+            let valor = Number(buscarObjetivos?.pontos) - objetivos.pontos
+
+            if (Number(buscarObjetivos?.pontos) > objetivos.pontos) {
+                valor = -(valor)
+            }
+
+            const qtdPontosUsados = contas.qtdPontosUsados + valor
+
+            if ((qtdPontosUsados <= contas.qtdPontos) && (qtdPontosUsados >= 0)) {
+                contas.qtdPontosUsados = qtdPontosUsados
+            }
+
+        }
 
 
 
+        /* 
+         * {
+         *  {verificar se vai alterar a conta
+         *          devolver os pontos antes de alterar a conta
+         *                           verificar se vai alterar os pontos
+         *                           vrificar se tem pontos o suficiente  => sim   === alterar os pontos na conta 
+         *                                                            => não === não alterar
+         *  }
+         * 
+         * }
+         * 
+         * 
+         *  */
 
-     }
 
-    async deleteObjetivos(idDelete: number , idUsuario : number) {
- 
-        const retorno: string = await this.objetivosRepository.deleteObjetivosId(idDelete , idUsuario )
-       return retorno 
-     }
 
-    async buscarObjetivosId(idObjetivos: number , idUsuario : number) {
 
-const retorno = await this.objetivosRepository.buscarObjetivosId(idObjetivos , idUsuario )
-return retorno
+    }
 
-     }
+    async deleteObjetivos(idDelete: number, idUsuario: number) {
+
+        const retorno: string = await this.objetivosRepository.deleteObjetivosId(idDelete, idUsuario)
+        return retorno
+    }
+
+    async buscarObjetivosId(idObjetivos: number, idUsuario: number) {
+
+        const retorno = await this.objetivosRepository.buscarObjetivosId(idObjetivos, idUsuario)
+        return retorno
+
+    }
 
     async buscarAllObjetivosContasId(idConta: number) { }
 

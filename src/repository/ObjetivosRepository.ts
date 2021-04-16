@@ -68,7 +68,7 @@ export default class EntradasSaidasRepository {
 
 
             if (buscarObjetivos) {
-                
+
                 contaRetorno.id = buscarObjetivos.contasIdFK.id
                 contaRetorno.nomeConta = buscarObjetivos.contasIdFK.nomeConta
                 contaRetorno.valorConta = buscarObjetivos.contasIdFK.valorConta
@@ -148,7 +148,11 @@ export default class EntradasSaidasRepository {
                 .getOne()
 
             if (Number(verificarObjetivo?.id) === idDelete) {
+                await queryRunner.manager.update(Contas,
+                    Number(verificarObjetivo.contasIdFK.id),
+                    { qtdPontosUsados: Number(verificarObjetivo.contasIdFK.qtdPontosUsados - verificarObjetivo.pontos) })
                 await queryRunner.manager.delete(Objetivos, { id: Number(verificarObjetivo.id) })
+
             }
 
             await queryRunner.commitTransaction();
@@ -164,8 +168,8 @@ export default class EntradasSaidasRepository {
         return resposta
 
     }
-    
-    async updateObjeticos(objetivos : Objetivos , contas : Contas){
+
+    async updateObjeticos(objetivos: Objetivos, contas: Contas) {
 
         const contaRetorno = new Contas()
         const retornoObjetivos = new Objetivos()
