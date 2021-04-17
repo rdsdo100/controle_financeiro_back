@@ -53,6 +53,8 @@ export default class ObjetivosController {
         conta.id = Number(request.body.contaId)
         objetivos.contasIdFK = conta
 
+
+        
         const retorno = await this.objetivosBusiness.cadastroObjetivos(objetivos)
 
         return response.status(200).json(retorno)

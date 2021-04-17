@@ -4,6 +4,8 @@ import { decodificar } from "../../config/Jwt";
 import { Contas } from "../../entity/Contas";
 import { Request, Response } from "express";
 import { Usuarios } from "../../entity/Usuarios";
+import Bancos from "../../entity/Bancos";
+import { decode } from "jsonwebtoken";
 
 @Controller('conta')
 @ClassMiddleware([decodificar])
@@ -21,14 +23,19 @@ export default class ContasController {
     @Post()
     async cadastrarContas(request: Request, response: Response) {
 
-        const contas = new Contas
-        const usuarios = new Usuarios
+        const contas = new Contas()
+        const usuarios = new Usuarios()
+        const banco = new Bancos()
 
         contas.nomeConta = String(request.body.nomeConta)
         contas.qtdPontos = Number(request.body.qtdPontos)
         contas.valorConta = Number(request.body.valorConta)
-        usuarios.id = Number(request.body.decoded.id)
+        usuarios.id =  Number(request.body.decoded.id)
+        banco.id = Number(request.body.bancoId)
         contas.usuariosIdFK = usuarios
+        contas.bancosIdFK = banco
+
+       
         const retorno = await this.contasBusiness.cadastrarContas(contas)
         return response.status(200).json(retorno)
 

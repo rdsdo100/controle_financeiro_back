@@ -65,6 +65,7 @@ export default class ContasRepository {
       try {
 
          const contaRepository = getManager();
+         
          return await contaRepository.save(Contas, conta);
 
 

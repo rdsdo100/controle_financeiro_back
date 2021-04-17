@@ -1,3 +1,4 @@
+import e from "express";
 import { Objetivos } from "../../entity/Objetivos";
 import ContasRepository from "../../repository/ContasRepository";
 import ObjetivosRepository from "../../repository/ObjetivosRepository";
@@ -40,10 +41,14 @@ export default class ObjetivosBusiness {
 
         const contas = await this.contasRepsitory.buscarSaldoContasRpository(objetivos.contasIdFK.id)
         const buscarObjetivos = await this.objetivosRepository.buscarObjetivosId(objetivos.id, idUsuario)
-
+        let valor: number
 
         if (objetivos.pontos !== buscarObjetivos?.pontos) {
-            
+
+            valor = Number(buscarObjetivos?.pontos) - objetivos.pontos
+
+
+
 
         }
 
@@ -86,13 +91,17 @@ export default class ObjetivosBusiness {
     async cadastroObjetivos(objetivos: Objetivos) /*: Promise<Objetivos> */ {
 
         let contas = await this.contasRepsitory.buscarSaldoContasRpository(objetivos.contasIdFK.id)
-
         if ((contas.qtdPontosUsados >= 0) &&
             (contas.qtdPontosUsados <= contas.qtdPontos) &&
-            (contas.qtdPontos >= objetivos.pontos)
-        ) {
-            contas.qtdPontosUsados = contas.qtdPontosUsados + objetivos.pontos
-        }
+            ((contas.qtdPontos - contas.qtdPontosUsados) >= objetivos.pontos) &&
+            (objetivos.pontos >= 0)) {
+
+                contas.qtdPontosUsados = contas.qtdPontosUsados + objetivos.pontos
+
+        } else (
+            objetivos.pontos = 0
+        )
+
 
         const retornoObjetivos = await this.objetivosRepository.insertObjetivos(objetivos, contas)
 
