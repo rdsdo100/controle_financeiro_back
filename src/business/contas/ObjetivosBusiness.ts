@@ -39,50 +39,35 @@ export default class ObjetivosBusiness {
 
     async updateObjetivos(objetivos: Objetivos, idUsuario: number) {
 
-        const contas = await this.contasRepsitory.buscarSaldoContasRpository(objetivos.contasIdFK.id)
+        const contas = await this.contasRepsitory.buscarSaldoContasRpository(Number(objetivos.contasIdFK.id))
         const buscarObjetivos = await this.objetivosRepository.buscarObjetivosId(objetivos.id, idUsuario)
         let valor: number
         let pontosUpdate
 
+     
 
 
-        pontosUpdate = Number(buscarObjetivos?.pontos) - Number(objetivos.pontos)
-        pontosUpdate = contas.qtdPontosUsados - pontosUpdate
+            pontosUpdate = Number(buscarObjetivos?.pontos) - Number(objetivos.pontos)
+            pontosUpdate = contas.qtdPontosUsados - pontosUpdate
 
-        contas.qtdPontosUsados = pontosUpdate
-
-
-        if ((contas.qtdPontosUsados >= 0) &&
-            (contas.qtdPontosUsados <= contas.qtdPontos) &&
-            ((contas.qtdPontos - contas.qtdPontosUsados) >= objetivos.pontos) &&
-            (objetivos.pontos >= 0)) {
+            contas.qtdPontosUsados = pontosUpdate
 
 
+            if ((contas.qtdPontosUsados >= 0) &&
+                (contas.qtdPontosUsados <= contas.qtdPontos) &&
+                ((contas.qtdPontos - contas.qtdPontosUsados) >= objetivos.pontos) &&
+                (objetivos.pontos >= 0)) {
 
-        } else {}
+                    return objetivos
+                 //  this.objetivosRepository.updateObjeticos(objetivos , contas)
+            
+        }
+
 
 
         const retornoObjetivos = await this.objetivosRepository.insertObjetivos(objetivos, contas)
 
         return retornoObjetivos
-
-
-
-        /* 
-         * {
-         *  {verificar se vai alterar a conta
-         *          devolver os pontos antes de alterar a conta
-         *                           verificar se vai alterar os pontos
-         *                           vrificar se tem pontos o suficiente  => sim   === alterar os pontos na conta 
-         *                                                            => não === não alterar
-         *  }
-         * 
-         * }
-         * 
-         * 
-         *  */
-
-
 
 
     }
