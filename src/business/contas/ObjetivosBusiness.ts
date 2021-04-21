@@ -44,30 +44,27 @@ export default class ObjetivosBusiness {
         let valor: number
         let pontosUpdate
 
-     
+        pontosUpdate = Number(buscarObjetivos?.pontos) - Number(objetivos.pontos)
+        pontosUpdate = contas.qtdPontosUsados - pontosUpdate
+
+        contas.qtdPontosUsados = pontosUpdate
 
 
-            pontosUpdate = Number(buscarObjetivos?.pontos) - Number(objetivos.pontos)
-            pontosUpdate = contas.qtdPontosUsados - pontosUpdate
+        if ((contas.qtdPontosUsados >= 0) &&
+            (contas.qtdPontosUsados <= contas.qtdPontos) &&
+            ((contas.qtdPontos - contas.qtdPontosUsados) >= objetivos.pontos) &&
+            (objetivos.pontos >= 0)) {
 
-            contas.qtdPontosUsados = pontosUpdate
+            return objetivos
+            //  this.objetivosRepository.updateObjeticos(objetivos , contas)
 
-
-            if ((contas.qtdPontosUsados >= 0) &&
-                (contas.qtdPontosUsados <= contas.qtdPontos) &&
-                ((contas.qtdPontos - contas.qtdPontosUsados) >= objetivos.pontos) &&
-                (objetivos.pontos >= 0)) {
-
-                    return objetivos
-                 //  this.objetivosRepository.updateObjeticos(objetivos , contas)
-            
         }
 
 
 
-        const retornoObjetivos = await this.objetivosRepository.insertObjetivos(objetivos, contas)
+       // const retornoObjetivos = await this.objetivosRepository.insertObjetivos(objetivos, contas)
 
-        return retornoObjetivos
+      //  return retornoObjetivos
 
 
     }
