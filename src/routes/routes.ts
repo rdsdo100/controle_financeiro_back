@@ -5,6 +5,7 @@ import LoginController from "../controller/usuarios/LoginController";
 import ContasController from '../controller/contas/ContasController';
 import MovimentacoesController from '../controller/contas/MovimentacoesController';
 import ObjetivosController from '../controller/contas/ObjetivosController';
+import BancosController from '../controller/contas/BancosController';
 
 
 
@@ -15,6 +16,7 @@ const login = new LoginController()
 const conta = new ContasController()
 const movimentacoes = new MovimentacoesController()
 const objetivo = new ObjetivosController()
+const banco = new BancosController()
 
 export const routes = [
     inicio,
@@ -22,6 +24,7 @@ export const routes = [
     login,
     conta,
     movimentacoes,
-    objetivo
+    objetivo,
+    banco
 
 ]
