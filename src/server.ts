@@ -1,6 +1,6 @@
 import { Server } from '@overnightjs/core';
-import bodyParser from 'body-parser';
 import cors from 'cors'
+import express from 'express';
 import {routes} from './routes/routes';
 
 
@@ -18,8 +18,11 @@ export class SetupServer extends Server {
 
   private setupExpress(): void {
     this.app.use(cors())
-    this.app.use(bodyParser.json());
+   
+    this.app.use(express.json());
+    
     this.setupControllers();
+    this.app.use(express.static(__dirname + '/public')); // para buscar arquivos estaticos como as imagem do banco
   }
 
   private setupControllers(): void {
