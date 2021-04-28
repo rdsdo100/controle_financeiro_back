@@ -22,7 +22,7 @@ export class SetupServer extends Server {
     this.app.use(express.json());
     
     this.setupControllers();
-    this.app.use(express.static(__dirname + '/public')); // para buscar arquivos estaticos como as imagem do banco
+    this.app.use(express.static('./public')); // para buscar arquivos estaticos como as imagem do banco
   }
 
   private setupControllers(): void {
