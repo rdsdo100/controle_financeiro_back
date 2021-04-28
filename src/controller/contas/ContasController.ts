@@ -5,7 +5,7 @@ import { Contas } from "../../entity/Contas";
 import { Request, Response } from "express";
 import { Usuarios } from "../../entity/Usuarios";
 import Bancos from "../../entity/Bancos";
-import { decode } from "jsonwebtoken";
+
 
 @Controller('conta')
 @ClassMiddleware([decodificar])
@@ -31,13 +31,12 @@ export default class ContasController {
         contas.qtdPontos = Number(request.body.qtdPontos)
         contas.valorConta = Number(request.body.valorConta)
         usuarios.id =  Number(request.body.decoded.id)
-        banco.id = Number(request.body.bancoId)
+        banco.id = Number(request.body.bancosIdFK.id)
         contas.usuariosIdFK = usuarios
         contas.bancosIdFK = banco
-
        
-        const retorno = await this.contasBusiness.cadastrarContas(contas)
-        return response.status(200).json(retorno)
+       const retorno = await this.contasBusiness.cadastrarContas(contas)
+       return response.status(200).json(retorno)
 
     }
 
