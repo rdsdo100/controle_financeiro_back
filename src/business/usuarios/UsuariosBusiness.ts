@@ -26,8 +26,7 @@ export default class UsuariosBusiness {
                 retMap.senha = user.senha
                 retMap.ativo = user.ativo
                 retMap.bloqueado = user.bloqueado
-                retMap.grupoUsuariosIdFK = user.grupoUsuariosIdFK
-                retMap.tipoEquipeIdFK = user.tipoEquipeIdFK
+              
 
                 return retMap
 
@@ -70,12 +69,6 @@ export default class UsuariosBusiness {
     async deletarUsuario(idUsuarioDelete: number, idUsuario: number) {
        
         const usuariosDelete = new Usuarios()
-        
-       
-        const usuarios: any = await this.usuarioRepository.buscarUsuarioGrupoUsuarioId(idUsuario)
-
-       
-        usuariosDelete.id = usuarios.id
     
           await this.usuarioRepository.deleteUsuarioIdRepository(idUsuarioDelete)
                
