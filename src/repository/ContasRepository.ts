@@ -1,4 +1,5 @@
-import { getConnection, getManager } from "typeorm";
+import { createQueryBuilder, getConnection, getManager } from "typeorm";
+import Bancos from "../entity/Bancos";
 import { Contas } from "../entity/Contas";
 import { Objetivos } from "../entity/Objetivos";
 import { Usuarios } from "../entity/Usuarios";
@@ -65,7 +66,7 @@ export default class ContasRepository {
       try {
 
          const contaRepository = getManager();
-         
+
          return await contaRepository.save(Contas, conta);
 
 
@@ -75,19 +76,48 @@ export default class ContasRepository {
    }
 
    async readConta() {
+
+     
+      let retornoContas: Contas[]
+
       try {
 
-         const contaRepository = getManager();
-         return await contaRepository.find(Contas);
+         const contaRepository = await createQueryBuilder("Contas")
+            .leftJoinAndSelect('Contas.bancosIdFK', 'banco')
+            .leftJoinAndSelect('Contas.usuariosIdFK', 'usuarios')
+            //.where('Movimentacoes.id = :id', { id:  })
+            .getMany()
 
+
+         retornoContas = contaRepository.map((conta: any) => {
+
+            const contas = new Contas()
+            const bancos = new Bancos()
+            const usuarios = new Usuarios()
+
+            contas.id = conta.id
+            contas.nomeConta = conta.nomeConta
+            contas.valorConta = conta.valorConta
+            contas.qtdPontos = conta.qtdPontos
+            contas.qtdPontosUsados = conta.qtdPontosUsados
+            contas.contadorMovimento = conta.contadorMovimento
+            contas.ativo = conta.ativo
+            contas.bloqueado = conta.bloqueado
+            bancos.id = conta.bancosIdFK.id
+            bancos.nomeBanco = conta.bancosIdFK.nomeBanco
+            bancos.urlImagemBanco = conta.bancosIdFK.urlImagemBanco
+            usuarios.id = conta.usuariosIdFK.id
+            contas.bancosIdFK = bancos
+            contas.usuariosIdFK = usuarios
+            return contas
+
+         })
+
+         return retornoContas
 
       } catch (e) {
 
       }
    }
-
-
-   
-
 
 }
