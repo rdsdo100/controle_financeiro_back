@@ -1,9 +1,10 @@
 import { ClassMiddleware, Controller, Delete, Get, Post, Put } from "@overnightjs/core";
 import { decodificar } from "../../config/Jwt";
 import { Request, Response } from 'express'
-import { Objetivos } from "../../entity/Objetivos";
+
 import { Contas } from "../../entity/Contas";
 import ObjetivosBusiness from "../../business/contas/ObjetivosBusiness";
+import { ObjetivosFinaceiros } from "../../entity/ObjetivosFinaceiros";
 
 @Controller('objetivo')
 @ClassMiddleware([decodificar])
@@ -24,8 +25,7 @@ export default class ObjetivosController {
 
         const idUsuario: number = Number(request.body.decoded.id)
 
-        const retorno = await this.objetivosBusiness.buscarObjetivosAll(idUsuario)
-        return response.status(200).json(retorno)
+
 
     }
     @Get(":id")
@@ -33,8 +33,6 @@ export default class ObjetivosController {
         const idObjetivos : number = Number(request.params.id)
         const idUsuario: number = Number(request.body.decoded.id)
 
-        const retorno = await this.objetivosBusiness.buscarObjetivosId(idObjetivos , idUsuario)
-      return response.status(200).json(retorno)
     }
 
     @Get('contas')
@@ -43,21 +41,19 @@ export default class ObjetivosController {
     @Post()
     async cadastroObjetivos(request: Request, response: Response) {
 
-        const objetivos = new Objetivos()
+        const objetivosFinaceiros = new ObjetivosFinaceiros()
         const conta = new Contas()
-        objetivos.nomeObjetivos = String(request.body.nomeObjetivos)
-        objetivos.valorObjetivos = Number(request.body.valorObjetivos)
-        objetivos.pontos = Number(request.body.pontos)
-        objetivos.descricao = String(request.body.descricao)
-        objetivos.dataPrevistaObjetivos = new Date(String(request.body.dataPrevistaObjetivos))
+        objetivosFinaceiros.nomeObjetivos = String(request.body.nomeObjetivos)
+        objetivosFinaceiros.valorObjetivos = Number(request.body.valorObjetivos)
+        objetivosFinaceiros.valorGuardado = Number(request.body.valorGuardado)
+        objetivosFinaceiros.descricao = String(request.body.descricao)
+        objetivosFinaceiros.dataPrevistaObjetivos = new Date(String(request.body.dataPrevistaObjetivos))
         conta.id = Number(request.body.contaId)
-        objetivos.contasIdFK = conta
+        objetivosFinaceiros.contasIdFK = conta
 
 
         
-        const retorno = await this.objetivosBusiness.cadastroObjetivos(objetivos)
-
-        return response.status(200).json(retorno)
+       
 
     }
 
@@ -67,21 +63,19 @@ export default class ObjetivosController {
     @Put()
     async updateObjetivosAll(request: Request, response: Response) {
 
-        const objetivos = new Objetivos()
+        const objetivosFinaceiros = new ObjetivosFinaceiros()
         const conta = new Contas()
         const idUsuario: number = Number(request.body.decoded.id)
-        objetivos.id = Number(request.body.idObjetivos)
-        objetivos.nomeObjetivos = String(request.body.nomeObjetivos)
-        objetivos.valorObjetivos = Number(request.body.valorObjetivos)
-        objetivos.pontos = Number(request.body.pontos)
-        objetivos.descricao = String(request.body.descricao)
-        objetivos.dataPrevistaObjetivos = new Date(String(request.body.dataPrevistaObjetivos))
+        objetivosFinaceiros.id = Number(request.body.idObjetivos)
+        objetivosFinaceiros.nomeObjetivos = String(request.body.nomeObjetivos)
+        objetivosFinaceiros.valorObjetivos = Number(request.body.valorObjetivos)
+        objetivosFinaceiros.valorGuardado = Number(request.body.valorGuardado)
+        objetivosFinaceiros.descricao = String(request.body.descricao)
+        objetivosFinaceiros.dataPrevistaObjetivos = new Date(String(request.body.dataPrevistaObjetivos))
         conta.id = Number(request.body.contaId)
-        objetivos.contasIdFK = conta
+        objetivosFinaceiros.contasIdFK = conta
 
-       const retorno = await this.objetivosBusiness.updateObjetivos(objetivos ,idUsuario)
-
-        return response.status(200).json(retorno)
+     
 
      }
 
@@ -90,8 +84,7 @@ export default class ObjetivosController {
         const idDelete : number = Number(request.params.id)
         const idUsuario: number = Number(request.body.decoded.id)
 
-        const retorno: string = await this.objetivosBusiness.deleteObjetivos(idDelete , idUsuario)
-      return response.status(200).json(retorno)
+      
     }
 
 

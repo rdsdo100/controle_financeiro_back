@@ -28,8 +28,8 @@ export default class ContasController {
         const banco = new Bancos()
 
         contas.nomeConta = String(request.body.nomeConta)
-        contas.qtdPontos = Number(request.body.qtdPontos)
-        contas.valorConta = Number(request.body.valorConta)
+        contas.valorLivre = Number(request.body.valorLivre)
+        contas.valorSeparado = Number(request.body.valorSeparado)
         usuarios.id =  Number(request.body.decoded.id)
         banco.id = Number(request.body.bancosIdFK.id)
         contas.usuariosIdFK = usuarios

@@ -15,6 +15,9 @@ async index (){
 
     async cadastrarContas (conta : Contas){
 
+
+        conta.valorTotal = (Number(conta.valorLivre)  + Number(conta.valorSeparado))
+
         return await this.contasRepository.insertConta(conta)
     }
 

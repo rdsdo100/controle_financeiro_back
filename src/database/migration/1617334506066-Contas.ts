@@ -25,29 +25,22 @@ export class Contas1617334506066 implements MigrationInterface {
                         isUnique: true,
                     },
                     {
-                        name: 'valor_conta',
+                        name: 'valor_total',
                         type: 'NUMERIC(8,2)',
                         isNullable: false,
                         default: 0
                     },
                     {
-                        name: 'qtd_pontos',
-                        type: 'int',
-                        isNullable: false,
-                        default: 100
-                    },
-                    {
-                        name: 'qtd_pontos_usados',
+                        name: 'valor_livre',
                         type: 'int',
                         isNullable: false,
                         default: 0
                     },
-
                     {
-                        name: 'contador_movimento',
+                        name: 'valor_separado',
                         type: 'int',
                         isNullable: false,
-                        default: 1
+                        default: 0
                     },
 
                     {

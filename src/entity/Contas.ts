@@ -2,7 +2,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColum
 import Bancos from "./Bancos";
 import { ContasAPagar } from "./ContasAPagar";
 import { Movimentacoes } from "./Movimentacoes";
-import { Objetivos } from "./Objetivos";
+import { ObjetivosFinaceiros } from "./ObjetivosFinaceiros";
 import { Usuarios } from "./Usuarios";
 
 @Entity()
@@ -20,35 +20,29 @@ export class Contas {
     nomeConta: string
 
     @Column({
-        name: 'valor_conta', type: 'numeric',
+        name: 'valor_total',
+         type: 'numeric',
         nullable: false,
         default: 0
     })
-    valorConta: number
+    valorTotal: number
 
     @Column({
-        name: 'qtd_pontos',
+        name: 'valor_livre',
         type: 'int',
         nullable: false,
-        default: 100
+        default: 0
     })
-    qtdPontos: number
+    valorLivre: number
 
     @Column ({
-        name: 'qtd_pontos_usados',
+        name: 'valor_separado',
         type: 'int',
         nullable: false,
         default: 0
     })
-    qtdPontosUsados: number
+    valorSeparado: number
 
-    @Column({
-        name: 'contador_movimento',
-        type: 'int',
-        nullable: false,
-        default: 1
-    })
-    contadorMovimento: number
 
     @Column({
         name: 'ativo',
@@ -82,8 +76,8 @@ export class Contas {
     @OneToMany(() => Movimentacoes, (movimentacoes) => movimentacoes.contasIdFK)
     movimentacoes: Movimentacoes[];
 
-    @OneToMany(() => Objetivos, (objetivos) => objetivos.contasIdFK)
-    objetivos: Objetivos[];
+    @OneToMany(() => ObjetivosFinaceiros, (objetivosFinaceiros) => objetivosFinaceiros.contasIdFK)
+    objetivosFinaceiros: ObjetivosFinaceiros[];
 
     
 

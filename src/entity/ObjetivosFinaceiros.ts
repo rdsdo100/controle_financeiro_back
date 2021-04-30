@@ -1,8 +1,8 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Contas } from "./Contas";
 
-@Entity()
-export class Objetivos {
+@Entity({name: "objetivos_finaceiros"})
+export class ObjetivosFinaceiros {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -22,13 +22,13 @@ export class Objetivos {
     valorObjetivos: number
 
     @Column({
-        name: 'pontos',
+        name: 'valor_guardado',
         type: 'int',
         nullable: false,
-        default: 1
+        default: 0
 
     })
-    pontos: number
+    valorGuardado: number
 
 
     @Column({
@@ -54,7 +54,7 @@ export class Objetivos {
     descricao: string
 
 
-    @ManyToOne(() => Contas, (contas) => contas.objetivos)
+    @ManyToOne(() => Contas, (contas) => contas.objetivosFinaceiros)
     @JoinColumn([{ name: 'contas_id_fk', referencedColumnName: 'id' }])
     contasIdFK: Contas;
 

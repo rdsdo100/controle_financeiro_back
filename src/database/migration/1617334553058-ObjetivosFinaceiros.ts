@@ -1,6 +1,6 @@
 import {MigrationInterface, QueryRunner, Table, TableForeignKey} from "typeorm";
 
-export class Objetivos1617334553058 implements MigrationInterface {
+export class ObjetivosFinaceiros1617334553058 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
 
@@ -8,7 +8,7 @@ export class Objetivos1617334553058 implements MigrationInterface {
         await queryRunner.createTable(
             new Table({
 
-                name: 'objetivos',
+                name: 'objetivos_finaceiros',
                 columns: [
                     {
                         name: 'id',
@@ -31,11 +31,12 @@ export class Objetivos1617334553058 implements MigrationInterface {
                         isNullable: false
                     },
 
+                    
                     {
-                        name: 'pontos',
+                        name: 'valor_guardado',
                         type: 'int',
                         isNullable: false,
-                        default: 1
+                        default: 0
                     },
 
                     {
@@ -66,12 +67,12 @@ export class Objetivos1617334553058 implements MigrationInterface {
         )
 
         await queryRunner.createForeignKey(
-            'objetivos',
+            'objetivos_finaceiros',
             new TableForeignKey({
                 columnNames: ['contas_id_fk'],
                 referencedColumnNames: ['id'],
                 referencedTableName: 'contas',
-                name: 'objetivos_contas',
+                name: 'objetivos_finaceiros_contas',
             }),
         );
 

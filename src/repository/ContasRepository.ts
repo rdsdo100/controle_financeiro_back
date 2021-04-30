@@ -1,7 +1,7 @@
 import { createQueryBuilder, getConnection, getManager } from "typeorm";
 import Bancos from "../entity/Bancos";
 import { Contas } from "../entity/Contas";
-import { Objetivos } from "../entity/Objetivos";
+
 import { Usuarios } from "../entity/Usuarios";
 
 export default class ContasRepository {
@@ -22,10 +22,9 @@ export default class ContasRepository {
 
             this.contas.id = item.id
             this.contas.nomeConta = item.nomeConta
-            this.contas.valorConta = item.valorConta
-            this.contas.qtdPontos = item.qtdPontos
-            this.contas.qtdPontosUsados = item.qtdPontosUsados
-            this.contas.contadorMovimento = item.contadorMovimento
+            this.contas.valorTotal = item.valorTotal
+            this.contas.valorLivre = item.valorLivre
+            this.contas.valorSeparado = item.valorSeparado
             this.contas.ativo = item.ativo
 
             return this.contas
@@ -48,9 +47,9 @@ export default class ContasRepository {
 
          this.contas.id = buscarContasId.id
          this.contas.nomeConta = buscarContasId.nomeConta
-         this.contas.valorConta = buscarContasId.valorConta
-         this.contas.qtdPontos = buscarContasId.qtdPontos
-         this.contas.qtdPontosUsados = buscarContasId.qtdPontosUsados
+         this.contas.valorLivre = buscarContasId.valorLivre
+         this.contas.valorSeparado = buscarContasId.valorSeparado
+         this.contas.valorTotal = buscarContasId.valorTotal
 
 
 
@@ -97,10 +96,9 @@ export default class ContasRepository {
 
             contas.id = conta.id
             contas.nomeConta = conta.nomeConta
-            contas.valorConta = conta.valorConta
-            contas.qtdPontos = conta.qtdPontos
-            contas.qtdPontosUsados = conta.qtdPontosUsados
-            contas.contadorMovimento = conta.contadorMovimento
+            contas.valorTotal = conta.valorTotal
+            contas.valorLivre = conta.valorLivre
+            contas.valorSeparado = conta.valorSeparado
             contas.ativo = conta.ativo
             contas.bloqueado = conta.bloqueado
             bancos.id = conta.bancosIdFK.id
