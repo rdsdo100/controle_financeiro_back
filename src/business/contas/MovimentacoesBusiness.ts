@@ -1,4 +1,3 @@
-import e from "cors";
 import { Contas } from "../../entity/Contas";
 import { Movimentacoes } from "../../entity/Movimentacoes";
 import ContasRepository from "../../repository/ContasRepository";
@@ -14,20 +13,13 @@ export default class MovimentacoesBusiness {
        
     }
 
-    private tipoEntradas(valor: number, tipo: boolean): number {
-        if (tipo) {
-            return valor
-        } else {
-            return -(valor)
-        }
+    private tipoEntradas(valor: number, tipo: boolean) {
+       
     }
 
     async index() {
 
-        const dias: number = 100
-        let data: Date = new Date()
-        data.setDate(-(dias))
-        return data
+        
 
     }
 

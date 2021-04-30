@@ -21,7 +21,7 @@ export default class EntradasSaidasRepository {
             verificarConta = await queryRunner.manager.findOne(Contas, { id: conta.id })
             if (verificarConta) {
 
-                await queryRunner.manager.update(Contas, conta.id, { valorConta: conta.valorConta })
+               // await queryRunner.manager.update(Contas, conta.id, { valorConta: conta.valorConta })
                 updadeContas = await queryRunner.manager.findOne(Contas, conta.id)
                 salvarMovimentacoes = await queryRunner.manager.save(Movimentacoes, movimentacoes)
 
@@ -39,7 +39,7 @@ export default class EntradasSaidasRepository {
 
             contaRetorno.id = updadeContas.id
             contaRetorno.nomeConta = updadeContas.nomeConta
-            contaRetorno.valorConta = updadeContas.valorConta
+           // contaRetorno.valorConta = updadeContas.valorConta
 
             movimentacoesRetorno.id = salvarMovimentacoes.id
             movimentacoesRetorno.nomeMovimentacoes = salvarMovimentacoes.nomeMovimentacoes
@@ -72,7 +72,7 @@ export default class EntradasSaidasRepository {
 
                 contaRetorno.id = buscarMovimentos.contasIdFK.id
                 contaRetorno.nomeConta = buscarMovimentos.contasIdFK.nomeConta
-                contaRetorno.valorConta = buscarMovimentos.contasIdFK.valorConta
+               // contaRetorno.valorConta = buscarMovimentos.contasIdFK.valorConta
 
                 movimentacoesRetorno.id = buscarMovimentos.id
                 movimentacoesRetorno.nomeMovimentacoes = buscarMovimentos.nomeMovimentacoes
@@ -116,7 +116,7 @@ export default class EntradasSaidasRepository {
             verificarConta = await queryRunner.manager.findOne(Contas, { id: conta.id })
             if (verificarConta) {
 
-                await queryRunner.manager.update(Contas, conta.id, { valorConta: conta.valorConta })
+             //   await queryRunner.manager.update(Contas, conta.id, { valorConta: conta.valorConta })
                 updadeContas = await queryRunner.manager.findOne(Contas, conta.id)
                 await queryRunner.manager.update(Movimentacoes, movimentacoes.id, { estorno: true, dataEstorno: new Date })
                 updadeMovimentações = await queryRunner.manager.findOne(Contas, conta.id)
@@ -137,7 +137,7 @@ export default class EntradasSaidasRepository {
 
             contaRetorno.id = updadeContas.id
             contaRetorno.nomeConta = updadeContas.nomeConta
-            contaRetorno.valorConta = updadeContas.valorConta
+           // contaRetorno.valorConta = updadeContas.valorConta
 
             movimentacoesRetorno.id = salvarMovimentacoes.id
             movimentacoesRetorno.nomeMovimentacoes = salvarMovimentacoes.nomeMovimentacoes
