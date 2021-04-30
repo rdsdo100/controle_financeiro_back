@@ -1,7 +1,6 @@
 import { ClassMiddleware, Controller, Delete, Get, Post, Put } from "@overnightjs/core";
 import { decodificar } from "../../config/Jwt";
 import { Request, Response } from 'express'
-
 import { Contas } from "../../entity/Contas";
 import ObjetivosBusiness from "../../business/contas/ObjetivosBusiness";
 import { ObjetivosFinaceiros } from "../../entity/ObjetivosFinaceiros";
