@@ -8,9 +8,9 @@ export default class ContasBusiness {
 readonly contasRepository = new ContasRepository
 
 
-async index (){
+async index (idUsuario : number){
 
-    return await this.contasRepository.readConta()
+    return await this.contasRepository.readConta(idUsuario)
 }
 
     async cadastrarContas (conta : Contas){
@@ -21,7 +21,13 @@ async index (){
         return await this.contasRepository.insertConta(conta)
     }
 
-    async deleteConta(){}
+    async deleteConta(idConta: number){
+
+        const  retorno = await this.contasRepository.deleteContaId(idConta)
+return retorno
+
+
+    }
     
     async updateConta(){}
 

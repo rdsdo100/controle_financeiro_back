@@ -10,19 +10,21 @@ import Bancos from "../../entity/Bancos";
 @Controller('conta')
 @ClassMiddleware([decodificar])
 export default class ContasController {
-    
+
     readonly contasBusiness = new ContasBusiness
 
     @Get()
     async index(request: Request, response: Response) {
-        const retorno = await this.contasBusiness.index()
+        const idUsuarios: number = Number(request.body.decoded.id)
+
+        const retorno = await this.contasBusiness.index(idUsuarios)
         return response.status(200).json(retorno)
 
     }
 
     @Post()
     async cadastrarContas(request: Request, response: Response) {
-
+        const idUsuarios: number = Number(request.body.decoded.id)
         const contas = new Contas()
         const usuarios = new Usuarios()
         const banco = new Bancos()
@@ -30,19 +32,40 @@ export default class ContasController {
         contas.nomeConta = String(request.body.nomeConta)
         contas.valorLivre = Number(request.body.valorLivre)
         contas.valorSeparado = Number(request.body.valorSeparado)
-        usuarios.id =  Number(request.body.decoded.id)
+        usuarios.id = idUsuarios
         banco.id = Number(request.body.bancosIdFK.id)
         contas.usuariosIdFK = usuarios
         contas.bancosIdFK = banco
-       
-       const retorno = await this.contasBusiness.cadastrarContas(contas)
-       return response.status(200).json(retorno)
+
+        const retorno = await this.contasBusiness.cadastrarContas(contas)
+        return response.status(200).json(retorno)
 
     }
 
-    @Delete()
-    async deleteMovimentacao(request: Request, response: Response){}
-    
+    @Delete('/:id')
+    async deleteMovimentacao(request: Request, response: Response) {
+        const idUsuarios: number = Number(request.body.decoded.id)
+const  idConta: number = Number(request.params.id)
+
+     }
+
     @Put()
-    async updateMovimentacao(request: Request, response: Response){}
+    async updateMovimentacao(request: Request, response: Response) { 
+        const idUsuarios: number = Number(request.body.decoded.id)
+        const contas = new Contas()
+        const usuarios = new Usuarios()
+        const banco = new Bancos()
+
+        contas.nomeConta = String(request.body.nomeConta)
+        contas.valorLivre = Number(request.body.valorLivre)
+        contas.valorSeparado = Number(request.body.valorSeparado)
+        usuarios.id = idUsuarios
+        banco.id = Number(request.body.bancosIdFK.id)
+        contas.usuariosIdFK = usuarios
+        contas.bancosIdFK = banco
+
+       // const retorno = await this.contasBusiness.cadastrarContas(contas)
+        //return response.status(200).json(retorno)
+
+    }
 }

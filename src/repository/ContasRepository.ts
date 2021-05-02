@@ -74,7 +74,7 @@ export default class ContasRepository {
       }
    }
 
-   async readConta() {
+   async readConta(idUsuario: number) {
 
      
       let retornoContas: Contas[]
@@ -84,7 +84,7 @@ export default class ContasRepository {
          const contaRepository = await createQueryBuilder("Contas")
             .leftJoinAndSelect('Contas.bancosIdFK', 'banco')
             .leftJoinAndSelect('Contas.usuariosIdFK', 'usuarios')
-            //.where('Movimentacoes.id = :id', { id:  })
+         .where('usuarios.id = :id', { id: idUsuario  })
             .getMany()
 
 
@@ -117,5 +117,18 @@ export default class ContasRepository {
 
       }
    }
+
+
+   async deleteContaId(idConta: number){
+
+   try {
+      const contasRepository = getManager();
+     await contasRepository.delete(Contas, idConta);
+     return `ID Conta ${idConta} deletado!`
+   }catch(e){
+      return { Error: `Erro ao deletar!` , e}
+   }
+
+}
 
 }
