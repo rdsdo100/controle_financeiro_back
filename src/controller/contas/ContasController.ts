@@ -54,16 +54,17 @@ const  idConta: number = Number(request.params.id)
         const idUsuarios: number = Number(request.body.decoded.id)
         const contas = new Contas()
         const usuarios = new Usuarios()
-        const banco = new Bancos()
+       
 
         contas.nomeConta = String(request.body.nomeConta)
         contas.valorLivre = Number(request.body.valorLivre)
         contas.valorSeparado = Number(request.body.valorSeparado)
         usuarios.id = idUsuarios
-        banco.id = Number(request.body.bancosIdFK.id)
         contas.usuariosIdFK = usuarios
-        contas.bancosIdFK = banco
+     
+console.log(contas)
 
+return response.status(200).json(contas)
        // const retorno = await this.contasBusiness.cadastrarContas(contas)
         //return response.status(200).json(retorno)
 
