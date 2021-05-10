@@ -11,7 +11,7 @@ export class Insets1917338414365 implements MigrationInterface {
         await queryRunner.query(`
        
         insert  into bancos  (nome_banco  , url_imagem_banco) values 
-        ('Nubanck' , 'https://controle-finaceiro-back.herokuapp.com/nubank.png'),
+        ('Nubank' , 'https://controle-finaceiro-back.herokuapp.com/nubank.png'),
         ('Banco Do Brasil' , 'https://controle-finaceiro-back.herokuapp.com/bancobrasil.png'),
         ('Bradesco' , 'https://controle-finaceiro-back.herokuapp.com/bradesco.png'),
         ('C6 Bank' , 'https://controle-finaceiro-back.herokuapp.com/c6bank.png'),

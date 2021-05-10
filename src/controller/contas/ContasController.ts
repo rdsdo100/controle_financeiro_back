@@ -45,27 +45,29 @@ export default class ContasController {
     @Delete('/:id')
     async deleteMovimentacao(request: Request, response: Response) {
         const idUsuarios: number = Number(request.body.decoded.id)
-const  idConta: number = Number(request.params.id)
+        const idConta: number = Number(request.params.id)
 
-     }
+        return this.contasBusiness.deleteConta(idConta)
+
+    }
 
     @Put()
-    async updateMovimentacao(request: Request, response: Response) { 
+    async updateMovimentacao(request: Request, response: Response) {
         const idUsuarios: number = Number(request.body.decoded.id)
         const contas = new Contas()
         const usuarios = new Usuarios()
-       
+
 
         contas.nomeConta = String(request.body.nomeConta)
         contas.valorLivre = Number(request.body.valorLivre)
         contas.valorSeparado = Number(request.body.valorSeparado)
         usuarios.id = idUsuarios
         contas.usuariosIdFK = usuarios
-     
-console.log(contas)
 
-return response.status(200).json(contas)
-       // const retorno = await this.contasBusiness.cadastrarContas(contas)
+        console.log(contas)
+
+        return response.status(200).json(contas)
+        // const retorno = await this.contasBusiness.cadastrarContas(contas)
         //return response.status(200).json(retorno)
 
     }
