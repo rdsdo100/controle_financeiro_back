@@ -60,8 +60,6 @@ export default class ContasRepository {
       return this.contas
    }
 
-
-
    async insertConta(conta: Contas) {
       try {
 
@@ -153,5 +151,23 @@ export default class ContasRepository {
 
    }
 
+   async updateContas(contas: Contas) {
+
+
+      try {
+
+         const contasRepository = getManager();
+         const retornoContas = await contasRepository.update(Contas, contas.id, contas)
+
+         return retornoContas
+
+
+
+      } catch (e) {
+         return e
+      }
+   }
+
 
 }
+

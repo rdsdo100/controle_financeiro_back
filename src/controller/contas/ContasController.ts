@@ -58,17 +58,18 @@ export default class ContasController {
         const usuarios = new Usuarios()
 
 
+        contas.id = Number(request.body.id)
         contas.nomeConta = String(request.body.nomeConta)
         contas.valorLivre = Number(request.body.valorLivre)
         contas.valorSeparado = Number(request.body.valorSeparado)
         usuarios.id = idUsuarios
         contas.usuariosIdFK = usuarios
 
-        console.log(contas)
+       
 
-        return response.status(200).json(contas)
-        // const retorno = await this.contasBusiness.cadastrarContas(contas)
-        //return response.status(200).json(retorno)
+        
+         const retorno = await this.contasBusiness.updateConta(contas)
+       return response.status(200).json(retorno)
 
     }
 }

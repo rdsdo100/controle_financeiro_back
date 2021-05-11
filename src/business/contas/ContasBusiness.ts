@@ -1,16 +1,11 @@
 import { Contas } from "../../entity/Contas";
 import ContasRepository from "../../repository/ContasRepository";
 
-
-
 export default class ContasBusiness {
 
-readonly contasRepository = new ContasRepository
-
-
 async index (idUsuario : number){
-
-    return await this.contasRepository.readConta(idUsuario)
+    const contasRepository = new ContasRepository
+    return await contasRepository.readConta(idUsuario)
 }
 
     async cadastrarContas (conta : Contas){
@@ -22,14 +17,33 @@ async index (idUsuario : number){
     }
 
     async deleteConta(idConta: number){
-
-        const  retorno = await this.contasRepository.deleteContaId(idConta)
+        const contasRepository = new ContasRepository
+        const  retorno = await contasRepository.deleteContaId(idConta)
 return retorno
 
 
     }
     
-    async updateConta(){}
+    async updateConta(contas : Contas ){
+        const contasRepository = new ContasRepository
+        const  verificarContas = await contasRepository.buscarSaldoContasRpository(contas.id)
+  
+if(!contas.valorLivre){
+    contas.valorLivre = verificarContas.valorLivre
+}
+
+        
+if(!contas.valorSeparado){
+    contas.valorSeparado = verificarContas.valorSeparado
+}
+
+console.log(contas)
+
+//const  retornoContas = await this.contasRepository.updateContas(contas)
+
+
+        
+    }
 
 
 }
