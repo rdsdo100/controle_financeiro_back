@@ -3,9 +3,11 @@ import ContasRepository from "../../repository/ContasRepository";
 
 export default class ContasBusiness {
 
+    readonly contasRepository = new ContasRepository
+
 async index (idUsuario : number){
-    const contasRepository = new ContasRepository
-    return await contasRepository.readConta(idUsuario)
+  
+    return await this.contasRepository.readConta(idUsuario)
 }
 
     async cadastrarContas (conta : Contas){
@@ -17,16 +19,16 @@ async index (idUsuario : number){
     }
 
     async deleteConta(idConta: number){
-        const contasRepository = new ContasRepository
-        const  retorno = await contasRepository.deleteContaId(idConta)
+      
+        const  retorno = await this.contasRepository.deleteContaId(idConta)
 return retorno
 
 
     }
     
     async updateConta(contas : Contas ){
-        const contasRepository = new ContasRepository
-        const  verificarContas = await contasRepository.buscarSaldoContasRpository(contas.id)
+      
+        const  verificarContas = await this.contasRepository.buscarSaldoContasRpository(contas.id)
   
 if(!contas.valorLivre){
     contas.valorLivre = verificarContas.valorLivre
