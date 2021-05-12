@@ -1,7 +1,7 @@
 
 import { ObjetivosFinaceiros } from "../../entity/ObjetivosFinaceiros";
 import ContasRepository from "../../repository/ContasRepository";
-import ObjetivosRepository from "../../repository/ObjetivosRepository";
+import ObjetivosRepository from "../../repository/ObjetivosFinanceirosRepository";
 
 
 

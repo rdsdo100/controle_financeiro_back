@@ -1,12 +1,12 @@
-import { createQueryBuilder, getConnection, getManager } from "typeorm";
+import { createQueryBuilder, getConnection } from "typeorm";
 import { Contas } from "../entity/Contas";
 import { Movimentacoes } from "../entity/Movimentacoes";
 
-export default class EntradasSaidasRepository {
+export default class MovimentacoesRepository {
 
     async insertMovimentosEntradasSaidas(movimentacoes: Movimentacoes, conta: Contas) {
 
-        const  contaRetorno = new Contas()
+        const contaRetorno = new Contas()
         const movimentacoesRetorno = new Movimentacoes()
         let salvarMovimentacoes: any
         let verificarConta: any
@@ -21,7 +21,7 @@ export default class EntradasSaidasRepository {
             verificarConta = await queryRunner.manager.findOne(Contas, { id: conta.id })
             if (verificarConta) {
 
-               // await queryRunner.manager.update(Contas, conta.id, { valorConta: conta.valorConta })
+                // await queryRunner.manager.update(Contas, conta.id, { valorConta: conta.valorConta })
                 updadeContas = await queryRunner.manager.findOne(Contas, conta.id)
                 salvarMovimentacoes = await queryRunner.manager.save(Movimentacoes, movimentacoes)
 
@@ -39,7 +39,7 @@ export default class EntradasSaidasRepository {
 
             contaRetorno.id = updadeContas.id
             contaRetorno.nomeConta = updadeContas.nomeConta
-           // contaRetorno.valorConta = updadeContas.valorConta
+            // contaRetorno.valorConta = updadeContas.valorConta
 
             movimentacoesRetorno.id = salvarMovimentacoes.id
             movimentacoesRetorno.nomeMovimentacoes = salvarMovimentacoes.nomeMovimentacoes
@@ -57,7 +57,7 @@ export default class EntradasSaidasRepository {
     };
 
     async buscarMovimentosId(movimentosId: number) {
-        const  contaRetorno = new Contas()
+        const contaRetorno = new Contas()
         const movimentacoesRetorno = new Movimentacoes()
 
         let buscarMovimentos: any
@@ -72,7 +72,7 @@ export default class EntradasSaidasRepository {
 
                 contaRetorno.id = buscarMovimentos.contasIdFK.id
                 contaRetorno.nomeConta = buscarMovimentos.contasIdFK.nomeConta
-               // contaRetorno.valorConta = buscarMovimentos.contasIdFK.valorConta
+                // contaRetorno.valorConta = buscarMovimentos.contasIdFK.valorConta
 
                 movimentacoesRetorno.id = buscarMovimentos.id
                 movimentacoesRetorno.nomeMovimentacoes = buscarMovimentos.nomeMovimentacoes
@@ -100,7 +100,7 @@ export default class EntradasSaidasRepository {
 
     async insertMovimentosEstorno(movimentacoes: Movimentacoes, conta: Contas) {
 
-        const  contaRetorno = new Contas()
+        const contaRetorno = new Contas()
         const movimentacoesRetorno = new Movimentacoes()
         let salvarMovimentacoes: any
         let verificarConta: any
@@ -116,12 +116,12 @@ export default class EntradasSaidasRepository {
             verificarConta = await queryRunner.manager.findOne(Contas, { id: conta.id })
             if (verificarConta) {
 
-             //   await queryRunner.manager.update(Contas, conta.id, { valorConta: conta.valorConta })
+                //   await queryRunner.manager.update(Contas, conta.id, { valorConta: conta.valorConta })
                 updadeContas = await queryRunner.manager.findOne(Contas, conta.id)
                 await queryRunner.manager.update(Movimentacoes, movimentacoes.id, { estorno: true, dataEstorno: new Date })
                 updadeMovimentações = await queryRunner.manager.findOne(Contas, conta.id)
 
-               salvarMovimentacoes = await queryRunner.manager.insert(Movimentacoes, movimentacoes)
+                salvarMovimentacoes = await queryRunner.manager.insert(Movimentacoes, movimentacoes)
 
             }
 
@@ -137,7 +137,7 @@ export default class EntradasSaidasRepository {
 
             contaRetorno.id = updadeContas.id
             contaRetorno.nomeConta = updadeContas.nomeConta
-           // contaRetorno.valorConta = updadeContas.valorConta
+            // contaRetorno.valorConta = updadeContas.valorConta
 
             movimentacoesRetorno.id = salvarMovimentacoes.id
             movimentacoesRetorno.nomeMovimentacoes = salvarMovimentacoes.nomeMovimentacoes
@@ -153,5 +153,17 @@ export default class EntradasSaidasRepository {
 
         return movimentacoesRetorno
     };
+
+
+    async verificarMovimentacoesContas(idConta: number) {
+
+        let contaVerificacao = await createQueryBuilder("Movimentacoes")
+            .leftJoinAndSelect('Movimentacoes.contasIdFK', 'contas')
+            .where('contas.id = :id', { id: idConta })
+            .getOne()
+
+        return contaVerificacao
+
+    }
 
 }

@@ -1,9 +1,13 @@
 import { Contas } from "../../entity/Contas";
 import ContasRepository from "../../repository/ContasRepository";
+import MovimentacoesRepository from "../../repository/MovimentacoesRepository";
+import ObjetivosFinanceirosRepository from "../../repository/ObjetivosFinanceirosRepository";
 
 export default class ContasBusiness {
 
     readonly contasRepository = new ContasRepository
+    readonly objetivosFinanceirosRepository = new ObjetivosFinanceirosRepository
+    readonly movimentacoesRepository = new MovimentacoesRepository
 
 async index (idUsuario : number){
   
@@ -19,10 +23,16 @@ async index (idUsuario : number){
     }
 
     async deleteConta(idConta: number){
-      
-        const  retorno = await this.contasRepository.deleteContaId(idConta)
-return retorno
+        
 
+try{
+
+    const  retorno = await this.contasRepository.deleteContaId(idConta)
+    return retorno
+
+} catch(e){
+
+}
 
     }
     

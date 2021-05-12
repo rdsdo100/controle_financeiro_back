@@ -121,29 +121,15 @@ export default class ContasRepository {
    async deleteContaId(idConta: number) {
 
       try {
+
+
          const contasRepository = getManager();
-         let contaVerificacao = await createQueryBuilder("ObjetivosFinaceiros")
-            .leftJoinAndSelect('ObjetivosFinaceiros.contasIdFK', 'contas')
-            .where('contas.id = :id', { id: idConta })
-            .getOne()
+         await contasRepository.delete(Contas, idConta);
+         return `ID Conta ${idConta} deletado!`
 
-         if (!contaVerificacao) {
 
-            contaVerificacao = await createQueryBuilder("Movimentacoes")
-               .leftJoinAndSelect('Movimentacoes.contasIdFK', 'contas')
-               .where('contas.id = :id', { id: idConta })
-               .getOne()
-
-            if (!contaVerificacao) {
-
-               await contasRepository.delete(Contas, idConta);
-               return `ID Conta ${idConta} deletado!`
-            } else {
-               return `Não foi possivel deletar , Já exite movimentações na conta!`
-            }
-         } else {
-            return `Não foi possivel deletar , Já exite Obketivos vinculads a conta na conta!`
-         }
+         
+       
 
       } catch (e) {
          return { Error: `Erro ao deletar!`, e }
