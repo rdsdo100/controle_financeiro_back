@@ -46,9 +46,9 @@ export default class ContasController {
     async deleteMovimentacao(request: Request, response: Response) {
         const idUsuarios: number = Number(request.body.decoded.id)
         const idConta: number = Number(request.params.id)
-const  retorno = await  this.contasBusiness.deleteConta(idConta)
+        const retorno = await this.contasBusiness.deleteConta(idConta , idUsuarios)
 
-return response.status(200).json(retorno)
+        return response.status(200).json(retorno)
 
     }
 
@@ -66,11 +66,8 @@ return response.status(200).json(retorno)
         usuarios.id = idUsuarios
         contas.usuariosIdFK = usuarios
 
-       
-
-        
-         const retorno = await this.contasBusiness.updateConta(contas)
-       return response.status(200).json(retorno)
+        const retorno = await this.contasBusiness.updateConta(contas)
+        return response.status(200).json(retorno)
 
     }
 }

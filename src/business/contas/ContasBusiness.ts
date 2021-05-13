@@ -22,7 +22,7 @@ export default class ContasBusiness {
         return await this.contasRepository.insertConta(conta)
     }
 
-    async deleteConta(idConta: number) {
+    async deleteConta(idConta: number , idUsuario : number) {
 
         try {
 
@@ -59,14 +59,12 @@ export default class ContasBusiness {
             contas.valorLivre = verificarContas.valorLivre
         }
 
-
         if (!contas.valorSeparado) {
             contas.valorSeparado = verificarContas.valorSeparado
         }
 
-        console.log(contas)
-
-        //const  retornoContas = await this.contasRepository.updateContas(contas)
+        const  retornoContas = await this.contasRepository.updateContas(contas)
+        return retornoContas
 
 
 

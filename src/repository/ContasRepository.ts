@@ -40,24 +40,23 @@ export default class ContasRepository {
       }
    }
 
-   async buscarSaldoContasRpository(id: number): Promise<Contas> {
-
+   async buscarSaldoContasRpository(id: number) {
+      let contas = new Contas
       try {
+         
          const contasRepository = getManager();
          const buscarContasId: any = await contasRepository.findOne(Contas, id);
 
-         this.contas.id = buscarContasId.id
-         this.contas.nomeConta = buscarContasId.nomeConta
-         this.contas.valorLivre = buscarContasId.valorLivre
-         this.contas.valorSeparado = buscarContasId.valorSeparado
-         this.contas.valorTotal = buscarContasId.valorTotal
-
-
+         contas.id = buscarContasId.id
+         contas.nomeConta = buscarContasId.nomeConta
+         contas.valorLivre = buscarContasId.valorLivre
+         contas.valorSeparado = buscarContasId.valorSeparado
+         contas.valorTotal = buscarContasId.valorTotal
 
       } catch (e) {
          console.log(e)
       }
-      return this.contas
+      return contas
    }
 
    async insertConta(conta: Contas) {
@@ -126,10 +125,6 @@ export default class ContasRepository {
          const contasRepository = getManager();
          await contasRepository.delete(Contas, idConta);
          return `ID Conta ${idConta} deletado!`
-
-
-         
-       
 
       } catch (e) {
          return { Error: `Erro ao deletar!`, e }
