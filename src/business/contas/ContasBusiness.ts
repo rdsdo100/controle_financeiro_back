@@ -24,7 +24,6 @@ export default class ContasBusiness {
 
     async deleteConta(idConta: number) {
 
-
         try {
 
             let retorno
@@ -33,6 +32,9 @@ export default class ContasBusiness {
                 verificar = await this.objetivosFinanceirosRepository.verificarObjetivosFinanceirosContas(idConta)
                 if (!verificar) {
                     retorno = await this.contasRepository.deleteContaId(idConta)
+                   
+                   return    retorno
+
                 } else {
                     retorno = "Existe Objetivos Ja cadastrados."
                 }

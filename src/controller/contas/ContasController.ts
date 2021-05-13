@@ -42,12 +42,13 @@ export default class ContasController {
 
     }
 
-    @Delete('/:id')
+    @Delete(':id')
     async deleteMovimentacao(request: Request, response: Response) {
         const idUsuarios: number = Number(request.body.decoded.id)
         const idConta: number = Number(request.params.id)
+const  retorno = await  this.contasBusiness.deleteConta(idConta)
 
-        return this.contasBusiness.deleteConta(idConta)
+return response.status(200).json(retorno)
 
     }
 
