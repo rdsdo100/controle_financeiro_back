@@ -47,7 +47,6 @@ export default class ContasController {
         const idUsuarios: number = Number(request.body.decoded.id)
         const idConta: number = Number(request.params.id)
         const retorno = await this.contasBusiness.deleteConta(idConta , idUsuarios)
-
         return response.status(200).json(retorno)
 
     }
@@ -63,6 +62,8 @@ export default class ContasController {
         contas.nomeConta = String(request.body.nomeConta)
         contas.valorLivre = Number(request.body.valorLivre)
         contas.valorSeparado = Number(request.body.valorSeparado)
+        contas.ativo = Boolean(request.body.ativo)
+        contas.bloqueado = Boolean(request.body.bloqueado)
         usuarios.id = idUsuarios
         contas.usuariosIdFK = usuarios
 
