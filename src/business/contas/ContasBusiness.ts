@@ -15,10 +15,7 @@ export default class ContasBusiness {
     }
 
     async cadastrarContas(conta: Contas) {
-
-
         conta.valorTotal = (Number(conta.valorLivre) + Number(conta.valorSeparado))
-
         return await this.contasRepository.insertConta(conta)
     }
 
@@ -65,9 +62,6 @@ export default class ContasBusiness {
 
         const  retornoContas = await this.contasRepository.updateContas(contas)
         return retornoContas
-
-
-
     }
 
 

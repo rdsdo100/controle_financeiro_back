@@ -2,13 +2,9 @@ import {Usuarios} from "../../entity/Usuarios";
 import {assinar} from "../../config/Jwt";
 import UsuarioRepository from "../../repository/UsuarioRepository";
 
-
-
 export  default class LoginBusiness {
 
     readonly usuarioRepository = new UsuarioRepository
-
- 
 
     async login(usuario: Usuarios) {
 
@@ -26,8 +22,6 @@ export  default class LoginBusiness {
             }else {
 
                 const authorization = await assinar(getUsuario)
-                    
-                
 
                 return {
                     id: getUsuario.id,
@@ -35,7 +29,6 @@ export  default class LoginBusiness {
                     authorization
                 }
             }
-            
 
         } catch (error) {
 

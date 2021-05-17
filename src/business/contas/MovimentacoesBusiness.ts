@@ -8,38 +8,18 @@ export default class MovimentacoesBusiness {
     readonly movimentacoesRepository = new MovimentacoesRepository
     readonly contasRepository = new ContasRepository
 
-    private recalcularContas(contas: Contas, movimentacoes: Movimentacoes) {
+    private recalcularContas(contas: Contas, movimentacoes: Movimentacoes) { }
 
-       
-    }
+    private tipoEntradas(valor: number, tipo: boolean) {}
 
-    private tipoEntradas(valor: number, tipo: boolean) {
-       
-    }
-
-    async index() {
-
-        
-
-    }
+    async index() { }
 
     async deleteMovimentacao(){}
     
     async updateMovimentacao(){}
 
+    async moviementacaoConta(movimentacoes: Movimentacoes) { }
 
-    async moviementacaoConta(movimentacoes: Movimentacoes) {
-
-     
-
-    }
-
-    async estornoConta(id: number) {
-
-     
-
-    }
-
-
+    async estornoConta(id: number) {}
 
 }

@@ -27,11 +27,7 @@ export default class UsuariosBusiness {
                 retMap.ativo = user.ativo
                 retMap.bloqueado = user.bloqueado
               
-
-                return retMap
-
-
-            
+                return retMap            
             })
 
             return retornoUsuariosAllList
@@ -39,8 +35,6 @@ export default class UsuariosBusiness {
         } else {
             console.log("nada")
         }
-
-      
 
     }
 
@@ -58,7 +52,6 @@ export default class UsuariosBusiness {
 
     }
 
-    
     async updateUsuario(usuario: Usuarios ): Promise<any> {
 
         const usuarioUpdate = await this.usuarioRepository.updateUsuarioRepository(usuario)
@@ -73,7 +66,5 @@ export default class UsuariosBusiness {
           await this.usuarioRepository.deleteUsuarioIdRepository(idUsuarioDelete)
                
                 return 'Usuário Deletado!'
-            
         } 
-
 }

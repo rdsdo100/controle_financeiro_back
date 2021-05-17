@@ -13,40 +13,18 @@ export default class ObjetivosBusiness {
 
     async inedx() { }
 
-    async buscarObjetivosAll(idUsuario: number) {
-
-       
-        
-
-    }
+    async buscarObjetivosAll(idUsuario: number) { }
 
     async concluirObjetivos() { }
 
-    async updateObjetivos(objetivos: ObjetivosFinaceiros, idUsuario: number) {
+    async updateObjetivos(objetivos: ObjetivosFinaceiros, idUsuario: number) { }
 
-        
+    async deleteObjetivos(idDelete: number, idUsuario: number) {}
 
-
-
-    }
-
-    async deleteObjetivos(idDelete: number, idUsuario: number) {
-
-        
-    }
-
-    async buscarObjetivosId(idObjetivos: number, idUsuario: number) {
-
-        
-    }
+    async buscarObjetivosId(idObjetivos: number, idUsuario: number) { }
 
     async buscarAllObjetivosContasId(idConta: number) { }
 
-    async cadastroObjetivos(objetivos: ObjetivosFinaceiros) /*: Promise<Objetivos> */ {
-
-        
-
-
-    }
+    async cadastroObjetivos(objetivos: ObjetivosFinaceiros) /*: Promise<Objetivos> */ { }
 
 }
