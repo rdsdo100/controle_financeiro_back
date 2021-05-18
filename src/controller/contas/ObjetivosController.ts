@@ -11,20 +11,10 @@ export default class ObjetivosController {
 
     readonly objetivosBusiness = new ObjetivosBusiness
 
-    @Get()
-    async inedx(request: Request, response: Response) {
-        const retorno = await this.objetivosBusiness.inedx()
-
-        return response.status(200).json(retorno)
-
-    }
-
     @Get('all')
     async buscarObjetivosAll(request: Request, response: Response) {
 
         const idUsuario: number = Number(request.body.decoded.id)
-
-
 
     }
     @Get(":id")

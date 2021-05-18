@@ -53,6 +53,7 @@ export class ObjetivosFinaceiros {
     })
     descricao: string
 
+    message: string
 
     @ManyToOne(() => Contas, (contas) => contas.objetivosFinaceiros)
     @JoinColumn([{ name: 'contas_id_fk', referencedColumnName: 'id' }])

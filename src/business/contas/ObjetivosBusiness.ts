@@ -1,19 +1,15 @@
-
 import { ObjetivosFinaceiros } from "../../entity/ObjetivosFinaceiros";
 import ContasRepository from "../../repository/ContasRepository";
 import ObjetivosRepository from "../../repository/ObjetivosFinanceirosRepository";
-
-
 
 export default class ObjetivosBusiness {
 
     objetivosRepository = new ObjetivosRepository()
     contasRepsitory = new ContasRepository()
    
+    async buscarObjetivosAllUser(idUsuario: number , nomeBusca: string) { }
 
-    async inedx() { }
-
-    async buscarObjetivosAll(idUsuario: number) { }
+    async buscarObjetivosUser(idUsuario: number) { }
 
     async concluirObjetivos() { }
 
@@ -25,6 +21,6 @@ export default class ObjetivosBusiness {
 
     async buscarAllObjetivosContasId(idConta: number) { }
 
-    async cadastroObjetivos(objetivos: ObjetivosFinaceiros) /*: Promise<Objetivos> */ { }
+    async registerObjetivos(objetivos: ObjetivosFinaceiros) /*: Promise<Objetivos> */ { }
 
 }

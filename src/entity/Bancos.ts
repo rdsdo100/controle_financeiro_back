@@ -28,5 +28,6 @@ export default class Bancos {
    @OneToMany(() => Contas, (contas) =>contas.bancosIdFK)
     contas: Contas[]; 
 
+    message: string
    
 }

@@ -44,6 +44,7 @@ export class ContasAPagar {
     })
     qtdParcelas: number
 
+    message: string
   
     @ManyToOne(() => Contas, (contas) => contas.contasAPagar)
     @JoinColumn([{ name: 'contas_id_fk', referencedColumnName: 'id' }])

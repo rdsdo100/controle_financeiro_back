@@ -12,7 +12,9 @@ export default class MovimentacoesBusiness {
 
     private tipoEntradas(valor: number, tipo: boolean) {}
 
-    async index() { }
+    async buscarMovimentacoesAllUser(idUsuario: number , nomeBusca: string) { }
+
+    async buscarMovimentacoesUser(idUsuario: number) { }
 
     async deleteMovimentacao(){}
     

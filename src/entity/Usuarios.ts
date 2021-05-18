@@ -29,6 +29,7 @@ export class Usuarios extends BaseEntity {
     @Column()
     bloqueado: boolean;
 
+    message: string
 
     @OneToMany(() => Contas, (contas) => contas.usuariosIdFK)
     contas: Contas[];
