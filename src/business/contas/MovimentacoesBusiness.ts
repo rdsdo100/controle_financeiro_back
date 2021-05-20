@@ -10,18 +10,41 @@ export default class MovimentacoesBusiness {
 
     private recalcularContas(contas: Contas, movimentacoes: Movimentacoes) { }
 
-    private tipoEntradas(valor: number, tipo: boolean) {}
+    private tipoEntradas(valor: number, tipo: boolean) { }
 
-    async buscarMovimentacoesAllUser(idUsuario: number , nomeBusca: string) { }
+    async buscarMovimentacoesAllUser(idUsuario: number, nomeBusca: string) { }
 
     async buscarMovimentacoesUser(idUsuario: number) { }
 
-    async deleteMovimentacao(){}
-    
-    async updateMovimentacao(){}
+    async deleteMovimentacao() { }
 
-    async moviementacaoConta(movimentacoes: Movimentacoes) { }
+    async updateMovimentacao() { }
 
-    async estornoConta(id: number) {}
+    async movimentacaoConta(movimentacoes: Movimentacoes) {
+
+        let retornoMovimentacoes: Movimentacoes
+        let conta = await this.contasRepository.buscarSaldoContasRpository(movimentacoes.contasIdFK.id)
+        
+        if (conta) {
+            movimentacoes.contasIdFK = conta
+        }
+        if (!movimentacoes.tipoEntrada) {
+            movimentacoes.valorMovimento = -(movimentacoes.valorMovimento)
+        }
+
+        movimentacoes.contasIdFK.valorLivre = movimentacoes.contasIdFK.valorLivre - (movimentacoes.valorMovimento)
+
+       retornoMovimentacoes = await this.movimentacoesRepository.insertMovimetacoesReposiroty(movimentacoes)
+
+       retornoMovimentacoes.message = "Erro ao gerar movimentações!"
+
+        if (retornoMovimentacoes) {
+            retornoMovimentacoes.message = "Movimentações Salvo!"
+        }
+        return retornoMovimentacoes
+
+    }
+
+    async estornoConta(id: number) { }
 
 }

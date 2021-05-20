@@ -38,4 +38,28 @@ export default class MovimentacoesRepository {
 
     }
 
+  async insertMovimetacoesReposiroty(movimentacoes: Movimentacoes) {
+
+    let insertMovimetacoesReposiroty : any
+
+        const connection = getConnection();
+        const queryRunner = connection.createQueryRunner();
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+
+        try {
+
+             insertMovimetacoesReposiroty  = await queryRunner.manager.save(Movimentacoes , movimentacoes);
+            
+
+            await queryRunner.commitTransaction();
+        } catch (err) {
+            console.log(err);
+            await queryRunner.rollbackTransaction();
+        } finally {
+            await queryRunner.release();
+        }
+
+        return insertMovimetacoesReposiroty
+    };
 }

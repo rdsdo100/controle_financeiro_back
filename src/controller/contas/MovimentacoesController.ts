@@ -16,8 +16,7 @@ export default class EntradasSaidasController {
     @Get()
     async index(request: Request, response: Response) {
 
-        const retorno = await this.movmentacoesBusiness.index()
-        return response.status(200).json(retorno)
+      
 
     }
 
@@ -37,7 +36,7 @@ export default class EntradasSaidasController {
         conta.usuariosIdFK = usuario
         movimentacoes.contasIdFK = conta
 
-        const retorno = await this.movmentacoesBusiness.moviementacaoConta(movimentacoes)
+        const retorno = await this.movmentacoesBusiness.movimentacaoConta(movimentacoes)
 
         return response.status(200).json(retorno)
 

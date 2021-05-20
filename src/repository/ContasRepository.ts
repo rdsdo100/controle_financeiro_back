@@ -1,8 +1,6 @@
 import { createQueryBuilder, getConnection, getManager } from "typeorm";
 import Bancos from "../entity/Bancos";
 import { Contas } from "../entity/Contas";
-import { ObjetivosFinaceiros } from "../entity/ObjetivosFinaceiros";
-
 import { Usuarios } from "../entity/Usuarios";
 
 export default class ContasRepository {
