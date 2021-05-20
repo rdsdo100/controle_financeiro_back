@@ -21,8 +21,7 @@ export class Contas1617334506066 implements MigrationInterface {
                         name: 'nome_conta',
                         type: 'varchar',
                         length: '50',
-                        isNullable: false,
-                        isUnique: true,
+                        isNullable: false
                     },
                     {
                         name: 'valor_total',

@@ -14,8 +14,7 @@ export class Contas {
         name: 'nome_conta',
         type: 'varchar',
         length: '50',
-        nullable: false,
-        unique: true,
+        nullable: false        
     })
     nomeConta: string
 
