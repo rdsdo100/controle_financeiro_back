@@ -30,13 +30,13 @@ export class Contas1617334506066 implements MigrationInterface {
                         default: 0
                     },
                     {
-                        name: 'valor_livre',
+                        name: 'corrente',
                         type: 'int',
                         isNullable: false,
                         default: 0
                     },
                     {
-                        name: 'valor_separado',
+                        name: 'poupanca',
                         type: 'int',
                         isNullable: false,
                         default: 0

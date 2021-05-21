@@ -32,7 +32,7 @@ export default class MovimentacoesBusiness {
             movimentacoes.valorMovimento = -(movimentacoes.valorMovimento)
         }
 
-        movimentacoes.contasIdFK.valorLivre = movimentacoes.contasIdFK.valorLivre - (movimentacoes.valorMovimento)
+        movimentacoes.contasIdFK.corrente = movimentacoes.contasIdFK.corrente - (movimentacoes.valorMovimento)
 
        retornoMovimentacoes = await this.movimentacoesRepository.insertMovimetacoesReposiroty(movimentacoes)
 

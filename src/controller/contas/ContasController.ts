@@ -30,8 +30,8 @@ export default class ContasController {
         const banco = new Bancos()
 
         contas.nomeConta = String(request.body.nomeConta)
-        contas.valorLivre = Number(request.body.valorLivre)
-        contas.valorSeparado = Number(request.body.valorSeparado)
+        contas.corrente = Number(request.body.corrente)
+        contas.poupanca = Number(request.body.poupanca)
         usuarios.id = idUsuarios
         banco.id = Number(request.body.bancosIdFK.id)
         contas.usuariosIdFK = usuarios
@@ -60,8 +60,8 @@ export default class ContasController {
 
         contas.id = Number(request.body.id)
         contas.nomeConta = String(request.body.nomeConta)
-        contas.valorLivre = Number(request.body.valorLivre)
-        contas.valorSeparado = Number(request.body.valorSeparado)
+        contas.corrente = Number(request.body.corrente)
+        contas.poupanca = Number(request.body.poupanca)
         contas.ativo = Boolean(request.body.ativo)
         contas.bloqueado = Boolean(request.body.bloqueado)
         usuarios.id = idUsuarios

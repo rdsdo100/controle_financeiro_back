@@ -22,8 +22,8 @@ export default class ContasRepository {
             this.contas.id = item.id
             this.contas.nomeConta = item.nomeConta
             this.contas.valorTotal = item.valorTotal
-            this.contas.valorLivre = item.valorLivre
-            this.contas.valorSeparado = item.valorSeparado
+            this.contas.corrente = item.corrente
+            this.contas.poupanca = item.poupanca
             this.contas.ativo = item.ativo
 
             return this.contas
@@ -47,8 +47,8 @@ export default class ContasRepository {
 
          contas.id = buscarContasId.id
          contas.nomeConta = buscarContasId.nomeConta
-         contas.valorLivre = buscarContasId.valorLivre
-         contas.valorSeparado = buscarContasId.valorSeparado
+         contas.corrente = buscarContasId.corrente
+         contas.poupanca = buscarContasId.poupanca
          contas.valorTotal = buscarContasId.valorTotal
 
       } catch (e) {
@@ -93,8 +93,8 @@ export default class ContasRepository {
             contas.id = conta.id
             contas.nomeConta = conta.nomeConta
             contas.valorTotal = conta.valorTotal
-            contas.valorLivre = conta.valorLivre
-            contas.valorSeparado = conta.valorSeparado
+            contas.corrente = conta.corrente
+            contas.poupanca = conta.poupanca
             contas.ativo = conta.ativo
             contas.bloqueado = conta.bloqueado
             bancos.id = conta.bancosIdFK.id

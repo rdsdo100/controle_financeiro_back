@@ -15,7 +15,7 @@ export default class ContasBusiness {
     }
 
     async cadastrarContas(conta: Contas) {
-        conta.valorTotal = (Number(conta.valorLivre) + Number(conta.valorSeparado))
+        conta.valorTotal = (Number(conta.corrente) + Number(conta.poupanca))
         return await this.contasRepository.insertConta(conta)
     }
 
@@ -52,12 +52,12 @@ export default class ContasBusiness {
 
         const verificarContas = await this.contasRepository.buscarSaldoContasRpository(contas.id)
 
-        if (!contas.valorLivre) {
-            contas.valorLivre = verificarContas.valorLivre
+        if (!contas.corrente) {
+            contas.corrente = verificarContas.corrente
         }
 
-        if (!contas.valorSeparado) {
-            contas.valorSeparado = verificarContas.valorSeparado
+        if (!contas.poupanca) {
+            contas.poupanca = verificarContas.poupanca
         }
 
         const  retornoContas = await this.contasRepository.updateContas(contas)

@@ -27,20 +27,20 @@ export class Contas {
     valorTotal: number
 
     @Column({
-        name: 'valor_livre',
+        name: 'corrente',
         type: 'int',
         nullable: false,
         default: 0
     })
-    valorLivre: number
+    corrente: number
 
     @Column ({
-        name: 'valor_separado',
+        name: 'poupanca',
         type: 'int',
         nullable: false,
         default: 0
     })
-    valorSeparado: number
+    poupanca: number
 
 
     @Column({
