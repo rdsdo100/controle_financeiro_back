@@ -12,7 +12,12 @@ export default class MovimentacoesBusiness {
 
     private tipoEntradas(valor: number, tipo: boolean) { }
 
-    async buscarMovimentacoesAllUser(idUsuario: number, nomeBusca: string) { }
+    async buscarMovimentacoesAllUser(idUsuario: number, nomeBusca: string) { 
+
+        const listMovimnentacoes = await this.movimentacoesRepository.buscarMovimentacoesUser(idUsuario)
+return listMovimnentacoes
+        
+    }
 
     async buscarMovimentacoesUser(idUsuario: number) { }
 

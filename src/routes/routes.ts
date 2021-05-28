@@ -6,6 +6,7 @@ import ContasController from '../controller/contas/ContasController';
 import MovimentacoesController from '../controller/contas/MovimentacoesController';
 import ObjetivosController from '../controller/contas/ObjetivosController';
 import BancosController from '../controller/contas/BancosController';
+import Dollar from '../controller/flutter/Dollar';
 
 
 
@@ -17,6 +18,7 @@ const conta = new ContasController()
 const movimentacoes = new MovimentacoesController()
 const objetivo = new ObjetivosController()
 const banco = new BancosController()
+const dollar = new Dollar()
 
 export const routes = [
     inicio,
@@ -25,6 +27,7 @@ export const routes = [
     conta,
     movimentacoes,
     objetivo,
-    banco
+    banco,
+    dollar
 
 ]

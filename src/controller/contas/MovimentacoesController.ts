@@ -19,6 +19,16 @@ export default class EntradasSaidasController {
       
 
     }
+    @Get("busca-user")
+    async buscamovimentaoesUder(request: Request, response: Response) {
+
+        const idUsuarios: number = Number(request.body.decoded.id)
+        const retorno = await this.movmentacoesBusiness.buscarMovimentacoesAllUser(idUsuarios , "1")
+
+        return response.status(200).json(retorno)
+
+    }
+
 
     @Post()
     async movimentacaoConta(request: Request, response: Response) {

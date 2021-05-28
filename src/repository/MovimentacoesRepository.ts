@@ -1,8 +1,9 @@
-import { createQueryBuilder, getConnection } from "typeorm";
+import { createQueryBuilder, EntityRepository, getConnection, Repository } from "typeorm";
 import { Contas } from "../entity/Contas";
 import { Movimentacoes } from "../entity/Movimentacoes";
 
-export default class MovimentacoesRepository {
+@EntityRepository(Movimentacoes)
+export default class MovimentacoesRepository extends Repository<Movimentacoes> {
 
     async verificarMovimentacoesContas(idConta: number) {
 
@@ -62,4 +63,16 @@ export default class MovimentacoesRepository {
 
         return insertMovimetacoesReposiroty
     };
+
+    async buscarMovimentacoesUser(idUsuario: number){
+        const  movimentacoesRetorno = new Movimentacoes()
+        const  contaRetorno = new Contas()
+        let contaVerificacao: any  = await createQueryBuilder("Movimentacoes")
+            .leftJoinAndSelect('Movimentacoes.contasIdFK', 'contas')
+            .leftJoinAndSelect('contas.usuariosIdFK', 'user')
+            .where('user.id = :id', {  id : idUsuario})
+            .getMany()
+
+            return contaVerificacao
+    }
 }
