@@ -14,9 +14,7 @@ export default class EntradasSaidasController {
     readonly movmentacoesBusiness = new MovimentacoesBusiness
 
     @Get()
-    async index(request: Request, response: Response) {
-
-      
+    async index(request: Request, response: Response) 
 
     }
     @Get("busca-user")
@@ -28,7 +26,6 @@ export default class EntradasSaidasController {
         return response.status(200).json(retorno)
 
     }
-
 
     @Post()
     async movimentacaoConta(request: Request, response: Response) {
@@ -49,7 +46,6 @@ export default class EntradasSaidasController {
         const retorno = await this.movmentacoesBusiness.movimentacaoConta(movimentacoes)
 
         return response.status(200).json(retorno)
-
 
     }
 
