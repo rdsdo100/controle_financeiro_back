@@ -14,7 +14,7 @@ export default class EntradasSaidasController {
     readonly movmentacoesBusiness = new MovimentacoesBusiness
 
     @Get()
-    async index(request: Request, response: Response) 
+    async index(request: Request, response: Response) {
 
     }
     @Get("busca-user")
