@@ -21,14 +21,14 @@ export default class EntradasSaidasController {
     async buscamovimentaoesUder(request: Request, response: Response) {
 
         const idUsuarios: number = Number(request.body.decoded.id)
-        const retorno = await this.movmentacoesBusiness.buscarMovimentacoesAllUser(idUsuarios , "1")
+        const retorno = await this.movmentacoesBusiness.buscarMovimentacoesUser(idUsuarios , "1")
 
         return response.status(200).json(retorno)
 
     }
 
     @Post()
-    async movimentacaoConta(request: Request, response: Response) {
+    async registerMovimentacaoConta(request: Request, response: Response) {
 
         const conta = new Contas()
         const usuario = new Usuarios()
@@ -43,7 +43,7 @@ export default class EntradasSaidasController {
         conta.usuariosIdFK = usuario
         movimentacoes.contasIdFK = conta
 
-        const retorno = await this.movmentacoesBusiness.movimentacaoConta(movimentacoes)
+        const retorno = await this.movmentacoesBusiness.registerMovimentacaoConta(movimentacoes)
 
         return response.status(200).json(retorno)
 

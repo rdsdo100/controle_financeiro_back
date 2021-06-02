@@ -12,20 +12,20 @@ export default class MovimentacoesBusiness {
 
     private tipoEntradas(valor: number, tipo: boolean) { }
 
-    async buscarMovimentacoesAllUser(idUsuario: number, nomeBusca: string) { 
+    async buscarMovimentacoesUser(idUsuario: number, nomeBusca: string) { 
 
         const listMovimnentacoes = await this.movimentacoesRepository.buscarMovimentacoesUser(idUsuario)
 return listMovimnentacoes
         
     }
 
-    async buscarMovimentacoesUser(idUsuario: number) { }
+    async buscarMovimentacoesAllUser(idUsuario: number) { }
 
     async deleteMovimentacao() { }
 
     async updateMovimentacao() { }
 
-    async movimentacaoConta(movimentacoes: Movimentacoes) {
+    async registerMovimentacaoConta (movimentacoes: Movimentacoes) {
 
         let retornoMovimentacoes: Movimentacoes
         let conta = await this.contasRepository.buscarSaldoContasRpository(movimentacoes.contasIdFK.id)
