@@ -49,7 +49,6 @@ export default class EntradasSaidasController {
 
     }
 
-
     @Post('estorno')
     async estornoConta(request: Request, response: Response) {
 
