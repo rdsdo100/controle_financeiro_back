@@ -25,19 +25,19 @@ export class Contas1617334506066 implements MigrationInterface {
                     },
                     {
                         name: 'valor_total',
-                        type: 'NUMERIC(8,2)',
+                        type: 'NUMERIC(14,2)',
                         isNullable: false,
                         default: 0
                     },
                     {
                         name: 'corrente',
-                        type: 'int',
+                        type: 'NUMERIC(14,2)',
                         isNullable: false,
                         default: 0
                     },
                     {
                         name: 'poupanca',
-                        type: 'int',
+                        type: 'NUMERIC(14,2)',
                         isNullable: false,
                         default: 0
                     },

@@ -28,7 +28,7 @@ export class Contas {
 
     @Column({
         name: 'corrente',
-        type: 'int',
+        type: 'numeric',
         nullable: false,
         default: 0
     })
@@ -36,7 +36,7 @@ export class Contas {
 
     @Column ({
         name: 'poupanca',
-        type: 'int',
+        type: 'numeric',
         nullable: false,
         default: 0
     })
