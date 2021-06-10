@@ -33,7 +33,7 @@ export default class EntradasSaidasController {
         const conta = new Contas()
         const usuario = new Usuarios()
         const movimentacoes = new Movimentacoes()
-        movimentacoes.nomeMovimentacoes = String(request.body.nomeMovimento)
+        movimentacoes.nomeMovimentacoes = String(request.body.nomeMovimentacoes)
         movimentacoes.valorMovimento = Number(request.body.valorMovimento)
         movimentacoes.descricao = String(request.body.descricao)
         movimentacoes.tipoEntrada = Boolean(request.body.tipoEntrada)
