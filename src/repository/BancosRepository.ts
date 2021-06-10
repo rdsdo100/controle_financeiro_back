@@ -1,7 +1,9 @@
-import { getManager } from "typeorm";
+import { EntityRepository, getManager, Repository } from "typeorm";
 import Bancos from "../entity/Bancos";
 
-export default class BancosRepository {
+
+@EntityRepository(Bancos)
+export default class BancosRepository extends Repository<Bancos> {
 
 
     async buscarbancosAll() : Promise<Bancos[]> {

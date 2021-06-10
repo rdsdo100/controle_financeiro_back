@@ -7,13 +7,10 @@ import BancosBusiness from "../../business/contas/BoancosBusiness";
 @ClassMiddleware([decodificar])
 export default class BancosController {
 
-    readonly bancosBusuness = new BancosBusiness()
-
-
     @Get()
     async index(_: Request, response: Response) {
-
-        const retorno = await this.bancosBusuness.index()
+        const bancosBusuness = new BancosBusiness()
+        const retorno = await bancosBusuness.index()
         return response.status(200).json(retorno)
     }
 

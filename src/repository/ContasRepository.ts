@@ -1,9 +1,10 @@
-import { createQueryBuilder, getConnection, getManager } from "typeorm";
+import { createQueryBuilder, EntityRepository, getManager, Repository } from "typeorm";
 import Bancos from "../entity/Bancos";
 import { Contas } from "../entity/Contas";
 import { Usuarios } from "../entity/Usuarios";
 
-export default class ContasRepository {
+@EntityRepository(Contas)
+export default class ContasRepository extends Repository<Contas>{
 
    contas = new Contas
    usuarios = new Usuarios

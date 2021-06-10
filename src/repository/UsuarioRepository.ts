@@ -1,8 +1,10 @@
-import {getManager } from 'typeorm';
+import {EntityRepository, getManager, Repository } from 'typeorm';
 import { Usuarios } from '../entity/Usuarios';
 
-export default class UsuarioRepository {
+@EntityRepository(Usuarios)
+export default class UsuarioRepository extends Repository<Usuarios> {
 
+    
 readonly usuarios = new Usuarios
 
 

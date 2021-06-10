@@ -1,6 +1,8 @@
-import { createQueryBuilder } from "typeorm";
+import { createQueryBuilder, EntityRepository, Repository } from "typeorm";
+import { ObjetivosFinaceiros } from "../entity/ObjetivosFinaceiros";
 
-export default class ObjetivosFinanceirosRepository {
+@EntityRepository(ObjetivosFinaceiros)
+export default class ObjetivosFinanceirosRepository extends Repository<ObjetivosFinaceiros> {
 
     async verificarObjetivosFinanceirosContas(idConta : number){
         let contaVerificacao = await createQueryBuilder("ObjetivosFinaceiros")
