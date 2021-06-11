@@ -19,10 +19,19 @@ export class Movimentacoes {
     @Column({
         name: 'tipo_entrada',
         type: 'boolean',
-        nullable: false,
-
+        nullable: false
     })
     tipoEntrada: boolean
+
+
+    @Column({
+        name: 'tipo_corrente',
+        type: 'boolean',
+        nullable: false,
+        default: true
+
+    })
+    tipoCorrente: boolean
 
     @Column({
         name: 'descricao',

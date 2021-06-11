@@ -47,6 +47,7 @@ export default class MovimentacoesRepository extends Repository<Movimentacoes> {
   async insertMovimetacoesReposiroty(movimentacoes: Movimentacoes) {
 
     let insertMovimetacoesReposiroty : any
+    let insertContasReposiroty : any
 
         const connection = getConnection();
         const queryRunner = connection.createQueryRunner();
@@ -56,7 +57,7 @@ export default class MovimentacoesRepository extends Repository<Movimentacoes> {
         try {
 
              insertMovimetacoesReposiroty  = await queryRunner.manager.save(Movimentacoes , movimentacoes);
-            
+             insertContasReposiroty = await queryRunner.manager.save(Contas , movimentacoes.contasIdFK);
 
             await queryRunner.commitTransaction();
         } catch (err) {
@@ -69,6 +70,9 @@ export default class MovimentacoesRepository extends Repository<Movimentacoes> {
         return insertMovimetacoesReposiroty
     };
 
+
+
+
     async buscarMovimentacoesUser(idUsuario: number){
         const  movimentacoesRetorno = new Movimentacoes()
         const  contaRetorno = new Contas()
@@ -80,6 +84,8 @@ export default class MovimentacoesRepository extends Repository<Movimentacoes> {
 
             return contaVerificacao
     }
+
+    
 
     async buscarMovimentacoesBusca({idUsuario, busca, tipoBusca , pagina}: IBuscaMovimentacoes){
         const  movimentacoesRetorno = new Movimentacoes()

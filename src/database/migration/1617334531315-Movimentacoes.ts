@@ -30,9 +30,15 @@ export class Movimentacoes1617334531315 implements MigrationInterface {
                         type: 'boolean',
                         isNullable: false,
                     },
-                  
-                    
 
+                    {
+                        name: 'tipo_corrente',
+                        type: 'boolean',
+                        isNullable: false,
+                        default: true
+                
+                    },
+                  
                     {
                         name: 'descricao',
                         type: 'varchar',

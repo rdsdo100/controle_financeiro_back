@@ -1,6 +1,4 @@
-import { getCustomRepository, Repository, SelectQueryBuilder } from "typeorm";
 import { IBuscaMovimentacoes } from "../../controller/contas/MovimentacoesController";
-import { Contas } from "../../entity/Contas";
 import { Movimentacoes } from "../../entity/Movimentacoes";
 import ContasRepository from "../../repository/ContasRepository";
 import MovimentacoesRepository from "../../repository/MovimentacoesRepository";
@@ -11,26 +9,25 @@ export default class MovimentacoesBusiness {
 
 
 
-    private recalcularContas(contas: Contas, movimentacoes: Movimentacoes) { }
 
-    private tipoEntradas(valor: number, tipo: boolean) { }
+
 
     async buscarMovimentacoesUser(idUsuario: number, nomeBusca: string) {
         const movimentacoesRepository = new MovimentacoesRepository()
 
         const listMovimnentacoes = await movimentacoesRepository
-        .buscarMovimentacoesUser(idUsuario)
+            .buscarMovimentacoesUser(idUsuario)
         return listMovimnentacoes
 
     }
 
-    async buscarMovimentacoesFiltro({idUsuario, busca, tipoBusca , pagina}: IBuscaMovimentacoes) {
+    async buscarMovimentacoesFiltro({ idUsuario, busca, tipoBusca, pagina }: IBuscaMovimentacoes) {
 
-         const movimentacoesRepository = new MovimentacoesRepository()
+        const movimentacoesRepository = new MovimentacoesRepository()
 
-         const retornoBusca = await movimentacoesRepository
-         .buscarMovimentacoesBusca({idUsuario, busca, tipoBusca , pagina})
-        
+        const retornoBusca = await movimentacoesRepository
+            .buscarMovimentacoesBusca({ idUsuario, busca, tipoBusca, pagina })
+
         return retornoBusca
 
     }
@@ -42,25 +39,36 @@ export default class MovimentacoesBusiness {
     async registerMovimentacaoConta(movimentacoes: Movimentacoes) {
         const movimentacoesRepository = new MovimentacoesRepository()
         const contasRepository = new ContasRepository()
+        let saveMovimentacoes: Movimentacoes
         let retornoMovimentacoes: Movimentacoes
         let conta = await contasRepository.buscarSaldoContasRpository(movimentacoes.contasIdFK.id)
 
-        if (conta) {
-            movimentacoes.contasIdFK = conta
-        }
-        if (!movimentacoes.tipoEntrada) {
-            movimentacoes.valorMovimento = -(movimentacoes.valorMovimento)
+        if (!conta.id) {
+            throw ({ message: "Conta não encontrada!" })
         }
 
-        movimentacoes.contasIdFK.corrente = movimentacoes.contasIdFK.corrente - (movimentacoes.valorMovimento)
+        saveMovimentacoes = movimentacoes
+        saveMovimentacoes.contasIdFK = conta
+        saveMovimentacoes.valorContaAnterior = Number(conta.valorTotal)
 
-        retornoMovimentacoes = await movimentacoesRepository.insertMovimetacoesReposiroty(movimentacoes)
-
-        retornoMovimentacoes.message = "Erro ao gerar movimentações!"
-
-        if (retornoMovimentacoes) {
-            retornoMovimentacoes.message = "Movimentações Salvo!"
+        if (!saveMovimentacoes.tipoEntrada) {
+            saveMovimentacoes.valorMovimento = -(saveMovimentacoes.valorMovimento)
         }
+
+        if (saveMovimentacoes.tipoCorrente) {
+
+            saveMovimentacoes.contasIdFK.corrente = Number(saveMovimentacoes.contasIdFK.corrente) + Number(saveMovimentacoes.valorMovimento)
+
+        } else {
+            saveMovimentacoes.contasIdFK.poupanca = Number(saveMovimentacoes.contasIdFK.poupanca) +Number(saveMovimentacoes.valorMovimento)
+        }
+
+        saveMovimentacoes.contasIdFK.valorTotal = Number(saveMovimentacoes.contasIdFK.corrente)
+            + Number(saveMovimentacoes.contasIdFK.poupanca)
+
+        retornoMovimentacoes = await movimentacoesRepository.insertMovimetacoesReposiroty(saveMovimentacoes)
+
+
         return retornoMovimentacoes
 
     }

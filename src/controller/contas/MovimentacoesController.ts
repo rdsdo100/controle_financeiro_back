@@ -49,6 +49,8 @@ export default class EntradasSaidasController {
 
     @Post()
     async registerMovimentacaoConta(request: Request, response: Response): Promise<Response> {
+        
+        try{
         const movmentacoesBusiness = new MovimentacoesBusiness()
         const conta = new Contas()
         const usuario = new Usuarios()
@@ -57,6 +59,7 @@ export default class EntradasSaidasController {
         movimentacoes.valorMovimento = Number(request.body.valorMovimento)
         movimentacoes.descricao = String(request.body.descricao)
         movimentacoes.tipoEntrada = Boolean(request.body.tipoEntrada)
+        movimentacoes.tipoCorrente = Boolean(request.body.tipoCorrente)
         movimentacoes.dataMovimento = new Date
         usuario.id = Number(request.body.decoded.id)
         conta.id = Number(request.body.contaId)
@@ -65,7 +68,10 @@ export default class EntradasSaidasController {
 
         const retorno = await movmentacoesBusiness.registerMovimentacaoConta(movimentacoes)
 
-        return response.status(200).json(retorno)
+        return response.status(200).json(retorno) 
+    }catch(e){
+        return response.status(400).json(e) 
+    }
 
     }
 

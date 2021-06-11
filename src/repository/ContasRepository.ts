@@ -46,12 +46,13 @@ export default class ContasRepository extends Repository<Contas>{
          const contasRepository = getManager();
          const buscarContasId: any = await contasRepository.findOne(Contas, id);
 
+         if(buscarContasId){
          contas.id = buscarContasId.id
          contas.nomeConta = buscarContasId.nomeConta
          contas.corrente = buscarContasId.corrente
          contas.poupanca = buscarContasId.poupanca
          contas.valorTotal = buscarContasId.valorTotal
-
+         }
       } catch (e) {
          console.log(e)
       }
