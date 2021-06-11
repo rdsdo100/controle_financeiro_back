@@ -59,7 +59,7 @@ export default class EntradasSaidasController {
         movimentacoes.valorMovimento = Number(request.body.valorMovimento)
         movimentacoes.descricao = String(request.body.descricao)
         movimentacoes.tipoEntrada = Boolean(request.body.tipoEntrada)
-        movimentacoes.tipoCorrente = Boolean(request.body.tipoCorrente)
+        movimentacoes.tipoPoupanca = Boolean(request.body.	tipoPoupanca)
         movimentacoes.dataMovimento = new Date
         usuario.id = Number(request.body.decoded.id)
         conta.id = Number(request.body.contaId)

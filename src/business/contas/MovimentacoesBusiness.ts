@@ -6,12 +6,6 @@ import MovimentacoesRepository from "../../repository/MovimentacoesRepository";
 export default class MovimentacoesBusiness {
 
 
-
-
-
-
-
-
     async buscarMovimentacoesUser(idUsuario: number, nomeBusca: string) {
         const movimentacoesRepository = new MovimentacoesRepository()
 
@@ -55,12 +49,14 @@ export default class MovimentacoesBusiness {
             saveMovimentacoes.valorMovimento = -(saveMovimentacoes.valorMovimento)
         }
 
-        if (saveMovimentacoes.tipoCorrente) {
+        if (!saveMovimentacoes.tipoPoupanca) {
 
-            saveMovimentacoes.contasIdFK.corrente = Number(saveMovimentacoes.contasIdFK.corrente) + Number(saveMovimentacoes.valorMovimento)
+            saveMovimentacoes.contasIdFK.corrente = Number(saveMovimentacoes.contasIdFK.corrente) 
+            + Number(saveMovimentacoes.valorMovimento)
 
         } else {
-            saveMovimentacoes.contasIdFK.poupanca = Number(saveMovimentacoes.contasIdFK.poupanca) +Number(saveMovimentacoes.valorMovimento)
+            saveMovimentacoes.contasIdFK.poupanca = Number(saveMovimentacoes.contasIdFK.poupanca) 
+            +Number(saveMovimentacoes.valorMovimento)
         }
 
         saveMovimentacoes.contasIdFK.valorTotal = Number(saveMovimentacoes.contasIdFK.corrente)

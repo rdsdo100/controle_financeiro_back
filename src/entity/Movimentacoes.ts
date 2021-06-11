@@ -25,13 +25,13 @@ export class Movimentacoes {
 
 
     @Column({
-        name: 'tipo_corrente',
+        name: 'tipo_poupanca',
         type: 'boolean',
         nullable: false,
         default: true
 
     })
-    tipoCorrente: boolean
+    tipoPoupanca: boolean
 
     @Column({
         name: 'descricao',

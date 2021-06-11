@@ -32,10 +32,10 @@ export class Movimentacoes1617334531315 implements MigrationInterface {
                     },
 
                     {
-                        name: 'tipo_corrente',
+                        name: 'tipo_poupanca',
                         type: 'boolean',
                         isNullable: false,
-                        default: true
+                        default: false
                 
                     },
                   
