@@ -9,7 +9,7 @@ import BancosBusiness from "../../business/contas/BoancosBusiness";
 export default class BancosController {
 
     @Get()
-    async index(_: Request, response: Response) {
+    async index(_: Request, response: Response) : Promise<Response> {
         const bancosBusuness = new BancosBusiness()
         const retorno = await bancosBusuness.index()
         return response.status(200).json(retorno)

@@ -6,24 +6,39 @@ import { Usuarios } from "../../entity/Usuarios";
 import { Movimentacoes } from "../../entity/Movimentacoes";
 import MovimentacoesBusiness from "../../business/contas/MovimentacoesBusiness";
 
+export interface IBuscaMovimentacoes {
+    idUsuario: number,
+    busca: string,
+    tipoBusca: string
+    pagina: number
+
+
+}
 
 @Controller('movimentacoes')
 @ClassMiddleware([decodificar])
 export default class EntradasSaidasController {
 
     @Get()
-    async index(request: Request, response: Response) {
+    async index(request: Request, response: Response): Promise<Response> {
+
         const movmentacoesBusiness = new MovimentacoesBusiness()
-        const idUsuarios: number = Number(request.body.decoded.id)
-        const busca: string = String(request.body.busca)
-        const tipoBusca: string = String(request.body.tipoBusca)
-        const retorno = await movmentacoesBusiness.buscarMovimentacoesFiltro(idUsuarios, busca, tipoBusca)
-        response.status(200).json(retorno)
+        const busca: IBuscaMovimentacoes = {
+            idUsuario: Number(request.body.decoded.id),
+            busca: String(request.body.busca),
+            tipoBusca: String(request.body.tipoBusca),
+            pagina: Number(request.body.pagina)
+        }
+
+        const retorno = await movmentacoesBusiness
+            .buscarMovimentacoesFiltro(busca)
+
+        return response.status(200).json(retorno)
 
 
     }
     @Get("busca-user")
-    async buscamovimentaoesUder(request: Request, response: Response) {
+    async buscamovimentaoesUder(request: Request, response: Response): Promise<Response> {
         const movmentacoesBusiness = new MovimentacoesBusiness()
         const idUsuarios: number = Number(request.body.decoded.id)
         const retorno = await movmentacoesBusiness.buscarMovimentacoesUser(idUsuarios, "1")
@@ -33,7 +48,7 @@ export default class EntradasSaidasController {
     }
 
     @Post()
-    async registerMovimentacaoConta(request: Request, response: Response) {
+    async registerMovimentacaoConta(request: Request, response: Response): Promise<Response> {
         const movmentacoesBusiness = new MovimentacoesBusiness()
         const conta = new Contas()
         const usuario = new Usuarios()
@@ -55,7 +70,7 @@ export default class EntradasSaidasController {
     }
 
     @Post('estorno')
-    async estornoConta(request: Request, response: Response) {
+    async estornoConta(request: Request, response: Response): Promise<Response> {
         const movmentacoesBusiness = new MovimentacoesBusiness()
         const conta = new Contas()
         const usuario = new Usuarios()
@@ -68,10 +83,15 @@ export default class EntradasSaidasController {
     }
 
     @Delete()
-    async deleteMovimentacao(request: Request, response: Response) { }
+    async deleteMovimentacao(request: Request, response: Response): Promise<Response> {
+        return response.status(200).json({})
+     }
 
     @Put()
-    async updateMovimentacao(request: Request, response: Response) { }
+    async updateMovimentacao(request: Request, response: Response): Promise<Response> {
+
+        return response.status(200).json()
+     }
 
 
 }

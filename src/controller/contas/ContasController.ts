@@ -14,7 +14,7 @@ export default class ContasController {
     readonly contasBusiness = new ContasBusiness
 
     @Get()
-    async index(request: Request, response: Response) {
+    async index(request: Request, response: Response): Promise<Response> {
         const idUsuarios: number = Number(request.body.decoded.id)
 
         const retorno = await this.contasBusiness.index(idUsuarios)
@@ -23,7 +23,7 @@ export default class ContasController {
     }
 
     @Post()
-    async cadastrarContas(request: Request, response: Response) {
+    async cadastrarContas(request: Request, response: Response): Promise<Response> {
         const idUsuarios: number = Number(request.body.decoded.id)
         const contas = new Contas()
         const usuarios = new Usuarios()
@@ -43,7 +43,7 @@ export default class ContasController {
     }
 
     @Delete(':id')
-    async deleteMovimentacao(request: Request, response: Response) {
+    async deleteMovimentacao(request: Request, response: Response): Promise<Response> {
         const idUsuarios: number = Number(request.body.decoded.id)
         const idConta: number = Number(request.params.id)
         const retorno = await this.contasBusiness.deleteConta(idConta , idUsuarios)
@@ -52,7 +52,7 @@ export default class ContasController {
     }
 
     @Put()
-    async updateMovimentacao(request: Request, response: Response) {
+    async updateMovimentacao(request: Request, response: Response): Promise<Response> {
         const idUsuarios: number = Number(request.body.decoded.id)
         const contas = new Contas()
         const usuarios = new Usuarios()

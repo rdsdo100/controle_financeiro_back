@@ -1,4 +1,5 @@
 import { createQueryBuilder, EntityRepository, getConnection, Repository } from "typeorm";
+import { IBuscaMovimentacoes } from "../controller/contas/MovimentacoesController";
 import { Contas } from "../entity/Contas";
 import { Movimentacoes } from "../entity/Movimentacoes";
 
@@ -80,7 +81,7 @@ export default class MovimentacoesRepository extends Repository<Movimentacoes> {
             return contaVerificacao
     }
 
-    async buscarMovimentacoesBusca(idUsuario: number, busca: string , tipoBusca: string , pagina: number = 0){
+    async buscarMovimentacoesBusca({idUsuario, busca, tipoBusca , pagina}: IBuscaMovimentacoes){
         const  movimentacoesRetorno = new Movimentacoes()
         const  contaRetorno = new Contas()
         const  limite = 20;
@@ -89,7 +90,7 @@ export default class MovimentacoesRepository extends Repository<Movimentacoes> {
         let contaVerificacao: any  = await createQueryBuilder("Movimentacoes")
             .leftJoinAndSelect('Movimentacoes.contasIdFK', 'contas')
             .leftJoinAndSelect('contas.usuariosIdFK', 'user')
-            .where(` ${ok} = :id ${ok2} `, {  id : idUsuario , tt : 1 })
+            .where('user.id = :id', {  id : idUsuario})
             .limit(limite)
             .offset(limite * pagina)
             .getMany()

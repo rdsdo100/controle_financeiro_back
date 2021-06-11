@@ -1,4 +1,5 @@
 import { getCustomRepository, Repository, SelectQueryBuilder } from "typeorm";
+import { IBuscaMovimentacoes } from "../../controller/contas/MovimentacoesController";
 import { Contas } from "../../entity/Contas";
 import { Movimentacoes } from "../../entity/Movimentacoes";
 import ContasRepository from "../../repository/ContasRepository";
@@ -17,19 +18,18 @@ export default class MovimentacoesBusiness {
     async buscarMovimentacoesUser(idUsuario: number, nomeBusca: string) {
         const movimentacoesRepository = new MovimentacoesRepository()
 
-        const listMovimnentacoes = await movimentacoesRepository.buscarMovimentacoesUser(idUsuario)
+        const listMovimnentacoes = await movimentacoesRepository
+        .buscarMovimentacoesUser(idUsuario)
         return listMovimnentacoes
 
     }
 
-    async buscarMovimentacoesFiltro(idUsuario: number, busca: string, tipoBusca: string) {
-        
-      
+    async buscarMovimentacoesFiltro({idUsuario, busca, tipoBusca , pagina}: IBuscaMovimentacoes) {
 
          const movimentacoesRepository = new MovimentacoesRepository()
 
          const retornoBusca = await movimentacoesRepository
-         .buscarMovimentacoesBusca(idUsuario , 'teste' , 'Movimentacoes.nome_movimentacoes' ,  1)
+         .buscarMovimentacoesBusca({idUsuario, busca, tipoBusca , pagina})
         
         return retornoBusca
 

@@ -12,7 +12,7 @@ export default class ObjetivosController {
     readonly objetivosBusiness = new ObjetivosBusiness
 
     @Get()
-    async buscarObjetivosAll(request: Request, response: Response) {
+    async buscarObjetivosAll(request: Request, response: Response): Promise<Response> {
 
         const idUsuario: number = Number(request.body.decoded.id)
 
@@ -20,17 +20,21 @@ export default class ObjetivosController {
         return response.status(200).json({ok: "resposta"})
     }
     @Get(":id")
-    async buscarObjetivosId(request: Request, response: Response) { 
+    async buscarObjetivosId(request: Request, response: Response): Promise<Response> { 
         const idObjetivos : number = Number(request.params.id)
         const idUsuario: number = Number(request.body.decoded.id)
-
+        return response.status(200).json({})
     }
 
     @Get('contas')
-    async buscarAllObjetivosContasId(request: Request, response: Response) { }
+    async buscarAllObjetivosContasId(request: Request, response: Response): Promise<Response> { 
+        return response.status(200).json({})
+    }
 
     @Post()
-    async cadastroObjetivos(request: Request, response: Response) {
+    async cadastroObjetivos(request: Request, response: Response): Promise<Response> {
+
+        
 
         const objetivosFinaceiros = new ObjetivosFinaceiros()
         const conta = new Contas()
@@ -44,15 +48,18 @@ export default class ObjetivosController {
 
 
         
-       
+        return response.status(200).json({})
 
     }
 
     @Post('concluir')
-    async concluirObjetivos(request: Request, response: Response) { }
+    async concluirObjetivos(request: Request, response: Response): Promise<Response> { 
+
+        return response.status(200).json({})  
+    }
 
     @Put()
-    async updateObjetivosAll(request: Request, response: Response) {
+    async updateObjetivosAll(request: Request, response: Response): Promise<Response> {
 
         const objetivosFinaceiros = new ObjetivosFinaceiros()
         const conta = new Contas()
@@ -66,16 +73,16 @@ export default class ObjetivosController {
         conta.id = Number(request.body.contaId)
         objetivosFinaceiros.contasIdFK = conta
 
-     
+        return response.status(200).json({})
 
      }
 
     @Delete(":id")
-    async deleteObjetivos(request: Request, response: Response) { 
+    async deleteObjetivos(request: Request, response: Response): Promise<Response> { 
         const idDelete : number = Number(request.params.id)
         const idUsuario: number = Number(request.body.decoded.id)
 
-      
+        return response.status(200).json({})
     }
 
 
