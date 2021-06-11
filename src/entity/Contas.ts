@@ -5,7 +5,7 @@ import { Movimentacoes } from "./Movimentacoes";
 import { ObjetivosFinaceiros } from "./ObjetivosFinaceiros";
 import { Usuarios } from "./Usuarios";
 
-@Entity()
+@Entity('contas')
 export class Contas {
     @PrimaryGeneratedColumn()
     id: number;

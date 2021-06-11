@@ -5,6 +5,10 @@ import { Movimentacoes } from "../entity/Movimentacoes";
 @EntityRepository(Movimentacoes)
 export default class MovimentacoesRepository extends Repository<Movimentacoes> {
 
+
+
+
+
     async verificarMovimentacoesContas(idConta: number) {
 
         const  movimentacoesRetorno = new Movimentacoes()
@@ -75,4 +79,23 @@ export default class MovimentacoesRepository extends Repository<Movimentacoes> {
 
             return contaVerificacao
     }
+
+    async buscarMovimentacoesBusca(idUsuario: number, busca: string , tipoBusca: string , pagina: number = 0){
+        const  movimentacoesRetorno = new Movimentacoes()
+        const  contaRetorno = new Contas()
+        const  limite = 20;
+        let ok: string  = "user.id" 
+        let ok2: string  = "" 
+        let contaVerificacao: any  = await createQueryBuilder("Movimentacoes")
+            .leftJoinAndSelect('Movimentacoes.contasIdFK', 'contas')
+            .leftJoinAndSelect('contas.usuariosIdFK', 'user')
+            .where(` ${ok} = :id ${ok2} `, {  id : idUsuario , tt : 1 })
+            .limit(limite)
+            .offset(limite * pagina)
+            .getMany()
+
+            return contaVerificacao
+    }
+
+    
 }

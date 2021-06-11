@@ -68,7 +68,11 @@ export class Movimentacoes {
         type: 'date',
     })
     dataMovimento: Date
-
+   
+   
+   
+   
+   
     message: string
 
     @ManyToOne(() => Contas, (contas) => contas.movimentacoes)

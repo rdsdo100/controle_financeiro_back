@@ -3,6 +3,7 @@ import { decodificar } from "../../config/Jwt";
 import { Request, Response } from "express";
 import BancosBusiness from "../../business/contas/BoancosBusiness";
 
+
 @Controller('banco')
 @ClassMiddleware([decodificar])
 export default class BancosController {

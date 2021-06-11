@@ -11,17 +11,22 @@ import MovimentacoesBusiness from "../../business/contas/MovimentacoesBusiness";
 @ClassMiddleware([decodificar])
 export default class EntradasSaidasController {
 
-    readonly movmentacoesBusiness = new MovimentacoesBusiness
-
     @Get()
     async index(request: Request, response: Response) {
+        const movmentacoesBusiness = new MovimentacoesBusiness()
+        const idUsuarios: number = Number(request.body.decoded.id)
+        const busca: string = String(request.body.busca)
+        const tipoBusca: string = String(request.body.tipoBusca)
+        const retorno = await movmentacoesBusiness.buscarMovimentacoesFiltro(idUsuarios, busca, tipoBusca)
+        response.status(200).json(retorno)
+
 
     }
     @Get("busca-user")
     async buscamovimentaoesUder(request: Request, response: Response) {
-
+        const movmentacoesBusiness = new MovimentacoesBusiness()
         const idUsuarios: number = Number(request.body.decoded.id)
-        const retorno = await this.movmentacoesBusiness.buscarMovimentacoesUser(idUsuarios , "1")
+        const retorno = await movmentacoesBusiness.buscarMovimentacoesUser(idUsuarios, "1")
 
         return response.status(200).json(retorno)
 
@@ -29,7 +34,7 @@ export default class EntradasSaidasController {
 
     @Post()
     async registerMovimentacaoConta(request: Request, response: Response) {
-
+        const movmentacoesBusiness = new MovimentacoesBusiness()
         const conta = new Contas()
         const usuario = new Usuarios()
         const movimentacoes = new Movimentacoes()
@@ -43,7 +48,7 @@ export default class EntradasSaidasController {
         conta.usuariosIdFK = usuario
         movimentacoes.contasIdFK = conta
 
-        const retorno = await this.movmentacoesBusiness.registerMovimentacaoConta(movimentacoes)
+        const retorno = await movmentacoesBusiness.registerMovimentacaoConta(movimentacoes)
 
         return response.status(200).json(retorno)
 
@@ -51,22 +56,22 @@ export default class EntradasSaidasController {
 
     @Post('estorno')
     async estornoConta(request: Request, response: Response) {
-
+        const movmentacoesBusiness = new MovimentacoesBusiness()
         const conta = new Contas()
         const usuario = new Usuarios()
         const movimentacoes = new Movimentacoes()
 
         const id = Number(request.body.id)
-                const retorno = await this.movmentacoesBusiness.estornoConta(id)
+        const retorno = await movmentacoesBusiness.estornoConta(id)
         return response.status(200).json(retorno)
 
     }
 
     @Delete()
-    async deleteMovimentacao(request: Request, response: Response){}
+    async deleteMovimentacao(request: Request, response: Response) { }
 
     @Put()
-    async updateMovimentacao(request: Request, response: Response){}
+    async updateMovimentacao(request: Request, response: Response) { }
 
 
 }
