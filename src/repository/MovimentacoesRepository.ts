@@ -1,4 +1,5 @@
 import { createQueryBuilder, EntityRepository, getConnection, Repository } from "typeorm";
+import { IDeleteMovimentacos } from "../business/contas/MovimentacoesBusiness";
 import { IBuscaMovimentacoes } from "../controller/contas/MovimentacoesController";
 import { Contas } from "../entity/Contas";
 import { Movimentacoes } from "../entity/Movimentacoes";
@@ -71,14 +72,24 @@ export default class MovimentacoesRepository extends Repository<Movimentacoes> {
     };
 
 
+    async buscarMovimentacoesUserId(idUsuario: number, movimentacoesId: number ){
+        const  movimentacoesRetorno = new Movimentacoes()
+        const  contaRetorno = new Contas()
+        let contaVerificacao: any  = await createQueryBuilder("Movimentacoes")
+            .leftJoinAndSelect('Movimentacoes.contasIdFK', 'contas')
+            .leftJoin('contas.usuariosIdFK', 'user')
+            .where('user.id = :idUser and Movimentacoes.id = :movimentacoesId' , {  idUser : idUsuario , movimentacoesId: movimentacoesId})
+            .getOne()
 
+            return contaVerificacao
+    }
 
     async buscarMovimentacoesUser(idUsuario: number){
         const  movimentacoesRetorno = new Movimentacoes()
         const  contaRetorno = new Contas()
         let contaVerificacao: any  = await createQueryBuilder("Movimentacoes")
             .leftJoinAndSelect('Movimentacoes.contasIdFK', 'contas')
-            .leftJoinAndSelect('contas.usuariosIdFK', 'user')
+            .leftJoin('contas.usuariosIdFK', 'user')
             .where('user.id = :id', {  id : idUsuario})
             .getMany()
 
@@ -103,6 +114,29 @@ export default class MovimentacoesRepository extends Repository<Movimentacoes> {
 
             return contaVerificacao
     }
+
+    async deleteMovimetacoesReposiroty(  movimentacoesId: number, conta : Contas): Promise<string> {
+
+            const connection = getConnection();
+            const queryRunner = connection.createQueryRunner();
+            await queryRunner.connect();
+            await queryRunner.startTransaction();
+    
+            try {
+    
+                await queryRunner.manager.delete(Movimentacoes , movimentacoesId);
+                await queryRunner.manager.update(Contas , conta.id ,conta)
+    
+                await queryRunner.commitTransaction();
+            } catch (err) {
+                console.log(err);
+                await queryRunner.rollbackTransaction();
+            } finally {
+                await queryRunner.release();
+            }
+    
+            return 'Movimentação Deletada.'
+        };
 
     
 }

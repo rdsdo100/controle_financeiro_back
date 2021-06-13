@@ -3,6 +3,11 @@ import { Movimentacoes } from "../../entity/Movimentacoes";
 import ContasRepository from "../../repository/ContasRepository";
 import MovimentacoesRepository from "../../repository/MovimentacoesRepository";
 
+export interface IDeleteMovimentacos {
+    usuarioId: number,
+    movimentacoesId: number
+}
+
 export default class MovimentacoesBusiness {
 
 
@@ -26,7 +31,30 @@ export default class MovimentacoesBusiness {
 
     }
 
-    async deleteMovimentacao() { }
+    async deleteMovimentacao({ usuarioId, movimentacoesId }: IDeleteMovimentacos) {
+       
+        const movimentacoesRepository = new MovimentacoesRepository()
+        const movimentacoes: Movimentacoes = await movimentacoesRepository
+            .buscarMovimentacoesUserId(usuarioId, movimentacoesId)
+
+            if (!movimentacoes.id) {
+                throw ({ message: `Movimentação id: ${movimentacoesId} não encontrada!` })
+            }
+
+            if(movimentacoes.tipoPoupanca){
+                movimentacoes.contasIdFK.poupanca = Number(movimentacoes.contasIdFK.poupanca) 
+                - Number(movimentacoes.valorMovimento)
+            }else{
+                movimentacoes.contasIdFK.corrente = Number(movimentacoes.contasIdFK.corrente) 
+                - Number(movimentacoes.valorMovimento)
+            }
+            movimentacoes.contasIdFK.valorTotal = Number(movimentacoes.contasIdFK.corrente)
+            + Number(movimentacoes.contasIdFK.poupanca)
+           const retorno: string = await movimentacoesRepository.deleteMovimetacoesReposiroty(movimentacoes.id , movimentacoes.contasIdFK)
+
+        return retorno
+
+    }
 
     async updateMovimentacao() { }
 
@@ -51,12 +79,12 @@ export default class MovimentacoesBusiness {
 
         if (!saveMovimentacoes.tipoPoupanca) {
 
-            saveMovimentacoes.contasIdFK.corrente = Number(saveMovimentacoes.contasIdFK.corrente) 
-            + Number(saveMovimentacoes.valorMovimento)
+            saveMovimentacoes.contasIdFK.corrente = Number(saveMovimentacoes.contasIdFK.corrente)
+                + Number(saveMovimentacoes.valorMovimento)
 
         } else {
-            saveMovimentacoes.contasIdFK.poupanca = Number(saveMovimentacoes.contasIdFK.poupanca) 
-            +Number(saveMovimentacoes.valorMovimento)
+            saveMovimentacoes.contasIdFK.poupanca = Number(saveMovimentacoes.contasIdFK.poupanca)
+                + Number(saveMovimentacoes.valorMovimento)
         }
 
         saveMovimentacoes.contasIdFK.valorTotal = Number(saveMovimentacoes.contasIdFK.corrente)
