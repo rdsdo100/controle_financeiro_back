@@ -1,7 +1,7 @@
 import { Controller, ClassMiddleware, Get } from "@overnightjs/core";
 import { decodificar } from "../../config/Jwt";
 import { Request, Response } from "express";
-import BancosBusiness from "../../business/contas/BoancosBusiness";
+import BancosBusiness from "../../services/contas/BoancosBusiness";
 
 
 @Controller('banco')

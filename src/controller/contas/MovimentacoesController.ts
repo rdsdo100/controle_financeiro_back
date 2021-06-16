@@ -4,7 +4,7 @@ import { Request, Response } from 'express'
 import { Contas } from "../../entity/Contas";
 import { Usuarios } from "../../entity/Usuarios";
 import { Movimentacoes } from "../../entity/Movimentacoes";
-import MovimentacoesBusiness from "../../business/contas/MovimentacoesBusiness";
+import MovimentacoesBusiness from "../../services/contas/MovimentacoesBusiness";
 
 export interface IBuscaMovimentacoes {
     idUsuario: number,

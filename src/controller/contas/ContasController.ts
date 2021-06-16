@@ -1,5 +1,5 @@
 import { ClassMiddleware, Controller, Delete, Get, Post, Put } from "@overnightjs/core";
-import ContasBusiness from "../../business/contas/ContasBusiness";
+import ContasBusiness from "../../services/contas/ContasBusiness";
 import { decodificar } from "../../config/Jwt";
 import { Contas } from "../../entity/Contas";
 import { Request, Response } from "express";
@@ -11,6 +11,13 @@ import Bancos from "../../entity/Bancos";
 @ClassMiddleware([decodificar])
 export default class ContasController {
 
+
+    /*
+      private connectionsRepository: Repository<Connection>
+    constructor() {
+        this.connectionsRepository = getCustomRepository(ConnectionsRepository)
+    }
+    */
     readonly contasBusiness = new ContasBusiness
 
     @Get()

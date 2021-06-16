@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
 import { Controller, Get } from '@overnightjs/core';
 import {Usuarios} from "../../entity/Usuarios";
-import LoginBusiness from "../../business/usuarios/LoginBusiness";
+import LoginBusiness from "../../services/usuarios/LoginBusiness";
 
 @Controller('login')
 export default class LoginController{

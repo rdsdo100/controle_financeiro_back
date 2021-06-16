@@ -1,5 +1,5 @@
 import { createQueryBuilder, EntityRepository, getConnection, Repository } from "typeorm";
-import { IDeleteMovimentacos } from "../business/contas/MovimentacoesBusiness";
+import { IDeleteMovimentacos } from "../services/contas/MovimentacoesBusiness";
 import { IBuscaMovimentacoes } from "../controller/contas/MovimentacoesController";
 import { Contas } from "../entity/Contas";
 import { Movimentacoes } from "../entity/Movimentacoes";
