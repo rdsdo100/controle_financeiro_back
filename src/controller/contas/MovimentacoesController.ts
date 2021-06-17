@@ -19,6 +19,8 @@ export interface IBuscaMovimentacoes {
 @ClassMiddleware([decodificar])
 export default class EntradasSaidasController {
 
+  
+
     @Get()
     async index(request: Request, response: Response): Promise<Response> {
 

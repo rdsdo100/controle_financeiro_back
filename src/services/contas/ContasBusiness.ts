@@ -5,6 +5,13 @@ import ObjetivosFinanceirosRepository from "../../repository/ObjetivosFinanceiro
 
 export default class ContasBusiness {
 
+      /*
+      private connectionsRepository: Repository<Connection>
+    constructor() {
+        this.connectionsRepository = getCustomRepository(ConnectionsRepository)
+    }
+    */
+
     readonly contasRepository = new ContasRepository
     readonly objetivosFinanceirosRepository = new ObjetivosFinanceirosRepository
     readonly movimentacoesRepository = new MovimentacoesRepository

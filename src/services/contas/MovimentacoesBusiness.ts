@@ -10,6 +10,12 @@ export interface IDeleteMovimentacos {
 
 export default class MovimentacoesBusiness {
 
+      /*
+      private connectionsRepository: Repository<Connection>
+    constructor() {
+        this.connectionsRepository = getCustomRepository(ConnectionsRepository)
+    }
+    */
 
     async buscarMovimentacoesUser(idUsuario: number, nomeBusca: string) {
         const movimentacoesRepository = new MovimentacoesRepository()

@@ -9,6 +9,8 @@ import { ObjetivosFinaceiros } from "../../entity/ObjetivosFinaceiros";
 @ClassMiddleware([decodificar])
 export default class ObjetivosController {
 
+
+
     readonly objetivosBusiness = new ObjetivosBusiness
 
     @Get()

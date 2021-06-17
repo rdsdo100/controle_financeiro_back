@@ -12,12 +12,7 @@ import Bancos from "../../entity/Bancos";
 export default class ContasController {
 
 
-    /*
-      private connectionsRepository: Repository<Connection>
-    constructor() {
-        this.connectionsRepository = getCustomRepository(ConnectionsRepository)
-    }
-    */
+
     readonly contasBusiness = new ContasBusiness
 
     @Get()
