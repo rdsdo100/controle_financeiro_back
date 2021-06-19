@@ -5,11 +5,14 @@ import 'express-async-errors'
 import {errors} from 'celebrate'
 import AppError from "../errors/AppError";
 import { routes } from '@shared/http/route';
-
+import uploadConfig from '@config/upload';
 
 
 const app = express();
 app.use(express.json())
+
+
+app.use('/files', express.static(uploadConfig.directory));
 
 app.use(routes)
 
