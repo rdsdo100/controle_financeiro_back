@@ -1,6 +1,6 @@
 import { getCustomRepository, Repository } from "typeorm"
-import Bancos from "../../entity/Bancos"
-import BancosRepository from "../../repository/BancosRepository"
+import Bancos from "../../../entity/Bancos"
+import BancosRepository from "../../../repository/BancosRepository"
 
 export default class BancosBusiness {
 

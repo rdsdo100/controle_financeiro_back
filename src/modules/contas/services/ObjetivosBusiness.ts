@@ -1,6 +1,6 @@
-import { ObjetivosFinaceiros } from "../../entity/ObjetivosFinaceiros";
-import ContasRepository from "../../repository/ContasRepository";
-import ObjetivosRepository from "../../repository/ObjetivosFinanceirosRepository";
+import { ObjetivosFinaceiros } from "../../../entity/ObjetivosFinaceiros";
+import ContasRepository from "../../../repository/ContasRepository";
+import ObjetivosRepository from "../../../repository/ObjetivosFinanceirosRepository";
 
 export default class ObjetivosBusiness {
 

@@ -10,7 +10,7 @@ export default class UserAvatarController {
             throw new AppError('Faltou a  imagem animal!', 400);
         }
         const user: any = await updateAvatar.excute({
-            user_id: request.user.id,
+            user_id: request.body.user.id,
             avatarFileName: request.file.filename,
         });
 

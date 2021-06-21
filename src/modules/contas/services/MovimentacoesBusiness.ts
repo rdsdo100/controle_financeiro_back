@@ -1,7 +1,7 @@
-import { IBuscaMovimentacoes } from "../../controller/contas/MovimentacoesController";
-import { Movimentacoes } from "../../entity/Movimentacoes";
-import ContasRepository from "../../repository/ContasRepository";
-import MovimentacoesRepository from "../../repository/MovimentacoesRepository";
+import { IBuscaMovimentacoes } from "../../../controller/contas/MovimentacoesController";
+import { Movimentacoes } from "../../../entity/Movimentacoes";
+import ContasRepository from "../../../repository/ContasRepository";
+import MovimentacoesRepository from "../../../repository/MovimentacoesRepository";
 
 export interface IDeleteMovimentacos {
     usuarioId: number,

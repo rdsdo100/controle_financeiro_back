@@ -1,23 +1,23 @@
 import 'reflect-metadata';
 import '@shared/typeOrm'
-import express, { NextFunction, Request, Response } from "express";
+import express, {Request , Response , NextFunction} from "express";
 import 'express-async-errors'
-import {errors} from 'celebrate'
-import AppError from "../errors/AppError";
-import { routes } from '@shared/http/route';
-import uploadConfig from '@config/upload';
+import { errors } from 'celebrate';
+import AppError from '@shared/errors/AppError';
+import uploadConfig from '@config/uploadConfig';
+import { routes } from './route';
 
 
+
+const PORT = Number(process.env.PORT || 3333);
 const app = express();
 app.use(express.json())
-
 
 app.use('/files', express.static(uploadConfig.directory));
 
 app.use(routes)
 
 app.use(errors());
-
 
 
 app.use(
@@ -41,4 +41,7 @@ if(error instanceof AppError){
 
 });
 
-app.listen(3333 , ()=>{console.log("ok")})
+
+app.listen(PORT , ()=>{
+  console.log(`Rodando na porta ${PORT}!`)
+})

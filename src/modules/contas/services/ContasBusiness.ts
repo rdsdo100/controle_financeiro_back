@@ -1,7 +1,7 @@
-import { Contas } from "../../entity/Contas";
-import ContasRepository from "../../repository/ContasRepository";
-import MovimentacoesRepository from "../../repository/MovimentacoesRepository";
-import ObjetivosFinanceirosRepository from "../../repository/ObjetivosFinanceirosRepository";
+import { Contas } from "../../../entity/Contas";
+import ContasRepository from "../../../repository/ContasRepository";
+import MovimentacoesRepository from "../../../repository/MovimentacoesRepository";
+import ObjetivosFinanceirosRepository from "../../../repository/ObjetivosFinanceirosRepository";
 
 export default class ContasBusiness {
 

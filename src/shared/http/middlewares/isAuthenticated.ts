@@ -21,7 +21,7 @@ export default function isAuthenticated(request: Request, response: Response, ne
 
         const { sub } = decodedToken as ITokenPayload;
 
-        request.user = {
+        request.body.user = {
             id: sub,
         };
         return next();

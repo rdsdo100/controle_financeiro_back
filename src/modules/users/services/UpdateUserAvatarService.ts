@@ -1,4 +1,4 @@
-import upload from '@config/upload';
+import upload from '@config/uploadConfig';
 import AppError from '@shared/errors/AppError';
 import fs from 'fs';
 import path from 'path/posix';

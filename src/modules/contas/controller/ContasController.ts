@@ -1,5 +1,5 @@
 import { ClassMiddleware, Controller, Delete, Get, Post, Put } from "@overnightjs/core";
-import ContasBusiness from "../../services/contas/ContasBusiness";
+import ContasBusiness from "../../../services/contas/ContasBusiness";
 import { decodificar } from "../../config/Jwt";
 import { Contas } from "../../entity/Contas";
 import { Request, Response } from "express";
