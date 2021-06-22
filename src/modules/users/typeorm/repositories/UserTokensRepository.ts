@@ -1,6 +1,6 @@
+import UserToken from '@shared/database/entity/UserToken';
 import { EntityRepository, Repository } from 'typeorm';
-import User from '../entities/User';
-import UserToken from '../entities/UserToken';
+
 
 @EntityRepository(UserToken)
 class UserTokensRepository extends Repository<UserToken> {

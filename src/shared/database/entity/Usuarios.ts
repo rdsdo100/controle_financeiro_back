@@ -9,7 +9,7 @@ import { Contas } from "./Contas";
 
 
 @Entity()
-export class Usuarios extends BaseEntity {
+export default class Usuarios extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id: number;

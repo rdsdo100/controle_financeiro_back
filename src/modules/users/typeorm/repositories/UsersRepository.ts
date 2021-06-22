@@ -1,9 +1,11 @@
+import usuarios from '@modules/contas/typeorm/entities/User';
+import Usuarios  from '@shared/database/entity/Usuarios';
 import { EntityRepository, Repository } from 'typeorm';
-import User from '../entities/User';
 
-@EntityRepository(User)
-class UserRepository extends Repository<User> {
-    public async findByName(name: string): Promise<User | undefined> {
+
+@EntityRepository(Usuarios)
+class UsuariosRepository extends Repository<usuarios> {
+    public async findByName(name: string): Promise<usuarios | undefined> {
         const prodct = await this.findOne({
             where: {
                 name: name,
@@ -13,25 +15,25 @@ class UserRepository extends Repository<User> {
         return prodct;
     }
 
-    public async findById(id: string): Promise<User | undefined> {
-      const prodct = await this.findOne({
-          where: {
-              id: id,
-          },
-      });
+    public async findById(id: number): Promise<usuarios | undefined> {
+        const prodct = await this.findOne({
+            where: {
+                id: id,
+            },
+        });
 
-      return prodct;
-  }
+        return prodct;
+    }
 
-  public async findByEmail(email: string): Promise<User | undefined> {
-    const prodct = await this.findOne({
-        where: {
-            email: email,
-        },
-    });
+    public async findByEmail(email: string): Promise<usuarios | undefined> {
+        const prodct = await this.findOne({
+            where: {
+                email: email,
+            },
+        });
 
-    return prodct;
+        return prodct;
+    }
 }
-}
 
-export default UserRepository;
+export default UsuariosRepository;

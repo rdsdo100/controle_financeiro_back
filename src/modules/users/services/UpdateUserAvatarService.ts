@@ -1,12 +1,13 @@
-import upload from '../../../config/upload';
+import uploadConfig from '@config/uploadConfig';
 
 import fs from 'fs';
 import path from 'path';
 
 import {getCustomRepository } from 'typeorm';
-import User from '../typeorm/entities/User';
+
 import UsersRepository from '../typeorm/repositories/UsersRepository';
 import AppError from '@shared/errors/AppError';
+import User from '@modules/contas/typeorm/entities/User';
 
 
 interface IRequest {
@@ -25,7 +26,7 @@ class UpdateUserAvatarService { // atualizar arquivos de avatar imagem no banco
         }
 
         if(user.avatar){
-          const userAvaratFilePath = path.join(upload.directory , user.avatar) //junta no nome de atquivo como o linc do diretorios de configorações
+          const userAvaratFilePath = path.join(uploadConfig.directory, user.avatar); //junta no nome de atquivo como o linc do diretorios de configorações
           const userAvaratFileExists= await fs.promises.stat(userAvaratFilePath) // fs varifica se existe esse arquivo
           if(userAvaratFileExists){
             await fs.promises.unlink(userAvaratFilePath); //  deleta o arquivo
