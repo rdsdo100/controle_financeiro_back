@@ -1,10 +1,11 @@
 import AppError from '@shared/errors/AppError';
 import { compare, hash } from 'bcryptjs';
-import { sign } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken'
 import { getCustomRepository } from 'typeorm';
-import User from '../typeorm/entities/User';
-import UsersRepository from '../typeorm/repositories/UsersRepository';
 import  authConfig from "@config/auth"
+import Usuarios from '@shared/database/entity/Usuarios';
+import UsuarioRepository from '@shared/database/repository/UsuarioRepository';
+
 
 interface IRequest {
     email: string;
@@ -12,26 +13,26 @@ interface IRequest {
 }
 
 interface IResponse {
-    user: User;
+    user?: Usuarios;
     token: string
 }
 
 export default class CreateSessionsServices {
     
   public async excute({ email, password }: IRequest): Promise<IResponse> {
-        const userRepository = getCustomRepository(UsersRepository);
+        const usuariosRepository = getCustomRepository(UsuarioRepository);
         
-        const user = await userRepository.findOne({
-          where: {
-            email : email
-          }
+        const user = await usuariosRepository.findOne({
+            where: {
+                email: email,
+            },
         });
 
         if (!user) {
             throw new AppError('Email incorreto/ senha!', 401);
         }
 
-        const passwordConfired = await compare(password, user?.password);
+        const passwordConfired = await compare(password, user?.senha);
 
         if (!passwordConfired) {
           throw new AppError('Senha incorreto/ senha!', 401);
@@ -39,18 +40,23 @@ export default class CreateSessionsServices {
 
 
       ////// Criação do token ////////
-
-const token = sign( {} , authConfig.jwt.secret , {
-subject: user.id,
+/*
+const token =  sign( {} , authConfig.jwt.secret , {
+subject: user?.id,
 expiresIn: authConfig.jwt.expiredIn
+*/
+
+const token = jwt.sign(
+            { id: user.id, nomeUsuario: user.nomeUsuario },
+            String(process.env.JWT_TOKEN),
+            { expiresIn: '1d' })
 
 
-} )
 
 
     ////// Criação do token ////////
 
-        return {user ,
+        return {
         token
         };
     }

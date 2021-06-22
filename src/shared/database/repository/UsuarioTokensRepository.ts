@@ -3,7 +3,7 @@ import { EntityRepository, Repository } from 'typeorm';
 
 
 @EntityRepository(UserToken)
-class UserTokensRepository extends Repository<UserToken> {
+export default class UsuarioTokensRepository extends Repository<UserToken> {
     public async findByToken(token: string): Promise<UserToken | undefined> {
         const userToken = await this.findOne({
             where: {
@@ -16,14 +16,12 @@ class UserTokensRepository extends Repository<UserToken> {
 
     public async generate(user_id: string): Promise<UserToken | undefined> {
         const userToken = await this.create({
-          user_id
+            user_id,
         });
-        await this.save(userToken)
+        await this.save(userToken);
 
         return userToken;
     }
-
- 
 }
 
-export default UserTokensRepository;
+
