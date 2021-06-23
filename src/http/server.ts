@@ -1,11 +1,11 @@
 import 'reflect-metadata';
-import './config/DataBaseConfig';
+import '../config/DataBaseConfig';
 //import uploadConfig from './config/upload'
 import express, { Response, Request, NextFunction } from 'express';
 import 'express-async-errors';
 import dotenv from 'dotenv';
 import { errors } from 'celebrate';
-import AppError from './config/errors/AppError';
+import AppError from '../config/errors/AppError';
 
 dotenv.config();
 const PORT = Number(process.env.PORT || 3333);

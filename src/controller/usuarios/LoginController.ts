@@ -1,13 +1,12 @@
 import {Request, Response} from "express";
-import { Controller, Get } from '@overnightjs/core';
 import {Usuarios} from "../../entity/Usuarios";
-import LoginBusiness from "../../services/usuarios/LoginBusiness";
+import LoginBusiness from "../../services/usuarios/LoginServices";
 
-@Controller('login')
+
 export default class LoginController{
 
 
-    @Get()
+
     async login(request: Request , response: Response) {
 
         try {

@@ -1,21 +1,17 @@
-import { ClassMiddleware, Controller, Delete, Get, Post, Put } from "@overnightjs/core";
 import ContasBusiness from "../../services/contas/ContasBusiness";
-import { decodificar } from "../../config/Jwt";
 import { Contas } from "../../entity/Contas";
 import { Request, Response } from "express";
 import { Usuarios } from "../../entity/Usuarios";
 import Bancos from "../../entity/Bancos";
 
 
-@Controller('conta')
-@ClassMiddleware([decodificar])
 export default class ContasController {
 
 
 
     readonly contasBusiness = new ContasBusiness
 
-    @Get()
+
     async index(request: Request, response: Response): Promise<Response> {
         const idUsuarios: number = Number(request.body.decoded.id)
 
@@ -24,7 +20,6 @@ export default class ContasController {
 
     }
 
-    @Post()
     async cadastrarContas(request: Request, response: Response): Promise<Response> {
         const idUsuarios: number = Number(request.body.decoded.id)
         const contas = new Contas()
@@ -44,7 +39,7 @@ export default class ContasController {
 
     }
 
-    @Delete(':id')
+  
     async deleteMovimentacao(request: Request, response: Response): Promise<Response> {
         const idUsuarios: number = Number(request.body.decoded.id)
         const idConta: number = Number(request.params.id)
@@ -53,7 +48,7 @@ export default class ContasController {
 
     }
 
-    @Put()
+   
     async updateMovimentacao(request: Request, response: Response): Promise<Response> {
         const idUsuarios: number = Number(request.body.decoded.id)
         const contas = new Contas()
