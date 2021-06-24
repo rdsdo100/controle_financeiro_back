@@ -13,8 +13,16 @@ export default class ListUsuariosServices {
         this.usuariosRepository = getCustomRepository(UsuarioRepository);
     }
 
-    async execute(id: number): Promise<Usuarios[]> {
+    async execute(): Promise<Usuarios[]> {
+
+     
         const usuarios = await this.usuariosRepository.find();
+
+
+
+        if(!usuarios){
+            throw new AppError("Sema usuarios para listar" , 400)
+        }
         return usuarios;
     }
 }

@@ -1,9 +1,12 @@
 import { Router} from 'express';
-import Inicio from '../../controller/inicio/Inicio';
 
-const routesInicio = Router();
-const  inicio = new Inicio()
+import UsuaruiosController from '../../controller/usuarios/UsuariosController';
 
-routesInicio.get('/', inicio.inicio);
 
-export { routesInicio };
+const usuariosRoutes = Router();
+const  usuariosController = new UsuaruiosController()
+
+usuariosRoutes.get('/:id', usuariosController.showUsuarios);
+usuariosRoutes.get('/', usuariosController.listUsuarios);
+
+export { usuariosRoutes };

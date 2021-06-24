@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
-import {Usuarios} from "../../entity/Usuarios";
-import LoginBusiness from "../../services/usuarios/LoginServices";
+import LoginUsuariosServices from "../../services/login/LoginUsuariosServices";
+
 
 
 export default class LoginController{
@@ -11,12 +11,10 @@ export default class LoginController{
 
         try {
 
-            const usuario = new Usuarios()
-            const loginBusiness = new LoginBusiness()
-
-            usuario.nomeUsuario = String(request.headers.user)
-            usuario.senha = String(request.headers.password)
-            const retorno = await loginBusiness.login(usuario)
+           const loginServices = new LoginUsuariosServices()
+            const email = String(request.headers.user);
+            const senha = String(request.headers.password)
+           const retorno = await loginServices.execute({ email, senha });
 
             return response.json(retorno)
 

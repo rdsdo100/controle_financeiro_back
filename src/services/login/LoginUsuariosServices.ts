@@ -17,7 +17,7 @@ interface IResponse {
 }
     
 
-export default class ShowUsuariosServices {
+export default class LoginUsuariosServices {
     private usuariosRepository: UsuarioRepository;
 
     constructor() {
@@ -33,7 +33,7 @@ export default class ShowUsuariosServices {
             throw new AppError('Usuario ou senhas incorretas!', 400);
         }
          if (usuario.senha !== senha) {
-             throw new AppError('Usuario ou senhas incorretas!', 400);
+             throw new AppError('Usuario ou senhas incorretas 44 !', 400);
          }
          
          const token = await authJwt.assinar(usuario)

@@ -8,7 +8,7 @@ import {
 import { Contas } from "./Contas";
 
 
-@Entity()
+@Entity("usuarios")
 export class Usuarios extends BaseEntity {
 
     @PrimaryGeneratedColumn()

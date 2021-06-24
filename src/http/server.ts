@@ -6,6 +6,7 @@ import 'express-async-errors';
 import dotenv from 'dotenv';
 import { errors } from 'celebrate';
 import AppError from '../config/errors/AppError';
+import { routes } from './routes';
 
 dotenv.config();
 const PORT = Number(process.env.PORT || 3333);
@@ -17,7 +18,12 @@ app.use(express.json());
 
 app.use(express.static('./public'));
 
+
+app.use(routes);
+
 app.use(errors());
+
+
 
 app.use((error: Error, request: Request, response: Response, next: NextFunction) => {
     if (error instanceof AppError) {
