@@ -8,9 +8,8 @@ import {
 import { Contas } from "./Contas";
 
 
-@Entity("usuarios")
+@Entity('usuarios')
 export class Usuarios extends BaseEntity {
-
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -27,11 +26,8 @@ export class Usuarios extends BaseEntity {
     ativo: boolean;
 
     @Column()
-    bloqueado: boolean;
-
-    message: string
+    administrador: boolean;
 
     @OneToMany(() => Contas, (contas) => contas.usuariosIdFK)
     contas: Contas[];
-    
 }

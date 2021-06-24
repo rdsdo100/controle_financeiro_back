@@ -41,7 +41,6 @@ export class Parcelas {
     })
     numeroParcela: number
 
-    message: string
 
     @ManyToOne(() => ContasAPagar, (contasAPagar) => contasAPagar)
     @JoinColumn([{ name: 'contas_a_pagar_id_fk', referencedColumnName: 'id' }])

@@ -1,6 +1,10 @@
 import { getCustomRepository } from 'typeorm';
 import AppError from '../../config/errors/AppError';
-import { Usuarios } from '../../entity/Usuarios';
+
+interface IResquest {
+    idUser: number;
+    IdAdm?: number;
+}
 
 import UsuarioRepository from '../../repository/UsuarioRepository';
 
@@ -11,8 +15,16 @@ export default class DeleteUsuariosServices {
         this.usuariosRepository = getCustomRepository(UsuarioRepository);
     }
 
-    async execute(id: number): Promise<void> {
-        const usuario = await this.usuariosRepository.findById(id);
+    async execute({ idUser, IdAdm }: IResquest): Promise<void> {
+        const usuario = await this.usuariosRepository.findById(idUser);
+
+        if (IdAdm) {
+            const usuariosAdm = await this.usuariosRepository.findById(IdAdm);
+        }
+
+        // usuario pode deletar  seu proprio usuario exeto o adm 
+        // adm pode desetar qualquer usuario 
+        // adm não pode deletar seu prodrio usuario mas outro adm pode deletar um adm
 
         if (!usuario) {
             throw new AppError('Usuário não existe!', 400);

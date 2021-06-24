@@ -58,8 +58,6 @@ export class Contas {
     })
     bloqueado: boolean
 
-    message: string
-
     @ManyToOne(() => Usuarios, (usuarios) => usuarios.contas)
     @JoinColumn([{ name: 'usuarios_id_fk', referencedColumnName: 'id' }])
     usuariosIdFK: Usuarios;

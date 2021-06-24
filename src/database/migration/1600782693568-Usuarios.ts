@@ -47,7 +47,7 @@ columns:[
 
     },
     {
-        name: 'bloqueado',
+        name: 'administrador',
         type: 'boolean',
         default: false,
     },  

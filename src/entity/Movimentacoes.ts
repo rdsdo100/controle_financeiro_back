@@ -78,12 +78,6 @@ export class Movimentacoes {
     })
     dataMovimento: Date
    
-   
-   
-   
-   
-    message: string
-
     @ManyToOne(() => Contas, (contas) => contas.movimentacoes)
     @JoinColumn([{ name: 'contas_id_fk', referencedColumnName: 'id' }])
     contasIdFK: Contas;

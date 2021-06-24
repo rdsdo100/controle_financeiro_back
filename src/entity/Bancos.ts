@@ -1,9 +1,8 @@
-import {Column, Entity,  OneToMany, PrimaryGeneratedColumn} from "typeorm";
-import { Contas } from "./Contas";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Contas } from './Contas';
 
 @Entity()
 export default class Bancos {
-
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -12,22 +11,20 @@ export default class Bancos {
         type: 'varchar',
         length: '50',
         nullable: false,
-    unique: true,
+        unique: true,
     })
-    nomeBanco: string
+    nomeBanco: string;
 
     @Column({
         name: 'url_imagem_banco',
         type: 'varchar',
         length: '500',
-      nullable: false,
-       unique: true,
+        nullable: false,
+        unique: true,
     })
-    urlImagemBanco: string
+    urlImagemBanco: string;
 
-   @OneToMany(() => Contas, (contas) =>contas.bancosIdFK)
-    contas: Contas[]; 
-
-    message: string
-   
+    @OneToMany(() => Contas, (contas) => contas.bancosIdFK)
+    contas: Contas[];
 }
+
