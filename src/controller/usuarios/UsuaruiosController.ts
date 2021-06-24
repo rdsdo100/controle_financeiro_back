@@ -1,7 +1,7 @@
 
 import { Usuarios } from "../../entity/Usuarios";
 import { Request, Response } from 'express'
-import UsuariosBusiness from "../../services/usuarios/UsuariosServices";
+import UsuariosBusiness from "../../services/usuarios/ShowUsuariosServices";
 
 
 
