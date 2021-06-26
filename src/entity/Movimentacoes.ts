@@ -6,80 +6,75 @@ export class Movimentacoes {
     @PrimaryGeneratedColumn()
     id: number;
 
-
     @Column({
         name: 'nome_movimentacoes',
         type: 'varchar',
         length: '60',
         nullable: false,
-
     })
-    nomeMovimentacoes: string
+    nomeMovimentacoes: string;
 
     @Column({
         name: 'tipo_entrada',
         type: 'boolean',
-        nullable: false
+        nullable: false,
     })
-    tipoEntrada: boolean
-
+    tipoEntrada: boolean;
 
     @Column({
         name: 'tipo_poupanca',
         type: 'boolean',
         nullable: false,
-        default: true
-
+        default: true,
     })
-    tipoPoupanca: boolean
+    tipoPoupanca: boolean;
 
     @Column({
         name: 'descricao',
         type: 'varchar',
-        length: '500'
-
+        length: '500',
     })
-    descricao: string
-
+    descricao: string;
 
     @Column({
         name: 'valor_conta_anterior',
         type: 'numeric',
         nullable: false,
-        default: 0
+        default: 0,
     })
-    valorContaAnterior: number
+    valorContaAnterior: number;
 
     @Column({
         name: 'valor_movimento',
         type: 'numeric',
-        nullable: false
+        nullable: false,
     })
-    valorMovimento: number
-
+    valorMovimento: number;
 
     @Column({
         name: 'estorno',
         type: 'boolean',
-        default: false
+        default: false,
     })
-    estorno: boolean
+    estorno: boolean;
 
     @Column({
         name: 'data_estorno',
         type: 'date',
-        nullable: true
+        nullable: true,
     })
-    dataEstorno: Date
+    dataEstorno: Date;
 
     @Column({
         name: 'data_movimento',
         type: 'date',
     })
-    dataMovimento: Date
-   
+    dataMovimento: Date;
+
     @ManyToOne(() => Contas, (contas) => contas.movimentacoes)
     @JoinColumn([{ name: 'contas_id_fk', referencedColumnName: 'id' }])
-    contasIdFK: Contas;
+    contas: Contas;
 
+    @Column({ name: 'contas_id_fk' })
+    contasIdFK: number;
 }

@@ -7,48 +7,49 @@ export class ContasAPagar {
     @PrimaryGeneratedColumn()
     id: number;
 
-   @Column({
-    name: 'nome_contas_a_pagar',
-    type: 'varchar',
-    length: '80',
-    nullable: false,
-    unique: true
+    @Column({
+        name: 'nome_contas_a_pagar',
+        type: 'varchar',
+        length: '80',
+        nullable: false,
+        unique: true,
     })
-    nomeContasAPagar: string
+    nomeContasAPagar: string;
 
     @Column({
         name: 'valor_total_contas_a_pagar',
         type: 'numeric',
-        nullable: false
+        nullable: false,
     })
-    valorTotalContasAPagar:number
+    valorTotalContasAPagar: number;
 
     @Column({
         name: 'data_vencimento',
         type: 'date',
-        nullable: false
+        nullable: false,
     })
-    dataVencimento: Date
+    dataVencimento: Date;
 
-    @Column( {
+    @Column({
         name: 'descricao',
         type: 'varchar',
-        length: '500'
-        
+        length: '500',
     })
-    descricao: string
+    descricao: string;
 
-    @Column( {
+    @Column({
         name: 'qtd_parcelas',
         type: 'int',
     })
-    qtdParcelas: number
-  
+    qtdParcelas: number;
+
     @ManyToOne(() => Contas, (contas) => contas.contasAPagar)
     @JoinColumn([{ name: 'contas_id_fk', referencedColumnName: 'id' }])
-    contasIdFK: Contas;
+    contas: Contas;
 
-    @OneToMany(() => Parcelas, (parcelas) => parcelas.contasAPagarIdFK)
+    @Column({ name: 'contas_id_fk' })
+    contasIdFK: number;
+
+    @OneToMany(() => Parcelas, (parcelas) => parcelas.contasAPagar)
     parcelas: Parcelas[];
-
 }

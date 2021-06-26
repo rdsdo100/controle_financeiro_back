@@ -5,47 +5,46 @@ import { ContasAPagar } from "./ContasAPagar";
 export class Parcelas {
     @PrimaryGeneratedColumn()
     id: number;
-    
+
     @Column({
         name: 'valor_parcela',
         type: 'numeric',
-        nullable: false
+        nullable: false,
     })
-    valorParcela: number
+    valorParcela: number;
 
     @Column({
         name: 'data_vencimento',
         type: 'date',
-        nullable: false
+        nullable: false,
     })
-    dataVencimento: Date
+    dataVencimento: Date;
 
     @Column({
         name: 'data_pagamento',
         type: 'date',
-        nullable: false
+        nullable: false,
     })
-    dataPagamento: Date
+    dataPagamento: Date;
 
     @Column({
         name: 'descricao',
         type: 'varchar',
-        length: '500'
+        length: '500',
     })
-    descricao: string
+    descricao: string;
 
     @Column({
         name: 'numero_parcela',
         type: 'int',
-        default: 1
+        default: 1,
     })
-    numeroParcela: number
-
+    numeroParcela: number;
 
     @ManyToOne(() => ContasAPagar, (contasAPagar) => contasAPagar)
     @JoinColumn([{ name: 'contas_a_pagar_id_fk', referencedColumnName: 'id' }])
-    contasAPagarIdFK: ContasAPagar;
+    contasAPagar: ContasAPagar;
 
-
-
+    @Column({ name: 'contas_a_pagar_id_fk' })
+    contasAPagarIdFK: number;
 }

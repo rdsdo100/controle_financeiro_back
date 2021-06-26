@@ -30,6 +30,6 @@ export class Usuarios extends BaseEntity {
     @Column()
     administrador: boolean;
 
-    @OneToMany(() => Contas, (contas) => contas.usuariosIdFK)
+    @OneToMany(() => Contas, (contas) => contas.usuarios)
     contas: Contas[];
 }

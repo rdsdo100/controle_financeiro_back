@@ -4,13 +4,14 @@ import { ObjetivosFinaceiros } from "../entity/ObjetivosFinaceiros";
 @EntityRepository(ObjetivosFinaceiros)
 export default class ObjetivosFinanceirosRepository extends Repository<ObjetivosFinaceiros> {
 
-    async verificarObjetivosFinanceirosContas(idConta : number){
-        let contaVerificacao = await createQueryBuilder("ObjetivosFinaceiros")
-        .leftJoinAndSelect('ObjetivosFinaceiros.contasIdFK', 'contas')
-        .where('contas.id = :id', { id: idConta })
-        .getOne()
+    async verificarObjetivosFinanceirosContas(idConta : number): Promise<ObjetivosFinaceiros | undefined>{
 
-        return contaVerificacao
+       return await this.createQueryBuilder('ObjetivosFinaceiros')
+           .leftJoinAndSelect('ObjetivosFinaceiros.contasIdFK', 'contas')
+           .where('contas.id = :id', { id: idConta })
+           .getOne();
+
+      
     }
 
 

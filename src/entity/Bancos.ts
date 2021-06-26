@@ -24,7 +24,7 @@ export default class Bancos {
     })
     urlImagemBanco: string;
 
-    @OneToMany(() => Contas, (contas) => contas.bancosIdFK)
+    @OneToMany(() => Contas, (contas) => contas.bancos)
     contas: Contas[];
 }
 

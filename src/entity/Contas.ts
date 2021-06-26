@@ -14,69 +14,68 @@ export class Contas {
         name: 'nome_conta',
         type: 'varchar',
         length: '50',
-        nullable: false        
+        nullable: false,
     })
-    nomeConta: string
+    nomeConta: string;
 
     @Column({
         name: 'valor_total',
-         type: 'numeric',
+        type: 'numeric',
         nullable: false,
-        default: 0
+        default: 0,
     })
-    valorTotal: number
+    valorTotal: number;
 
     @Column({
         name: 'corrente',
         type: 'numeric',
         nullable: false,
-        default: 0
+        default: 0,
     })
-    corrente: number
+    corrente: number;
 
-    @Column ({
+    @Column({
         name: 'poupanca',
         type: 'numeric',
         nullable: false,
-        default: 0
+        default: 0,
     })
-    poupanca: number
-
+    poupanca: number;
 
     @Column({
         name: 'ativo',
         type: 'boolean',
         default: true,
-
     })
-    ativo: boolean
+    ativo: boolean;
 
     @Column({
         name: 'bloqueado',
         type: 'boolean',
         default: false,
     })
-    bloqueado: boolean
+    bloqueado: boolean;
 
     @ManyToOne(() => Usuarios, (usuarios) => usuarios.contas)
     @JoinColumn([{ name: 'usuarios_id_fk', referencedColumnName: 'id' }])
-    usuariosIdFK: Usuarios;
-
+    usuarios: Usuarios;
 
     @ManyToOne(() => Bancos, (bancos) => bancos.contas)
     @JoinColumn([{ name: 'bancos_id_fk', referencedColumnName: 'id' }])
-    bancosIdFK: Bancos;
+    bancos: Bancos;
 
+    @Column({ name: 'bancos_id_fk' })
+    bancosIdFK: number;
 
-    @OneToMany(() => ContasAPagar, (contasAPagar) => contasAPagar.contasIdFK)
+    @Column({ name: 'usuarios_id_fk' })
+    usuariosIdFK: number;
+
+    @OneToMany(() => ContasAPagar, (contasAPagar) => contasAPagar.contas)
     contasAPagar: ContasAPagar[];
 
-    @OneToMany(() => Movimentacoes, (movimentacoes) => movimentacoes.contasIdFK)
+    @OneToMany(() => Movimentacoes, (movimentacoes) => movimentacoes.contas)
     movimentacoes: Movimentacoes[];
 
-    @OneToMany(() => ObjetivosFinaceiros, (objetivosFinaceiros) => objetivosFinaceiros.contasIdFK)
+    @OneToMany(() => ObjetivosFinaceiros, (objetivosFinaceiros) => objetivosFinaceiros.contas)
     objetivosFinaceiros: ObjetivosFinaceiros[];
-
-    
-
 }
