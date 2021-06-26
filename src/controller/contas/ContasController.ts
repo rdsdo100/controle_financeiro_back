@@ -37,8 +37,8 @@ export default class ContasController {
         contas.poupanca = Number(request.body.poupanca);
         usuarios.id = idUsuarios;
         banco.id = Number(request.body.bancosIdFK.id);
-        contas.usuariosIdFK = usuarios;
-        contas.bancosIdFK = banco;
+        contas.usuarios = usuarios;
+        contas.bancos = banco;
 
         const createContasServices = new CreateContasServices();
 
@@ -67,7 +67,7 @@ export default class ContasController {
         contas.ativo = Boolean(request.body.ativo);
         contas.bloqueado = Boolean(request.body.bloqueado);
         usuarios.id = idUsuarios;
-        contas.usuariosIdFK = usuarios;
+        contas.usuarios = usuarios;
 
         const updateContasServices = new UpdateContasServices();
 

@@ -1,9 +1,10 @@
 import { Router} from 'express';
-import Inicio from '../../controller/inicio/Inicio';
+import MovimentacoesController from '../../controller/movimentacoes/MovimentacoesController';
+import isAuthenticated from '../middlewares/isAuthenticated';
 
-const routesInicio = Router();
-const  inicio = new Inicio()
+const movimentacoesRoutes = Router();
+const movimentacoesController = new MovimentacoesController()
+movimentacoesRoutes.use(isAuthenticated)
+movimentacoesRoutes.post('/', movimentacoesController.create);
 
-routesInicio.get('/', inicio.inicio);
-
-export { routesInicio };
+export { movimentacoesRoutes };
