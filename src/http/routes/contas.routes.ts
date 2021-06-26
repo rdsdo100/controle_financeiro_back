@@ -1,9 +1,26 @@
 import { Router} from 'express';
-import Inicio from '../../controller/inicio/Inicio';
+import ContasController from '../../controller/contas/ContasController';
+import isAuthenticated from '../middlewares/isAuthenticated';
 
-const routesInicio = Router();
-const  inicio = new Inicio()
 
-routesInicio.get('/', inicio.inicio);
+const contasRoutes = Router();
+const  contasController = new ContasController()
 
-export { routesInicio };
+contasRoutes.use(isAuthenticated)
+
+contasRoutes.get('/', contasController.index);
+
+contasRoutes.post('/', contasController.cadastrarContas);
+ contasRoutes.put('/', contasController.updateContas);
+ contasRoutes.delete('/:id', contasController.deleteContas);
+
+export { contasRoutes };
+
+
+
+// nomeConta
+// corrente
+// poupanca
+// bancosIdFK.id
+// usuarios
+// banco

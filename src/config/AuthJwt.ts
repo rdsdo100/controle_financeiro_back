@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { Usuarios } from '../entity/Usuarios';
+import AppError from './errors/AppError';
 
 export default class AuthJwt {
     async assinar(usuario: Usuarios) {
@@ -11,7 +12,7 @@ export default class AuthJwt {
             );
             return token;
         } else {
-            return 'Usuario Incorreto!';
+           throw new AppError("usuariao Não pode ser assinado. user = inativo!")
         }
     }
 }

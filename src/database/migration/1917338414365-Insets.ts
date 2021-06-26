@@ -4,9 +4,9 @@ export class Insets1917338414365 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
-        insert  into usuarios (id, nome_usuario , email , senha ) values 
-        (1 , 'root' , 'root.gmail.com' , '123456' );
-        `)
+        insert  into usuarios (id, nome_usuario , email , senha , administrador ) values 
+        (1 , 'root' , 'root.gmail.com' , '123456' , true );
+        `);
 
         await queryRunner.query(`
        
