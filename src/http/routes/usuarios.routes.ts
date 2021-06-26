@@ -11,3 +11,4 @@ usuariosRoutes.get('/:id',isAuthenticated, usuariosController.showUsuarios);
 usuariosRoutes.get('/',isAuthenticated , usuariosController.listUsuarios);
 
 export { usuariosRoutes };
+ 

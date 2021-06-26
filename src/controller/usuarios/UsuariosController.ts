@@ -1,3 +1,4 @@
+import { classToClass } from 'class-transformer';
 import { Request, Response } from 'express';
 import { Usuarios } from '../../entity/Usuarios';
 import CreateUsuariosServices from '../../services/usuarios/CreateUsuariosServices';
@@ -10,13 +11,13 @@ export default class UsuariosController {
          const showUsuario = new ShowUsuariosServices();
          const usuario = await showUsuario.execute(id);
 
-        return response.status(200).json(usuario);
+        return response.status(200).json(classToClass(usuario));
     }
     async listUsuarios(request: Request, response: Response): Promise<Response> {
         const userId: number = Number(request.body.decoded.id); 
         const listUsuario = new ListUsuariosServices();
         const usuarios = await listUsuario.execute(userId);
-        return response.status(200).json(usuarios);
+        return response.status(200).json(classToClass(usuarios));
     }
 
     async cadastroUsuarios(request: Request, response: Response) {
@@ -26,7 +27,7 @@ export default class UsuariosController {
         usuarios.email = String(request.body.email)
         usuarios.senha = String(request.body.senha)
         const retornoUsuario = await createUsuarios.execute(usuarios)
-        return response.status(200).json(retornoUsuario)
+        return response.status(200).json(classToClass(retornoUsuario));
     }
     // async updateUsuarios (request: Request, response: Response){
     //     const usuarios = new Usuarios()
