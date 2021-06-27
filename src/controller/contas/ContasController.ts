@@ -1,4 +1,3 @@
-
 import { Contas } from '../../entity/Contas';
 import { Request, Response } from 'express';
 import { Usuarios } from '../../entity/Usuarios';
@@ -29,16 +28,13 @@ export default class ContasController {
     async cadastrarContas(request: Request, response: Response): Promise<Response> {
         const idUsuarios: number = Number(request.body.decoded.id);
         const contas = new Contas();
-        const usuarios = new Usuarios();
-        const banco = new Bancos();
+
 
         contas.nomeConta = String(request.body.nomeConta);
         contas.corrente = Number(request.body.corrente);
         contas.poupanca = Number(request.body.poupanca);
-        usuarios.id = idUsuarios;
-        banco.id = Number(request.body.bancosIdFK.id);
-        contas.usuarios = usuarios;
-        contas.bancos = banco;
+        contas.usuariosIdFK = idUsuarios ;
+        contas.bancosIdFK = Number(request.body.idBbancos);
 
         const createContasServices = new CreateContasServices();
 
@@ -58,16 +54,13 @@ export default class ContasController {
     async updateContas(request: Request, response: Response): Promise<Response> {
         const idUsuarios: number = Number(request.body.decoded.id);
         const contas = new Contas();
-        const usuarios = new Usuarios();
-
+     
         contas.id = Number(request.body.id);
         contas.nomeConta = String(request.body.nomeConta);
         contas.corrente = Number(request.body.corrente);
         contas.poupanca = Number(request.body.poupanca);
-        contas.ativo = Boolean(request.body.ativo);
-        contas.bloqueado = Boolean(request.body.bloqueado);
-        usuarios.id = idUsuarios;
-        contas.usuarios = usuarios;
+        contas.usuariosIdFK = idUsuarios;
+        contas.bancosIdFK = Number(request.body.idBbancos);
 
         const updateContasServices = new UpdateContasServices();
 

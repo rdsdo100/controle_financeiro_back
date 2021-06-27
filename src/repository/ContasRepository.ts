@@ -1,4 +1,4 @@
-import { EntityRepository, getManager, Repository } from 'typeorm';
+import { EntityRepository, Repository } from 'typeorm';
 import { Contas } from '../entity/Contas';
 
 @EntityRepository(Contas)
@@ -12,25 +12,23 @@ export default class ContasRepository extends Repository<Contas> {
     }
 
     async insertConta(conta: Contas) {
-        try {
-            const contaRepository = getManager();
-
-            return await contaRepository.save(Contas, conta);
-        } catch (e) {}
+            return await this.save(conta);
     }
 
     async readConta(idUsuario: number): Promise<Contas[]> {
+        
         return await this.createQueryBuilder('Contas')
-            .leftJoinAndSelect('Contas.bancosIdFK', 'banco')
-            .leftJoinAndSelect('Contas.usuariosIdFK', 'usuarios')
+            .leftJoinAndSelect('Contas.bancos', 'banco')
+            .leftJoinAndSelect('Contas.usuarios', 'usuarios')
             .where('usuarios.id = :id', { id: idUsuario })
             .getMany();
+            
     }
 
     async findContasByBancosByUser(idUsuario: number, idConta: number): Promise<Contas[]> {
         return await this.createQueryBuilder('Contas')
-            .leftJoinAndSelect('Contas.bancosIdFK', 'banco')
-            .leftJoinAndSelect('Contas.usuariosIdFK', 'usuarios')
+            .leftJoinAndSelect('Contas.bancos', 'banco')
+            .leftJoinAndSelect('Contas.usuarios', 'usuarios')
             .where('usuarios.id = :id and  banco.id = :idBanco', { id: idUsuario, idBanco: idConta })
             .getMany();
     }
@@ -39,7 +37,9 @@ export default class ContasRepository extends Repository<Contas> {
         await this.delete(idConta);
     }
 
-    async updateContas(contas: Contas): Promise<Contas> {
-        return await this.save(contas);
+    async updateContas(contas: Contas): Promise<Contas | undefined> {
+         await this.update(contas.id ,contas);
+          return this.findOne(contas.id)
+
     }
 }

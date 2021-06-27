@@ -1,25 +1,50 @@
 import { Request, Response } from 'express';
 import { Movimentacoes } from '../../entity/Movimentacoes';
 import CreateMovimentacoesServices from '../../services/movimentacoes/CreateMovimentacoesServices';
+import DeleteMovimentacoesServices from '../../services/movimentacoes/DeleteMovimentacoesServices';
+import ListMovimentacoesServices from '../../services/movimentacoes/ListMovimentacoesServices';
+import ShowMovimentacoesServices from '../../services/movimentacoes/ShowMovimentacoesServices';
+
+
 export default class MovimentacoesController {
-
     async create(request: Request, response: Response): Promise<Response> {
-        const movimentacoes = new Movimentacoes();
-        const createMovimentacoes = new CreateMovimentacoesServices()
-         const idUsuario = Number(request.body.decoded.id);
-         const contaId = Number(request.body.contaId);
-        
-         movimentacoes.nomeMovimentacoes = String(request.body.nomeMovimentacoes);
-        movimentacoes.valorMovimento = Number(request.body.valorMovimento);
-        movimentacoes.descricao = String(request.body.descricao);
-        movimentacoes.tipoEntrada = Boolean(request.body.tipoEntrada);
-        movimentacoes.tipoPoupanca = Boolean(request.body.tipoPoupanca);
-        movimentacoes.dataMovimento = new Date();
-        movimentacoes.contasIdFK= idUsuario
+        const movimentacao = new Movimentacoes();
+        const createMovimentacao = new CreateMovimentacoesServices();
+        const idUsuario = Number(request.body.decoded.id);
+        const contaId = Number(request.body.contaId);
 
-        const retortnoMovimentacores = createMovimentacoes.execute(movimentacoes);
+        movimentacao.nomeMovimentacoes = String(request.body.nomemovimentacao);
+        movimentacao.valorMovimento = Number(request.body.valorMovimento);
+        movimentacao.descricao = String(request.body.descricao);
+        movimentacao.tipoEntrada = Boolean(request.body.tipoEntrada);
+        movimentacao.tipoPoupanca = Boolean(request.body.tipoPoupanca);
+        movimentacao.contasIdFK = contaId;
+        movimentacao.dataMovimento = new Date();
+
+        const retortnoMovimentacores = await createMovimentacao.execute(movimentacao);
 
         return response.status(200).json(retortnoMovimentacores);
     }
-    
+
+    async listMovimentacoes(request: Request, response: Response): Promise<Response> {
+        const idUsuario = Number(request.body.decoded.id);
+        const listMovimentacoes = new ListMovimentacoesServices();
+        const movimentacoes = await listMovimentacoes.execute(idUsuario);
+        return response.status(200).json(movimentacoes);
+    }
+
+    async showMovimentacoes(request: Request, response: Response): Promise<Response> {
+        const idUsuario = Number(request.body.decoded.id);
+        const idMovimentacao = Number(request.params.id);
+        const showMovimentacoes = new ShowMovimentacoesServices();
+        const movimentacoes = await showMovimentacoes.execute(idUsuario, idMovimentacao);
+        return response.status(200).json(movimentacoes);
+    }
+    async deleteMovimentacoes(request: Request, response: Response): Promise<Response> {
+        const idUsuario = Number(request.body.decoded.id);
+        const idMovimentacao = Number(request.params.id);
+        const deleteMovimentacao = new DeleteMovimentacoesServices();
+        const movimentacoes = await deleteMovimentacao.execute({ idUsuario, idMovimentacao });
+        return response.status(200).json(movimentacoes);
+    }
 }

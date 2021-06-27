@@ -10,6 +10,8 @@ export default class ListContasServices {
     }
 
     async execute(idUsuario: number) {
+
+
         return await this.contasRepository.readConta(idUsuario);
     }
 }

@@ -13,8 +13,9 @@ export default class CreateMovimentacoesServices {
         this.contasRepository = getCustomRepository(ContasRepository);
     }
 
-    async execute(movimentacoes: Movimentacoes): Promise<Movimentacoes> {
-        const conta = await this.contasRepository.findOne(movimentacoes.contasIdFK);
+    async execute(movimentacao: Movimentacoes): Promise<Movimentacoes> {
+        const conta = await this.contasRepository.findOne(movimentacao.contasIdFK);
+       
         if (!conta) {
             throw new AppError('Conta não existe', 400);
         }
@@ -22,21 +23,25 @@ export default class CreateMovimentacoesServices {
             throw new AppError('Conta deasativada', 400);
         }
 
-        if (!movimentacoes.tipoEntrada) {
-            movimentacoes.valorMovimento = -movimentacoes.valorMovimento;
-        }
-        movimentacoes.valorContaAnterior = conta.valorTotal;
+        
 
-        if (movimentacoes.tipoPoupanca) {
-            conta.poupanca = conta.poupanca + movimentacoes.valorMovimento;
-        } else {
-            conta.poupanca = conta.corrente + movimentacoes.valorMovimento;
+        if (!movimentacao.tipoEntrada) {
+            movimentacao.valorMovimento = -movimentacao.valorMovimento;
         }
-        conta.valorTotal = conta.corrente + conta.poupanca;
+        movimentacao.valorContaAnterior = conta.valorTotal;
+
+        if (movimentacao.tipoPoupanca) {
+            conta.poupanca = Number(conta.poupanca) + Number(movimentacao.valorMovimento)
+        } else {
+            conta.poupanca = Number(conta.corrente) + Number(movimentacao.valorMovimento)
+        }
+        conta.valorTotal = Number(conta.corrente) + Number(conta.poupanca);
+
+     
 
         const movimentacoesretorno = await this.movimentacoesRepository.createByMovimentacoes({
-            movimentacoes,
-            contas: conta,
+            movimentacao,
+            conta: conta,
         });
 
         return movimentacoesretorno;
