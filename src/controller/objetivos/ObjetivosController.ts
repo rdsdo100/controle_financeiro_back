@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 
 import { ObjetivosFinaceiros } from '../../entity/ObjetivosFinaceiros';
 import CreateObjetivosServices from '../../services/objetivos/CreateObjetivosServices';
+import ListObjetivosServices from '../../services/objetivos/ListObjetivosServices';
 
 export default class ObjetivosController {
     async create(request: Request, response: Response): Promise<Response> {
@@ -22,6 +23,9 @@ export default class ObjetivosController {
 
     async listMovimentacoes(request: Request, response: Response): Promise<Response> {
          const idUsuario = Number(request.body.decoded.id);
+const listObjetvos = new ListObjetivosServices()
+const bjetivos = await listObjetvos.execute(idUsuario);
+
         return response.status(200).json();
     }
 
