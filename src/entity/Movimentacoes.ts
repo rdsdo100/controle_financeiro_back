@@ -1,5 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Contas } from "./Contas";
+import { ObjetivosFinaceiros } from "./ObjetivosFinaceiros";
 
 @Entity()
 export class Movimentacoes {
@@ -28,6 +29,13 @@ export class Movimentacoes {
         default: true,
     })
     tipoPoupanca: boolean;
+    @Column({
+        name: 'tipo_objetivo',
+        type: 'boolean',
+        nullable: false,
+        default: true,
+    })
+    tipoObjetovo: boolean;
 
     @Column({
         name: 'descricao',
@@ -77,4 +85,11 @@ export class Movimentacoes {
 
     @Column({ name: 'contas_id_fk' })
     contasIdFK: number;
+
+    @ManyToOne(() => ObjetivosFinaceiros, (objetivo) => objetivo.movimentacoes)
+    @JoinColumn([{ name: 'contas_id_fk', referencedColumnName: 'id' }])
+    objetivos: ObjetivosFinaceiros;
+
+    @Column({ name: 'objetivos_id_fk' })
+    objetivos_id_fk: number;
 }

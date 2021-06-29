@@ -1,9 +1,15 @@
 import { Router} from 'express';
-import Inicio from '../../controller/inicio/Inicio';
+import ObjetivosController from '../../controller/objetivos/ObjetivosController';
+import isAuthenticated from '../middlewares/isAuthenticated';
 
-const routesInicio = Router();
-const  inicio = new Inicio()
 
-routesInicio.get('/', inicio.inicio);
+const objetivosRouter = Router();
+const objetivoController = new ObjetivosController();
 
-export { routesInicio };
+objetivosRouter.use(isAuthenticated)
+objetivosRouter.post('/', objetivoController.create);
+objetivosRouter.get('/', objetivoController.listMovimentacoes);
+objetivosRouter.get('/:id', objetivoController.showMovimentacoes);
+objetivosRouter.delete('/', objetivoController.deleteMovimentacoes);
+
+export { objetivosRouter };

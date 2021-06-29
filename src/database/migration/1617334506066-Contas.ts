@@ -7,7 +7,6 @@ export class Contas1617334506066 implements MigrationInterface {
 
         await queryRunner.createTable(
             new Table({
-
                 name: 'contas',
                 columns: [
                     {
@@ -21,32 +20,36 @@ export class Contas1617334506066 implements MigrationInterface {
                         name: 'nome_conta',
                         type: 'varchar',
                         length: '50',
-                        isNullable: false
-                    },
-                    {
-                        name: 'valor_total',
-                        type: 'NUMERIC(14,2)',
                         isNullable: false,
-                        default: 0
                     },
                     {
                         name: 'corrente',
                         type: 'NUMERIC(14,2)',
                         isNullable: false,
-                        default: 0
+                        default: 0,
                     },
                     {
                         name: 'poupanca',
                         type: 'NUMERIC(14,2)',
                         isNullable: false,
-                        default: 0
+                        default: 0,
+                    },
+                    {
+                        name: 'valor_total',
+                        type: 'NUMERIC(14,2)',
+                        isNullable: false,
+                        default: 0,
+                    },
+                    {
+                        name: 'valor_Objetivos',
+                        type: 'int',
+                        default: 0,
                     },
 
                     {
                         name: 'ativo',
                         type: 'boolean',
                         default: true,
-
                     },
                     {
                         name: 'bloqueado',
@@ -61,9 +64,9 @@ export class Contas1617334506066 implements MigrationInterface {
                         name: 'bancos_id_fk',
                         type: 'int',
                     },
-                ]
-            })
-        )
+                ],
+            }),
+        );
 
         await queryRunner.createForeignKey(
             'contas',

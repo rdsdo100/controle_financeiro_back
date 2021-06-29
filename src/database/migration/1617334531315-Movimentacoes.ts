@@ -6,7 +6,6 @@ export class Movimentacoes1617334531315 implements MigrationInterface {
 
         await queryRunner.createTable(
             new Table({
-
                 name: 'movimentacoes',
                 columns: [
                     {
@@ -22,7 +21,6 @@ export class Movimentacoes1617334531315 implements MigrationInterface {
                         type: 'varchar',
                         length: '60',
                         isNullable: false,
-                       
                     },
 
                     {
@@ -35,55 +33,60 @@ export class Movimentacoes1617334531315 implements MigrationInterface {
                         name: 'tipo_poupanca',
                         type: 'boolean',
                         isNullable: false,
-                        default: false
-                
+                        default: false,
                     },
-                  
+                    {
+                        name: 'tipo_objetivo',
+                        type: 'boolean',
+                        isNullable: false,
+                        default: false,
+                    },
+
                     {
                         name: 'descricao',
                         type: 'varchar',
-                        length: '500'
-                        
+                        length: '500',
                     },
-
 
                     {
                         name: 'valor_conta_anterior',
                         type: 'NUMERIC(8,2)',
                         isNullable: false,
-                        default: 0
+                        default: 0,
                     },
 
                     {
                         name: 'valor_movimento',
                         type: 'NUMERIC(8,2)',
-                        isNullable: false
+                        isNullable: false,
                     },
 
                     {
                         name: 'estorno',
                         type: 'boolean',
-                       default: false
-                        
+                        default: false,
                     },
                     {
                         name: 'data_estorno',
-                        type: 'date', 
-                        isNullable: true
-                    }, 
+                        type: 'date',
+                        isNullable: true,
+                    },
                     {
                         name: 'data_movimento',
-                        type: 'date', 
-                    }, 
-                    
+                        type: 'date',
+                    },
 
                     {
                         name: 'contas_id_fk',
                         type: 'int',
                     },
-                ]
-            })
-        )
+                    {
+                        name: 'objetivos_id_fk',
+                        type: 'int',
+                    },
+                ],
+            }),
+        );
 
         await queryRunner.createForeignKey(
             'movimentacoes',
@@ -94,6 +97,16 @@ export class Movimentacoes1617334531315 implements MigrationInterface {
                 name: 'entradas_movimentacoes',
             }),
         );
+        await queryRunner.createForeignKey(
+            'movimentacoes',
+            new TableForeignKey({
+                columnNames: ['objetivos_id_fk'],
+                referencedColumnNames: ['id'],
+                referencedTableName: 'objetivos_finaceiros',
+                name: 'objetivos_finaceiros_movimentacoes',
+            }),
+        );
+
 
 
 

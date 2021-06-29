@@ -3,6 +3,7 @@ import { contasRoutes } from './contas.routes';
 import { routesInicio } from './inicio.routes';
 import { loginRoutes } from './login.routes';
 import { movimentacoesRoutes } from './movimentacoes.routes';
+import { objetivosRouter } from './objetivos.routes';
 import { usuariosRoutes } from './usuarios.routes';
 
 
@@ -15,6 +16,7 @@ routes.use('/login', loginRoutes);
 routes.use('/user', usuariosRoutes);
 routes.use('/contas', contasRoutes);
 routes.use('/movimentacoes', movimentacoesRoutes);
+routes.use('/objetivos', objetivosRouter);
 
 
 

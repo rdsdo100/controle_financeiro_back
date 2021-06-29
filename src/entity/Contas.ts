@@ -19,14 +19,6 @@ export class Contas {
     nomeConta: string;
 
     @Column({
-        name: 'valor_total',
-        type: 'numeric',
-        nullable: false,
-        default: 0,
-    })
-    valorTotal: number;
-
-    @Column({
         name: 'corrente',
         type: 'numeric',
         nullable: false,
@@ -41,6 +33,22 @@ export class Contas {
         default: 0,
     })
     poupanca: number;
+
+     @Column({
+        name: 'valor_total',
+        type: 'numeric',
+        nullable: false,
+        default: 0,
+    })
+     valorTotal: number;
+
+     @Column({
+        name: 'valor_Objetivos',
+        type: 'numeric',
+        nullable: false,
+        default: 0,
+    })
+    valorObjetivo: number
 
     @Column({
         name: 'ativo',

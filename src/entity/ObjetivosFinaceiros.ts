@@ -1,5 +1,7 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import MovimentacoesController from "../controller/movimentacoes/MovimentacoesController";
 import { Contas } from "./Contas";
+import { Movimentacoes } from "./Movimentacoes";
 
 @Entity({ name: 'objetivos_finaceiros' })
 export class ObjetivosFinaceiros {
@@ -52,7 +54,10 @@ export class ObjetivosFinaceiros {
     @ManyToOne(() => Contas, (contas) => contas.objetivosFinaceiros)
     @JoinColumn([{ name: 'contas_id_fk', referencedColumnName: 'id' }])
     contas: Contas;
-    
+
     @Column({ name: 'contas_id_fk' })
     contasIdFK: number;
+
+    @OneToMany(() => Movimentacoes, (movimentacoes) => movimentacoes.objetivos)
+    movimentacoes: Movimentacoes[]
 }

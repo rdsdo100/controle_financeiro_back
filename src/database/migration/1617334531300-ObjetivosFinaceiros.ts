@@ -1,13 +1,9 @@
 import {MigrationInterface, QueryRunner, Table, TableForeignKey} from "typeorm";
 
-export class ObjetivosFinaceiros1617334553058 implements MigrationInterface {
-
+export class ObjetivosFinaceiros1617334531300 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
-
-
         await queryRunner.createTable(
             new Table({
-
                 name: 'objetivos_finaceiros',
                 columns: [
                     {
@@ -22,49 +18,47 @@ export class ObjetivosFinaceiros1617334553058 implements MigrationInterface {
                         name: 'nome_objetivos',
                         type: 'varchar',
                         isNullable: false,
-                        
                     },
 
                     {
                         name: 'valor_objetivos',
-                        type: 'NUMERIC(8,2)',
-                        isNullable: false
+                        type: 'NUMERIC(16,2)',
+                        isNullable: false,
                     },
 
-                    
                     {
                         name: 'valor_guardado',
-                        type: 'int',
-                        isNullable: false,
-                        default: 0
+                        type: 'NUMERIC(16,2)',
+                        isNullable: true,
+                        default: 0,
                     },
 
                     {
                         name: 'data_prevista_objetivos',
                         type: 'date',
-                        isNullable: false
+                        isNullable: false,
                     },
 
                     {
                         name: 'finalizado',
                         type: 'boolean',
                         isNullable: false,
-                        default: false
+                        default: false,
                     },
 
                     {
                         name: 'descricao',
                         type: 'varchar',
-                        length: '500'
-                        
+                        length: '500',
+                        isNullable: true
                     },
                     {
                         name: 'contas_id_fk',
                         type: 'int',
                     },
-                ]
-            })
-        )
+                ],
+            }),
+        );
 
         await queryRunner.createForeignKey(
             'objetivos_finaceiros',
@@ -75,10 +69,7 @@ export class ObjetivosFinaceiros1617334553058 implements MigrationInterface {
                 name: 'objetivos_finaceiros_contas',
             }),
         );
-
     }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {
-    }
-
+    public async down(queryRunner: QueryRunner): Promise<void> {}
 }
