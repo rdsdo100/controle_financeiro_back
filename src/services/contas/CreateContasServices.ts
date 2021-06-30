@@ -14,7 +14,9 @@ export default class CreateContasServices {
 
     async execute(conta: Contas) {
         conta.valorTotal = conta.poupanca + conta.corrente
-        conta.valorTotal = Number(conta.corrente) + Number(conta.poupanca);
+        conta.valorTotal = Number(conta.poupanca) 
+        + Number(conta.corrente) 
+        + Number(conta.valorObjetivo);
         return await this.contasRepository.insertConta(conta);
     }
 }
