@@ -7,8 +7,17 @@ interface IResponseObjetivos {
     status?: number;
 }
 
-export default class Validationobjetivos {
-    isObjetivos(objetivos: ObjetivosFinaceiros): IResponseObjetivos {
+export default class ValidationObjetivos {
+    isObjetivos(objetivos: ObjetivosFinaceiros | undefined): IResponseObjetivos {
+        
+        if(!objetivos){
+            return   {
+                isValidated: false,
+                message: 'Objetivo não encontrado!',
+                status: 400,
+            };
+        }
+        
         if (!isAfter(objetivos.dataPrevistaObjetivos, Date.now())) {
             return {
                 isValidated: false,

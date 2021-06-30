@@ -1,1 +1,1 @@
-export default class Calculoobjetivos {}
+export default class CalculoObjetivos {}
