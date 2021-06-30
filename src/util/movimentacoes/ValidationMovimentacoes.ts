@@ -16,8 +16,6 @@ export default class ValidationMovimentacoes {
             };
         }
 
-  
-
         return {
             isValidated: true,
         };
