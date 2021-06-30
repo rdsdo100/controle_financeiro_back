@@ -35,20 +35,20 @@ export default class CreateMovimentacaoObjetivosServices {
             throw new AppError('Conta deasativada', 400);
         }
 
-
-
         if (!movimentacao.tipoEntrada) {
             movimentacao.valorMovimento = -movimentacao.valorMovimento;
         }
         movimentacao.valorContaAnterior = conta.valorTotal;
 
+        movimentacao.valorContaAnterior = conta.valorTotal
        objetivo.valorGuardado = Number(objetivo.valorGuardado) + Number(movimentacao.valorMovimento)
        conta.valorObjetivo = Number(conta.valorObjetivo) + Number(movimentacao.valorMovimento)
        conta.valorTotal = Number(conta.poupanca) + Number(conta.corrente) + Number(conta.valorObjetivo)
 
-        const movimentacoesretorno = await this.movimentacoesRepository.createByMovimentacoes({
+        const movimentacoesretorno = await this.movimentacoesRepository.createByMovimentacoesObjetivos({
             movimentacao,
             conta: conta,
+            objetivo
         });
 
         return movimentacoesretorno;
