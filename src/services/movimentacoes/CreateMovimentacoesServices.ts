@@ -14,6 +14,8 @@ export default class CreateMovimentacoesServices {
     }
 
     async execute(movimentacao: Movimentacoes): Promise<Movimentacoes> {
+
+
         const conta = await this.contasRepository.findOne(movimentacao.contasIdFK);
        
         if (!conta) {

@@ -35,7 +35,7 @@ export class Movimentacoes {
         nullable: false,
         default: true,
     })
-    tipoObjetovo: boolean;
+    tipoObjetivo: boolean;
 
     @Column({
         name: 'descricao',
