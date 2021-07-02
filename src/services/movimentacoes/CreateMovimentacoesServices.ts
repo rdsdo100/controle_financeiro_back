@@ -16,7 +16,7 @@ export default class CreateMovimentacoesServices {
         this.objetivoRepository = getCustomRepository(ObjetivosFinanceirosRepository);
     }
 
-    async execute(movimentacao: Movimentacoes) /*: Promise<Movimentacoes>*/ {
+   public async execute(movimentacao: Movimentacoes): Promise<Movimentacoes> {
         const conta = await this.contasRepository.findOne(movimentacao.contasIdFK);
 
         if (!conta) {
@@ -33,34 +33,62 @@ export default class CreateMovimentacoesServices {
         movimentacao.valorContaAnterior = conta.valorTotal;
 
         if (!movimentacao.tipoObjetivo) {
-            if (movimentacao.tipoPoupanca) {
-                conta.poupanca = Number(conta.poupanca) + Number(movimentacao.valorMovimento);
-            } else {
-                conta.poupanca = Number(conta.corrente) + Number(movimentacao.valorMovimento);
-            }
-            conta.valorTotal = Number(conta.poupanca) + Number(conta.corrente) + Number(conta.valorObjetivo);
-
-            const movimentacoesretorno = await this.movimentacoesRepository.createByMovimentacoes({
-                movimentacao,
-                conta: conta,
-            });
+            return this.cadastroMovimentacao(movimentacao);
         } else {
-            
-            const objetivo = await this.objetivoRepository.findOne(movimentacao.objetivosIdFk);
-
-            if (!objetivo) {
-                throw new AppError(`Objetivos não existe`, 400);
-            }
-            objetivo.valorGuardado = movimentacao.valorMovimento;
-            conta.valorObjetivo = movimentacao.valorMovimento;
-
-            conta.valorTotal = Number(conta.poupanca) + Number(conta.corrente) + Number(conta.valorObjetivo);
-
-            const movimentacoesretorno = await this.movimentacoesRepository.createByMovimentacoesObjetivos({
-                movimentacao,
-                conta: conta,
-                objetivo,
-            });
+            return this.cadastroMovimentacaoObjetivo(movimentacao);
         }
+    }
+
+    private async cadastroMovimentacao(movimentacao: Movimentacoes): Promise<Movimentacoes> {
+        const conta = await this.contasRepository.findOne(movimentacao.contasIdFK);
+
+        if (!conta) {
+            throw new AppError('Conta não existe', 400);
+        }
+        if (!conta.ativo) {
+            throw new AppError('Conta deasativada', 400);
+        }
+        if (movimentacao.tipoPoupanca) {
+            conta.poupanca = Number(conta.poupanca) + Number(movimentacao.valorMovimento);
+        } else {
+            conta.poupanca = Number(conta.corrente) + Number(movimentacao.valorMovimento);
+        }
+        conta.valorTotal = Number(conta.poupanca) + Number(conta.corrente) + Number(conta.valorObjetivo);
+
+        const movimentacoesretorno = await this.movimentacoesRepository.createByMovimentacoes({
+            movimentacao,
+            conta: conta,
+        });
+        return movimentacoesretorno;
+    }
+
+    private async cadastroMovimentacaoObjetivo(movimentacao: Movimentacoes): Promise<Movimentacoes> {
+        const conta = await this.contasRepository.findOne(movimentacao.contasIdFK);
+
+        const objetivo = await this.objetivoRepository.findOne(movimentacao.objetivosIdFk);
+
+        if (!objetivo) {
+            throw new AppError(`Objetivos não existe`, 400);
+        }
+
+        if (!conta) {
+            throw new AppError('Conta não existe', 400);
+        }
+        if (!conta.ativo) {
+            throw new AppError('Conta deasativada', 400);
+        }
+
+        objetivo.valorGuardado = movimentacao.valorMovimento;
+        conta.valorObjetivo = movimentacao.valorMovimento;
+
+        conta.valorTotal = Number(conta.poupanca) + Number(conta.corrente) + Number(conta.valorObjetivo);
+
+        const movimentacoesretorno = await this.movimentacoesRepository.createByMovimentacoesObjetivos({
+            movimentacao,
+            conta: conta,
+            objetivo,
+        });
+
+        return movimentacoesretorno;
     }
 }
