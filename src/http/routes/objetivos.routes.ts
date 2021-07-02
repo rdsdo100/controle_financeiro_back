@@ -8,8 +8,8 @@ const objetivoController = new ObjetivosController();
 
 objetivosRouter.use(isAuthenticated)
 objetivosRouter.post('/', objetivoController.create);
-objetivosRouter.get('/', objetivoController.listMovimentacoes);
-objetivosRouter.get('/:id', objetivoController.showMovimentacoes);
-objetivosRouter.delete('/', objetivoController.deleteMovimentacoes);
+objetivosRouter.get('/', objetivoController.listObjetivos);
+objetivosRouter.get('/:id', objetivoController.showObjetivos);
+objetivosRouter.delete('/', objetivoController.deleteObjetivos);
 
 export { objetivosRouter };

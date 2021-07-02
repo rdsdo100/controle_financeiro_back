@@ -83,6 +83,7 @@ export class Movimentacoes1617334531315 implements MigrationInterface {
                     {
                         name: 'objetivos_id_fk',
                         type: 'int',
+                        isNullable: true
                     },
                 ],
             }),

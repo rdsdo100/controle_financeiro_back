@@ -90,6 +90,6 @@ export class Movimentacoes {
     @JoinColumn([{ name: 'contas_id_fk', referencedColumnName: 'id' }])
     objetivos: ObjetivosFinaceiros;
 
-    @Column({ name: 'objetivos_id_fk' })
+    @Column({ name: 'objetivos_id_fk' , nullable: true })
     objetivosIdFk: number;
 }

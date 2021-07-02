@@ -1,18 +1,19 @@
 import { NextFunction, Request, Response } from 'express';
 import { Movimentacoes } from '../../entity/Movimentacoes';
+import { objetivosRouter } from '../../http/routes/objetivos.routes';
 import CreateMovimentacoesServices from '../../services/movimentacoes/CreateMovimentacoesServices';
 import DeleteMovimentacoesServices from '../../services/movimentacoes/DeleteMovimentacoesServices';
 import ListMovimentacoesServices from '../../services/movimentacoes/ListMovimentacoesServices';
 import ShowMovimentacoesServices from '../../services/movimentacoes/ShowMovimentacoesServices';
-import CreateMovimentacaoObjetivosServices from '../../services/objetivos/CreateMovimentacaoObjetivosServices';
 
 export default class MovimentacoesController {
     async create(request: Request, response: Response, next: NextFunction): Promise<Response> {
         const movimentacao = new Movimentacoes();
         const createMovimentacao = new CreateMovimentacoesServices();
-        const createMovimentacaoObjetivo = new CreateMovimentacaoObjetivosServices();
+       
         const idUsuario = Number(request.body.decoded.id);
         const contaId = Number(request.body.contaId);
+         const objetivoId = Number(request.body.objetivoId);
         let retortnoMovimentacores;
         movimentacao.nomeMovimentacoes = String(request.body.nomemovimentacao);
         movimentacao.valorMovimento = Number(request.body.valorMovimento);
@@ -21,6 +22,9 @@ export default class MovimentacoesController {
         movimentacao.tipoPoupanca = Boolean(request.body.tipoPoupanca);
         movimentacao.tipoObjetivo = Boolean(request.body.tipoObjetivo);
         movimentacao.contasIdFK = contaId;
+      if(objetivoId){
+          movimentacao.objetivosIdFk = objetivoId
+      }
         movimentacao.dataMovimento = new Date();
 
      

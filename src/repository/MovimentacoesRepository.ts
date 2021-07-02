@@ -41,7 +41,7 @@ export default class MovimentacoesRepository extends Repository<Movimentacoes> {
     async createByMovimentacoesObjetivos({
         movimentacao,
         conta,
-        objetivo
+        objetivo,
     }: IRequestMovimentacaoObjetivo): Promise<Movimentacoes> {
         const connection = getConnection();
         const queryRunner = connection.createQueryRunner();
@@ -52,7 +52,7 @@ export default class MovimentacoesRepository extends Repository<Movimentacoes> {
             movimentacao = await queryRunner.manager.save(movimentacao);
 
             await queryRunner.manager.save(conta);
-              await queryRunner.manager.save(objetivo);
+            await queryRunner.manager.save(objetivo);
 
             await queryRunner.commitTransaction();
         } catch (err) {
@@ -92,6 +92,32 @@ export default class MovimentacoesRepository extends Repository<Movimentacoes> {
             await queryRunner.manager.remove(movimentacao);
 
             await queryRunner.manager.save(conta);
+
+            await queryRunner.commitTransaction();
+        } catch (err) {
+            await queryRunner.rollbackTransaction();
+            throw err;
+        } finally {
+            await queryRunner.release();
+        }
+    }
+
+    async deleteByMovimentacoesObjetivos({
+        movimentacao,
+        conta,
+        objetivo,
+    }: IRequestMovimentacaoObjetivo): Promise<void> {
+        const connection = getConnection();
+        const queryRunner = connection.createQueryRunner();
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
+
+        try {
+            await queryRunner.manager.remove(movimentacao);
+
+            await queryRunner.manager.save(conta);
+
+            await queryRunner.manager.save(objetivo);
 
             await queryRunner.commitTransaction();
         } catch (err) {

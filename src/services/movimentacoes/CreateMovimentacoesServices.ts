@@ -16,7 +16,7 @@ export default class CreateMovimentacoesServices {
         this.objetivoRepository = getCustomRepository(ObjetivosFinanceirosRepository);
     }
 
-   public async execute(movimentacao: Movimentacoes): Promise<Movimentacoes> {
+    public async execute(movimentacao: Movimentacoes): Promise<Movimentacoes> {
         const conta = await this.contasRepository.findOne(movimentacao.contasIdFK);
 
         if (!conta) {
@@ -33,7 +33,10 @@ export default class CreateMovimentacoesServices {
         movimentacao.valorContaAnterior = conta.valorTotal;
 
         if (!movimentacao.tipoObjetivo) {
-            return this.cadastroMovimentacao(movimentacao);
+            if (movimentacao.objetivosIdFk) {
+                throw new AppError('Movimentação não pode exitri objetivos.', 400);
+            }
+            return await this.cadastroMovimentacao(movimentacao);
         } else {
             return this.cadastroMovimentacaoObjetivo(movimentacao);
         }
@@ -51,13 +54,13 @@ export default class CreateMovimentacoesServices {
         if (movimentacao.tipoPoupanca) {
             conta.poupanca = Number(conta.poupanca) + Number(movimentacao.valorMovimento);
         } else {
-            conta.poupanca = Number(conta.corrente) + Number(movimentacao.valorMovimento);
+            conta.corrente = Number(conta.corrente) + Number(movimentacao.valorMovimento);
         }
         conta.valorTotal = Number(conta.poupanca) + Number(conta.corrente) + Number(conta.valorObjetivo);
 
         const movimentacoesretorno = await this.movimentacoesRepository.createByMovimentacoes({
             movimentacao,
-            conta: conta,
+            conta,
         });
         return movimentacoesretorno;
     }
@@ -78,7 +81,7 @@ export default class CreateMovimentacoesServices {
             throw new AppError('Conta deasativada', 400);
         }
 
-        objetivo.valorGuardado = movimentacao.valorMovimento;
+        objetivo.valorGuardado = Number(movimentacao.valorMovimento) + Number(objetivo.valorGuardado);
         conta.valorObjetivo = movimentacao.valorMovimento;
 
         conta.valorTotal = Number(conta.poupanca) + Number(conta.corrente) + Number(conta.valorObjetivo);
