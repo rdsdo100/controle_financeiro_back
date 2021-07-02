@@ -91,5 +91,5 @@ export class Movimentacoes {
     objetivos: ObjetivosFinaceiros;
 
     @Column({ name: 'objetivos_id_fk' })
-    objetivos_id_fk: number;
+    objetivosIdFk: number;
 }

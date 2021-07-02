@@ -23,11 +23,9 @@ export default class MovimentacoesController {
         movimentacao.contasIdFK = contaId;
         movimentacao.dataMovimento = new Date();
 
-        if (movimentacao.tipoObjetivo) {
-            retortnoMovimentacores = await createMovimentacaoObjetivo.execute(movimentacao);
-        } else {
+     
             retortnoMovimentacores = await createMovimentacao.execute(movimentacao);
-        }
+        
 
         return response.status(200).json(retortnoMovimentacores);
     }
