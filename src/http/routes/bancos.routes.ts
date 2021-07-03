@@ -1,9 +1,10 @@
 import { Router} from 'express';
-import Inicio from '../../controller/inicio/Inicio';
+import BancosController from '../../controller/BancosController';
 
-const routesInicio = Router();
-const  inicio = new Inicio()
 
-routesInicio.get('/', inicio.inicio);
+const bancosRoutes = Router();
+const  bancos = new  BancosController ()
 
-export { routesInicio };
+bancosRoutes.get('/', bancos.index);
+
+export { bancosRoutes };

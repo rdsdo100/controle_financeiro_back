@@ -12,8 +12,8 @@ interface IRequestUsuareios{
 }
 
 interface IResponse {
-    token: string;
-    usuario?: Usuarios
+    authorization: string;
+    usuario?: Usuarios;
 }
     
 
@@ -28,6 +28,8 @@ export default class LoginUsuariosServices {
         const authJwt = new AuthJwt();
         const usuario = await this.usuariosRepository.findByEmail(email);
         
+    
+
 
         if (!usuario) {
             throw new AppError('Usuario ou senhas incorretas!', 400);
@@ -36,10 +38,10 @@ export default class LoginUsuariosServices {
              throw new AppError('Usuario ou senhas incorretas 44 !', 400);
          }
          
-         const token = await authJwt.assinar(usuario)
+         const authorization = await authJwt.assinar(usuario);
 
         return {
-            token
+            authorization,
         };
     }
 }

@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { bancosRoutes } from './bancos.routes';
 import { contasRoutes } from './contas.routes';
 import { routesInicio } from './inicio.routes';
 import { loginRoutes } from './login.routes';
@@ -13,6 +14,7 @@ const routes = Router();
 
 routes.use('/' , routesInicio)
 routes.use('/login', loginRoutes);
+routes.use('/bancos', bancosRoutes);
 routes.use('/user', usuariosRoutes);
 routes.use('/contas', contasRoutes);
 routes.use('/movimentacoes', movimentacoesRoutes);
