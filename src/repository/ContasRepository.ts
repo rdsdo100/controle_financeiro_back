@@ -19,7 +19,7 @@ export default class ContasRepository extends Repository<Contas> {
         
         return await this.createQueryBuilder('Contas')
             .leftJoinAndSelect('Contas.bancos', 'banco')
-            .leftJoinAndSelect('Contas.usuarios', 'usuarios')
+            .leftJoin('Contas.usuarios', 'usuarios')
             .where('usuarios.id = :id', { id: idUsuario })
             .getMany();
             
