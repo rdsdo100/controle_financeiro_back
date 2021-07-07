@@ -10,10 +10,6 @@ export default class LoginController {
             const loginServices = new LoginUsuariosServices();
             const email = String(request.headers.user);
             const senha = String(request.headers.password);
-
-    console.log(email);
-
-
             const retorno = await loginServices.execute({ email, senha });
 
             return response.json(retorno);
