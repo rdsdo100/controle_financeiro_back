@@ -1,38 +1,40 @@
 import { NextFunction, Request, Response } from 'express';
-import { verify, Secret } from 'jsonwebtoken';
-import AppError from '@shared/errors/AppError';
-import authConfig from '@config/auth';
+import { verify } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
+import AppError from '../../config/errors/AppError';
 
 interface ITokenPayload {
-  iat: number;
-  exp: number;
-  sub: string;
+    iat: number;
+    exp: number;
+    sub: string;
 }
 
-export default function isAuthenticated(
-  request: Request,
-  response: Response,
-  next: NextFunction,
-): void {
-  const authHeader = request.headers.authorization;
+export default function isAuthenticated(request: Request, response: Response, next: NextFunction): void {
+    const authorization = request.headers.authorization;
+    if (!authorization) {
+        throw new AppError('Não autenticado', 401);
+    }
+ 
 
-  if (!authHeader) {
-    throw new AppError('JWT Token is missing.');
-  }
-  // Bearer sdlkfjsldkfjlsjfffdklfjdflksjflkjfdlk3405905
-  const [, token] = authHeader.split(' ');
+    try {
 
-  try {
-    const decodedToken = verify(token, authConfig.jwt.secret as Secret);
+         jwt.verify(authorization, String(process.env.JWT_TOKEN),
+          (err: any, decoded: any) => {
+             if (err) {
+                 return response.json({
+                     err,
+                     menssage: 'invalido!!!!',
+                     isvalid: false,
+                 });
+             }
 
-    const { sub } = decodedToken as ITokenPayload;
+             request.body.decoded = decoded;
 
-    request.user = {
-      id: sub,
-    };
+             return next();
+         });
 
-    return next();
-  } catch {
-    throw new AppError('Invalid JWT Token.');
-  }
+    } catch (err) {
+        
+        throw new AppError('Erro ao altenticar token', 401);
+    }
 }
