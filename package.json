@@ -32,6 +32,7 @@
         "handlebars": "^4.7.7",
         "jsonwebtoken": "^8.5.1",
         "multer": "^1.4.2",
+        "mysql": "^2.18.1",
         "nodemailer": "^6.6.2",
         "pg": "^8.5.1",
         "reflect-metadata": "^0.1.13",
@@ -40,9 +41,9 @@
     },
     "scripts": {
         "build": "tsc",
-        "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/http/server.ts",
+        "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
         "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
-        "start": "node ./dist/index.js",
+        "start": "node ./dist/shared/infra/http/server.ts",
         "lint": "eslint '*/**/*.{js,ts}' --quiet --fix",
         "prettier-corrigir": "prettier --write .",
         "prettier-chek": "prettier --check \"src/**/*.js\""

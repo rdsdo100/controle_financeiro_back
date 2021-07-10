@@ -1,3 +1,6 @@
-import { createConnection } from 'typeorm';
+import {createConnection} from "typeorm";
 
-createConnection();
+
+createConnection()
+    .then(() => console.log("Connection started successfully!"))
+    .catch(error => console.log(error));

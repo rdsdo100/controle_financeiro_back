@@ -1,43 +1,20 @@
-import path from 'path';
-import multer, { StorageEngine } from 'multer';
+import multer from 'multer';
+import path from 'path/posix';
 import crypto from 'crypto';
 
-interface IUploadConfig {
-  driver: 's3' | 'disk';
-  tmpFolder: string;
-  directory: string;
-  multer: {
-    storage: StorageEngine;
-  };
-  config: {
-    aws: {
-      bucket: string;
-    };
-  };
-}
 
-const uploadFolder = path.resolve(__dirname, '..', '..', 'uploads');
-const tmpFolder = path.resolve(__dirname, '..', '..', 'temp');
-
-export default {
-  driver: process.env.STORAGE_DRIVER,
-  directory: uploadFolder,
-  tmpFolder,
-  multer: {
+// configurações do multer para salvar arquivos//
+const uploadFoader = path.resolve(__dirname, '..', '..', 'uploads'); // localização da pasta onse sera salvo
+export default { // objeto de configuração
+    directory: uploadFoader, // 
     storage: multer.diskStorage({
-      destination: tmpFolder,
-      filename(request, file, callback) {
-        const fileHash = crypto.randomBytes(10).toString('hex');
+        destination: uploadFoader, //localização da pasta onse sera salvo
+        filename(request, file, callback) { //função par renomear o arquivo e tratar o mesmo.
+            const fileHash = crypto.randomBytes(10).toString('hex'); //grar hash para concatenar com o nome e assim gerar o o nome sem repetir.
 
-        const filename = `${fileHash}-${file.originalname}`;
+            const fileName = `${fileHash}-${file.originalname}`; // concatenação do nome  com o hash
 
-        callback(null, filename);
-      },
+            callback(null, fileName); //retono callbak de função para  gerar o nome.
+        },
     }),
-  },
-  config: {
-    aws: {
-      bucket: 'api-vendas',
-    },
-  },
-} as IUploadConfig;
+};
