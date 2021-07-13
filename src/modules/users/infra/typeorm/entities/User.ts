@@ -1,3 +1,4 @@
+import { IUser } from '@modules/users/domain/models/IUser';
 import { Exclude } from 'class-transformer';
 import {
   Column,
@@ -7,12 +8,12 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import { IUser } from '../../../domain/models/IUser';
+
 
 
 @Entity('users')
 class User implements IUser {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: string;
 
   @Column()

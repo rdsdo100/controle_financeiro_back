@@ -12,7 +12,7 @@ const sslExtra = process.env.TYPEORM_SSL === "true" ? {
 module.exports = {
    type: process.env.TYPEORM_SCHEMA ,
    url: process.env.DATABASE_URL,
-   synchronize: false,
+   synchronize: true,
    logging: process.env.TYPEORM_LOGGING,
    entities: [
       process.env.TYPEORM_ENTITIES
