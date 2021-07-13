@@ -1,12 +1,13 @@
 import {MigrationInterface, QueryRunner, Table} from "typeorm";
+import { TableForeignKey } from "typeorm/schema-builder/table/TableForeignKey";
 
-export class CreateAccount1626139583146 implements MigrationInterface {
+export class CreateAccounts1626139583146 implements MigrationInterface {
 
  
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
           new Table({
-            name: 'account',
+            name: 'accounts',
             columns: [
                 {
                     name: 'id',
@@ -24,6 +25,10 @@ export class CreateAccount1626139583146 implements MigrationInterface {
                 type: 'int',
               },
               {
+                name: 'user_id_fk',
+                type: 'int',
+              },
+              {
                 name: 'created_at',
                 type: 'timestamp',
                 default: 'now()',
@@ -36,7 +41,19 @@ export class CreateAccount1626139583146 implements MigrationInterface {
 
             ],
           }),
+
         );
+
+        await queryRunner.createForeignKey(
+          'accounts',
+          new TableForeignKey({
+              columnNames: ['user_id_fk'],
+              referencedColumnNames: ['id'],
+              referencedTableName: 'users',
+              name: 'users_accounts',
+          }),
+      );
+
       }
     
       public async down(queryRunner: QueryRunner): Promise<void> {
