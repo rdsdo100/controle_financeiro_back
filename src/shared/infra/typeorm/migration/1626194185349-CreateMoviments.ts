@@ -14,6 +14,17 @@ export class CreateMoviments1626194185349 implements MigrationInterface {
                     isGenerated: true,
                     generationStrategy: 'increment',
                 },
+
+                {
+                  name: 'created_at',
+                  type: 'timestamp',
+                  default: 'now()',
+                },
+                {
+                  name: 'updated_at',
+                  type: 'timestamp',
+                  default: 'now()',
+                },
              
              
             ],

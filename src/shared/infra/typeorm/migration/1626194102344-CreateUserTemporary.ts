@@ -14,6 +14,17 @@ export class CreateUserTemporary1626194102344 implements MigrationInterface {
                     isGenerated: true,
                     generationStrategy: 'increment',
                 },
+
+                {
+                  name: 'created_at',
+                  type: 'timestamp',
+                  default: 'now()',
+                },
+                {
+                  name: 'updated_at',
+                  type: 'timestamp',
+                  default: 'now()',
+                },
              
              
             ],

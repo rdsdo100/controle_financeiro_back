@@ -14,6 +14,17 @@ export class CreateConfig1626194195991 implements MigrationInterface {
                     isGenerated: true,
                     generationStrategy: 'increment',
                 },
+
+                {
+                  name: 'created_at',
+                  type: 'timestamp',
+                  default: 'now()',
+                },
+                {
+                  name: 'updated_at',
+                  type: 'timestamp',
+                  default: 'now()',
+                },
              
              
             ],
