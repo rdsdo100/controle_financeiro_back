@@ -69,14 +69,14 @@ export class CreateMoviments1626194185349 implements MigrationInterface {
           new TableForeignKey({
               columnNames: ['account_id_fk'],
               referencedColumnNames: ['id'],
-              referencedTableName: 'acounts',
+              referencedTableName: 'accounts',
               name: 'moviments_accounts',
           }),
         )
       }
     
       public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('account');
+        await queryRunner.dropTable('moviments');
       }
 
 

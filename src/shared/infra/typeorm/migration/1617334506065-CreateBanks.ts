@@ -40,6 +40,7 @@ export class CreateBanks1617334506065 implements MigrationInterface {
    
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.dropTable('banks');
     }
 
 }

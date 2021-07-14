@@ -15,6 +15,21 @@ export class CreateUserTemporary1626194102344 implements MigrationInterface {
                     generationStrategy: 'increment',
                 },
 
+
+                {
+                  name: 'name',
+                  type: 'varchar',
+                },
+                {
+                  name: 'email',
+                  type: 'varchar',
+                  isUnique: true,
+                },
+                {
+                  name: 'password',
+                  type: 'varchar',
+                },
+            
                 {
                   name: 'created_at',
                   type: 'timestamp',
@@ -30,10 +45,13 @@ export class CreateUserTemporary1626194102344 implements MigrationInterface {
             ],
           }),
         );
+
+       
+      
       }
     
       public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('account');
+        await queryRunner.dropTable('user_temporary');
       }
 
 

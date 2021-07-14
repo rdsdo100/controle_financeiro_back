@@ -1,4 +1,4 @@
-import {MigrationInterface, QueryRunner, Table} from "typeorm";
+import {MigrationInterface, QueryRunner, Table, TableForeignKey} from "typeorm";
 
 export class CreateGoals1626194174812 implements MigrationInterface {
 
@@ -16,6 +16,11 @@ export class CreateGoals1626194174812 implements MigrationInterface {
                 },
 
                 {
+                  name: 'account_id_fk',
+                  type: 'int',
+              },
+
+                {
                   name: 'created_at',
                   type: 'timestamp',
                   default: 'now()',
@@ -30,10 +35,19 @@ export class CreateGoals1626194174812 implements MigrationInterface {
             ],
           }),
         );
+        await queryRunner.createForeignKey(
+          'goals',
+          new TableForeignKey({
+              columnNames: ['account_id_fk'],
+              referencedColumnNames: ['id'],
+              referencedTableName: 'accounts',
+              name: 'accounts_goals',
+          }),
+      );
       }
     
       public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('account');
+        await queryRunner.dropTable('goals');
       }
 
 
