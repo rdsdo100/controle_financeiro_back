@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import CreateUserService from '../../../services/CreateUserService';
-import ListUserService from '../../../services/ListUserService';
 import { classToClass } from 'class-transformer';
+import ListUserService from '@modules/users/services/ListUserService';
 
 export default class UsersController {
+  
   public async index(request: Request, response: Response): Promise<Response> {
     const listUser = container.resolve(ListUserService);
 
@@ -13,17 +13,10 @@ export default class UsersController {
     return response.json(classToClass(users));
   }
 
-  public async create(request: Request, response: Response): Promise<Response> {
-    const { name, email, password } = request.body;
 
-    const createUser = container.resolve(CreateUserService);
-
-    const user = await createUser.execute({
-      name,
-      email,
-      password,
-    });
-
-    return response.json(classToClass(user));
-  }
 }
+
+function CreateUserService(CreateUserService: any) {
+  throw new Error('Function not implemented.');
+}
+
