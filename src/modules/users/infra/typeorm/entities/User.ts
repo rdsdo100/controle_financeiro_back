@@ -14,7 +14,7 @@ import {
 @Entity('users')
 class User implements IUser {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column()
   name: string;

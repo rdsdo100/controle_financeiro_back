@@ -1,4 +1,6 @@
 
+import { ICreateUser } from '@modules/users/domain/models/ICreateUser';
+import { IUser } from '@modules/users/domain/models/IUser';
 import { getRepository, Repository } from 'typeorm';
 
 import { IUsersRepository } from '../../../domain/repositories/IUsersRepository';
@@ -11,6 +13,13 @@ class UsersRepository implements IUsersRepository {
     this.ormRepository = getRepository(User);
   }
 
+  public async  create (data : ICreateUser): Promise<IUser> {
+
+    const  user = await this.ormRepository.save(data)
+
+    return user
+    
+  }
 
 
   public async save(user: User): Promise<User> {

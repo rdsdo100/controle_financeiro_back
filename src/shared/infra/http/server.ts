@@ -42,5 +42,5 @@ app.use((error: Error, request: Request, response: Response, next: NextFunction)
 });
 
 app.listen(PORT, () => {
-    console.log(`Server aberto na porta: ${PORT} `);
+    console.log(`Server open in port: ${PORT} `);
 });

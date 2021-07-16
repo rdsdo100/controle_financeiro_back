@@ -1,18 +1,16 @@
+import { IUser } from '@modules/users/domain/models/IUser';
 import jwt from 'jsonwebtoken';
 
-import AppError from './errors/AppError';
 
 export default class AuthJwt {
-    async assinar(usuario: Usuarios) {
-        if (usuario.ativo) {
+    async assinar(user: IUser) {
+       
             const token = jwt.sign(
-                { id: usuario.id, nomeUsuario: usuario.nomeUsuario, nomeAdministrador: usuario.administrador },
+                { id: user.id, nameUser: user.name },
                 String(process.env.JWT_TOKEN),
                 { expiresIn: '10d' },
             );
             return token;
-        } else {
-           throw new AppError("usuariao Não pode ser assinado. user = inativo!")
-        }
+        
     }
 }
