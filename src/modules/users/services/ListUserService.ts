@@ -1,5 +1,4 @@
 
-import { getCustomRepository } from 'typeorm';
 import { IUser } from '../domain/models/IUser';
 import { IUsersRepository } from '../domain/repositories/IUsersRepository';
 import UsersRepository from '../infra/typeorm/repositories/UsersRepository';
@@ -7,9 +6,9 @@ import UsersRepository from '../infra/typeorm/repositories/UsersRepository';
 
 class ListUserService {
   private usersRepository: IUsersRepository
-  
-  constructor() {
-     this.usersRepository = getCustomRepository(UsersRepository)
+
+  constructor(){
+    this.usersRepository = new UsersRepository()
   }
 
   public async execute(): Promise<IUser[]> {

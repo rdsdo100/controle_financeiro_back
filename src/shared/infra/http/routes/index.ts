@@ -8,7 +8,7 @@ import { Router } from 'express'
 const routes = Router();
 
 
-routes.use(loginRouter)
+routes.use("/login" , loginRouter)
 
 
 
