@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from 'express';
-import { verify } from 'jsonwebtoken';
 import jwt from 'jsonwebtoken';
 import AppError from '../../config/errors/AppError';
 
@@ -10,6 +9,7 @@ interface ITokenPayload {
 }
 
 export default function isAuthenticated(request: Request, response: Response, next: NextFunction): void {
+  
     const authorization = request.headers.authorization;
     if (!authorization) {
         throw new AppError('Não autenticado', 401);
@@ -23,7 +23,7 @@ export default function isAuthenticated(request: Request, response: Response, ne
              if (err) {
                  return response.json({
                      err,
-                     menssage: 'invalido!!!!',
+                     menssage: 'invalid!',
                      isvalid: false,
                  });
              }
@@ -35,6 +35,6 @@ export default function isAuthenticated(request: Request, response: Response, ne
 
     } catch (err) {
         
-        throw new AppError('Erro ao altenticar token', 401);
+        throw new AppError('Error while token altenticate!', 401);
     }
 }
