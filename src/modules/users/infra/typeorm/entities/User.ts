@@ -9,8 +9,6 @@ import {
 } from 'typeorm';
 
 
-
-
 @Entity('users')
 class User implements IUser {
   @PrimaryGeneratedColumn()
@@ -21,6 +19,9 @@ class User implements IUser {
 
   @Column()
   email: string;
+
+  @Column()
+  active: boolean;
 
   @Column()
   @Exclude()
